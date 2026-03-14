@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שוק ההון מ-0 עד 100 | StockLens Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060810;--bg2:#0d0f1a;--bg3:#131629;
+  --surface:rgba(255,255,255,0.04);--surface2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --text:#f0f0f8;--text2:#c8c8d8;--muted:rgba(240,240,248,0.42);
+  --accent:#00e5a0;--accent-dim:rgba(0,229,160,0.12);--accent-glow:rgba(0,229,160,0.25);
+  --gold:#f7c948;--gold-dim:rgba(247,201,72,0.12);
+  --blue:#5aabff;--blue-dim:rgba(90,171,255,0.12);
+  --red:#ff5f57;--red-dim:rgba(255,95,87,0.12);
+  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-height:1.75;overflow-x:hidden;}
+
+/* DISCLAIMER GATE */
+#disclaimer-gate{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;}
+#disclaimer-gate.hidden{display:none;}
+.disc-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px 32px;max-width:500px;width:100%;text-align:center;}
+.disc-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:6px;}
+.disc-sub{font-size:.7rem;color:var(--muted);letter-spacing:2px;margin-bottom:28px;}
+.disc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:16px;}
+.disc-text{font-size:.87rem;color:var(--text2);line-height:1.8;margin-bottom:28px;text-align:right;}
+.disc-check{display:flex;align-items:flex-start;gap:14px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:16px;margin-bottom:20px;cursor:pointer;text-align:right;transition:all .2s;}
+.disc-check:hover{border-color:var(--accent);background:var(--accent-dim);}
+.disc-check.checked{border-color:var(--accent);background:var(--accent-dim);}
+.disc-checkbox{min-width:24px;height:24px;border-radius:7px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;margin-top:2px;}
+.disc-check.checked .disc-checkbox{background:var(--accent);border-color:var(--accent);}
+.disc-check.checked .disc-checkbox::after{content:'✓';color:#000;font-size:.85rem;font-weight:800;}
+.disc-check-text{font-size:.85rem;color:var(--text2);line-height:1.6;}
+.disc-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:12px;padding:14px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;opacity:.4;pointer-events:none;}
+.disc-btn.active{opacity:1;pointer-events:all;}
+.disc-btn.active:hover{filter:brightness(1.1);}
+.disc-author{font-size:.65rem;color:var(--muted);margin-top:16px;}
+
+/* PROGRESS */
+.progress-bar-wrap{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:1000;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));width:0%;transition:width .1s;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(0,229,160,0.08) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 20% 80%,rgba(90,171,255,0.06) 0%,transparent 60%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(0,229,160,0.25);border-radius:100px;padding:6px 18px;font-size:.75rem;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px;animation:fadeUp .6s ease both;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:800;line-height:1.1;margin-bottom:16px;animation:fadeUp .6s .1s ease both;}
+.hero h1 em{font-style:normal;color:var(--accent);text-shadow:0 0 40px var(--accent-glow);}
+.hero p{font-size:clamp(.92rem,2.5vw,1.1rem);color:var(--text2);max-width:600px;margin:0 auto 24px;animation:fadeUp .6s .2s ease both;}
+.hero-author{font-size:.73rem;color:var(--muted);letter-spacing:1px;margin-bottom:24px;animation:fadeUp .6s .25s ease both;}
+.hero-author b{color:var(--accent);}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-bottom:36px;animation:fadeUp .6s .3s ease both;}
+.hero-stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);}
+.hero-stat-label{font-size:.7rem;color:var(--muted);}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#000;border:none;border-radius:12px;padding:14px 32px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 0 32px var(--accent-glow);text-decoration:none;animation:fadeUp .6s .4s ease both;}
+.hero-cta:hover{filter:brightness(1.1);transform:translateY(-2px);}
+
+/* NAV */
+.course-nav{position:sticky;top:0;z-index:100;background:rgba(6,8,16,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;color:var(--accent);white-space:nowrap;flex-shrink:0;}
+.nav-chapters{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-right:12px;}
+.nav-chapters::-webkit-scrollbar{display:none;}
+.nav-ch{font-size:.58rem;padding:5px 10px;border-radius:6px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;border:none;background:transparent;font-family:'Heebo',sans-serif;}
+.nav-ch:hover{color:var(--text);background:var(--surface2);}
+.nav-ch.active{color:#000;background:var(--accent);}
+
+/* MAIN */
+.course-wrap{max-width:840px;margin:0 auto;padding:0 22px 120px;}
+
+/* CHAPTER */
+.chapter{padding:72px 0 56px;border-bottom:1px solid var(--border);opacity:0;transform:translateY(28px);transition:opacity .55s,transform .55s;}
+.chapter.visible{opacity:1;transform:translateY(0);}
+.chapter:last-child{border-bottom:none;}
+.chapter-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.chapter-num{min-width:46px;height:46px;border-radius:12px;background:var(--accent-dim);border:1px solid rgba(0,229,160,0.25);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);flex-shrink:0;}
+.chapter-num.gold{background:var(--gold-dim);border-color:rgba(247,201,72,0.25);color:var(--gold);}
+.chapter-num.blue{background:var(--blue-dim);border-color:rgba(90,171,255,0.25);color:var(--blue);}
+.chapter-num.purple{background:var(--purple-dim);border-color:rgba(167,139,250,0.25);color:var(--purple);}
+.chapter-num.red{background:var(--red-dim);border-color:rgba(255,95,87,0.25);color:var(--red);}
+.chapter-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.35rem,3vw,1.85rem);line-height:1.2;}
+.chapter-subtitle{font-size:.78rem;color:var(--muted);margin-top:3px;letter-spacing:.4px;}
+
+/* CONTENT */
+h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin:26px 0 10px;}
+p{color:var(--text2);margin-bottom:14px;font-size:.95rem;}
+b,strong{color:var(--text);font-weight:600;}
+ul,ol{padding-right:22px;margin:10px 0 14px;}
+li{color:var(--text2);margin-bottom:7px;font-size:.92rem;line-height:1.65;}
+li strong{color:var(--text);}
+mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-radius:4px;}
+
+/* CALLOUT */
+.callout{border-radius:12px;padding:16px 20px;margin:20px 0;display:flex;gap:13px;align-items:flex-start;font-size:.88rem;}
+.callout-icon{font-size:1.25rem;flex-shrink:0;margin-top:2px;}
+.callout-body{flex:1;}
+.callout-title{font-weight:700;margin-bottom:5px;font-size:.9rem;}
+.callout.tip{background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);color:var(--text2);}
+.callout.tip .callout-title{color:var(--accent);}
+.callout.warn{background:rgba(247,201,72,0.06);border:1px solid rgba(247,201,72,0.2);color:var(--text2);}
+.callout.warn .callout-title{color:var(--gold);}
+.callout.info{background:rgba(90,171,255,0.06);border:1px solid rgba(90,171,255,0.2);color:var(--text2);}
+.callout.info .callout-title{color:var(--blue);}
+.callout.danger{background:rgba(255,95,87,0.06);border:1px solid rgba(255,95,87,0.2);color:var(--text2);}
+.callout.danger .callout-title{color:var(--red);}
+
+/* DEF GRID */
+.def-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px;margin:18px 0;}
+.def-card{background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:16px;transition:border-color .2s,transform .2s;}
+.def-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.def-term{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:1px;margin-bottom:7px;text-transform:uppercase;}
+.def-desc{font-size:.83rem;color:var(--text2);line-height:1.6;}
+
+/* TABLE */
+.cmp-table-wrap{border:1px solid var(--border);border-radius:12px;overflow-x:auto;margin:18px 0;}
+.cmp-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:440px;}
+.cmp-table th{background:var(--surface2);padding:11px 14px;text-align:right;font-size:.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);border-bottom:1px solid var(--border);}
+.cmp-table td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2);}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table tr:hover td{background:var(--surface);}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;margin:22px 0;position:relative;}
+.steps::before{content:'';position:absolute;right:21px;top:42px;bottom:42px;width:2px;background:linear-gradient(to bottom,var(--accent),var(--blue));opacity:.2;}
+.step{display:flex;gap:18px;align-items:flex-start;padding:14px 0;}
+.step-num{min-width:42px;height:42px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:var(--accent);flex-shrink:0;font-size:.88rem;position:relative;z-index:1;}
+.step-content{flex:1;padding-top:9px;}
+.step-title{font-weight:700;color:var(--text);margin-bottom:3px;}
+.step-desc{font-size:.86rem;color:var(--text2);}
+
+/* METRIC CARD */
+.metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin:11px 0;transition:border-color .2s;}
+.metric-card:hover{border-color:var(--border2);}
+.metric-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;flex-wrap:wrap;gap:7px;}
+.metric-name{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.93rem;color:var(--text);}
+.metric-badges{display:flex;gap:5px;flex-wrap:wrap;}
+.badge{font-size:.58rem;padding:2px 8px;border-radius:100px;font-weight:600;letter-spacing:.3px;}
+.badge-green{background:rgba(0,229,160,0.1);color:var(--accent);border:1px solid rgba(0,229,160,0.25);}
+.badge-gold{background:rgba(247,201,72,0.1);color:var(--gold);border:1px solid rgba(247,201,72,0.25);}
+.badge-red{background:rgba(255,95,87,0.1);color:var(--red);border:1px solid rgba(255,95,87,0.25);}
+.badge-blue{background:rgba(90,171,255,0.1);color:var(--blue);border:1px solid rgba(90,171,255,0.25);}
+.metric-desc{font-size:.86rem;color:var(--text2);line-height:1.7;}
+.metric-formula{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 13px;margin-top:9px;font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--accent);direction:ltr;text-align:left;}
+
+/* QUIZ */
+.quiz{background:var(--bg2);border:1px solid rgba(247,201,72,0.2);border-radius:14px;padding:24px;margin:28px 0;}
+.quiz-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.quiz-q{font-size:.93rem;color:var(--text);margin-bottom:14px;font-weight:600;}
+.quiz-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.quiz-option{display:flex;align-items:center;gap:11px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:9px;cursor:pointer;transition:all .2s;font-size:.86rem;color:var(--text2);}
+.quiz-option:hover{border-color:var(--border2);background:var(--surface2);color:var(--text);}
+.quiz-option.correct{border-color:var(--accent);background:var(--accent-dim);color:var(--accent);pointer-events:none;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-dim);color:var(--red);pointer-events:none;}
+.quiz-option.disabled{opacity:.35;pointer-events:none;}
+.quiz-opt-letter{min-width:26px;height:26px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;}
+.quiz-explain{display:none;padding:13px;background:var(--accent-dim);border:1px solid rgba(0,229,160,0.2);border-radius:9px;font-size:.83rem;color:var(--text2);margin-top:7px;}
+.quiz-explain.show{display:block;}
+
+/* DEMO BOX */
+.demo-box{background:linear-gradient(135deg,rgba(0,229,160,0.06),rgba(90,171,255,0.06));border:1px solid rgba(0,229,160,0.2);border-radius:16px;padding:28px;margin:28px 0;text-align:center;}
+.demo-box h3{color:var(--accent);margin-top:0;}
+.demo-link{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;border-radius:9px;padding:10px 22px;font-weight:700;font-size:.88rem;text-decoration:none;transition:all .2s;margin-top:10px;}
+.demo-link:hover{filter:brightness(1.1);transform:translateY(-1px);}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:7px;margin:18px 0;}
+.check-item{display:flex;align-items:flex-start;gap:11px;padding:12px 15px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text2);cursor:pointer;transition:all .2s;user-select:none;}
+.check-item:hover{border-color:var(--border2);}
+.check-item.done{border-color:rgba(0,229,160,0.3);background:rgba(0,229,160,0.05);}
+.check-item.done .check-box{background:var(--accent);border-color:var(--accent);}
+.check-item.done .check-box::after{content:'✓';color:#000;font-size:.78rem;}
+.check-item.done span{color:var(--text);}
+.check-box{min-width:21px;height:21px;border-radius:5px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;margin-top:1px;}
+
+/* STRATEGY */
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:18px 0;}
+.strategy-card{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:20px;transition:all .2s;}
+.strategy-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.strategy-icon{font-size:1.9rem;margin-bottom:10px;}
+.strategy-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;color:var(--text);margin-bottom:7px;}
+.strategy-desc{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.strategy-tag{display:inline-block;margin-top:9px;font-size:.58rem;padding:2px 9px;border-radius:100px;letter-spacing:.4px;font-weight:600;}
+
+/* BROKER */
+.broker-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin:9px 0;display:flex;align-items:flex-start;gap:14px;transition:border-color .2s;}
+.broker-card:hover{border-color:var(--border2);}
+.broker-icon{font-size:2rem;flex-shrink:0;}
+.broker-info{flex:1;}
+.broker-name{font-weight:700;font-size:.97rem;margin-bottom:3px;}
+.broker-desc{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.broker-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+
+/* READING FLOW */
+.reading-flow{display:flex;flex-direction:column;gap:12px;margin:22px 0;}
+.reading-step{display:flex;gap:14px;align-items:flex-start;padding:15px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:11px;transition:border-color .2s;}
+.reading-step:hover{border-color:var(--border2);}
+.reading-step-icon{font-size:1.5rem;flex-shrink:0;}
+.reading-step-title{font-weight:700;margin-bottom:3px;}
+.reading-step-desc{font-size:.84rem;color:var(--text2);}
+
+/* EXAMPLE BOX */
+.example-box{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:18px 20px;margin:18px 0;}
+.example-label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:9px;}
+.example-calc{font-size:.9rem;color:var(--text2);line-height:2;}
+.example-calc strong{color:var(--text);}
+.example-result{font-family:'JetBrains Mono',monospace;font-size:.97rem;font-weight:700;color:var(--accent);margin-top:8px;}
+
+/* PSYCH */
+.psych-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px;margin:18px 0;}
+.psych-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:17px;}
+.psych-emoji{font-size:1.7rem;margin-bottom:7px;}
+.psych-name{font-weight:700;font-size:.93rem;margin-bottom:5px;}
+.psych-desc{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.psych-fix{margin-top:7px;font-size:.77rem;color:var(--accent);}
+
+/* CANDLE VISUAL - CSS based */
+.candle-visual-wrap{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:24px 20px;margin:20px 0;}
+.candle-visual-row{display:flex;justify-content:space-around;align-items:flex-start;gap:20px;margin-bottom:16px;}
+.candle-visual-block{display:flex;flex-direction:column;align-items:center;gap:0;min-width:120px;}
+.cv-label-top,.cv-label-bot{font-size:.75rem;color:var(--muted);text-align:center;padding:4px 0;line-height:1.4;}
+.cv-wick{width:3px;height:28px;border-radius:2px;}
+.cv-wick-green{background:var(--accent);}
+.cv-wick-red{background:var(--red);}
+.cv-body{width:52px;display:flex;flex-direction:column;justify-content:space-between;padding:6px 8px;border-radius:5px;min-height:80px;}
+.cv-body-green{background:rgba(0,229,160,0.75);border:2px solid var(--accent);}
+.cv-body-red{background:rgba(255,95,87,0.75);border:2px solid var(--red);}
+.cv-body-label-top,.cv-body-label-bot{font-size:.65rem;font-weight:700;text-align:center;line-height:1.3;color:#000;}
+.cv-caption{font-size:.78rem;font-weight:700;text-align:center;margin-top:8px;line-height:1.5;}
+.cv-caption span{font-weight:400;color:var(--muted);font-size:.7rem;}
+.cv-caption-green{color:var(--accent);}
+.cv-caption-red{color:var(--red);}
+.cv-note{font-size:.82rem;color:var(--text2);text-align:center;padding-top:10px;border-top:1px solid var(--border);}
+
+/* CANDLE PATTERNS */
+.candle-patterns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:11px;margin:16px 0;}
+.cp-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+.cp-visual{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:10px;min-height:90px;justify-content:center;}
+.cp-wick{width:3px;border-radius:2px;}
+.cp-body{width:28px;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;padding:4px 3px;}
+.cp-name{font-weight:700;font-size:.82rem;margin-bottom:5px;}
+.cp-desc{font-size:.75rem;color:var(--text2);line-height:1.5;margin-bottom:7px;}
+.cp-signal{font-size:.7rem;font-weight:600;padding:3px 9px;border-radius:100px;}
+.cp-bull{background:rgba(0,229,160,0.1);color:var(--accent);border:1px solid rgba(0,229,160,0.25);}
+.cp-bear{background:rgba(255,95,87,0.1);color:var(--red);border:1px solid rgba(255,95,87,0.25);}
+.cp-neutral{background:rgba(247,201,72,0.1);color:var(--gold);border:1px solid rgba(247,201,72,0.25);}
+
+/* CHART PATTERNS */
+.pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:18px 0;}
+.pattern-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.pattern-name{font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:10px;}
+.pattern-svg{width:100%;height:auto;display:block;margin-bottom:8px;}
+.pattern-desc{font-size:.78rem;color:var(--text2);line-height:1.6;}
+
+/* CANDLE DIAGRAM (old, keep for safety) */
+.candle-diagram{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:24px;margin:22px 0;}
+.candle-label{font-size:.78rem;color:var(--text2);margin-top:10px;line-height:1.7;}
+
+
+/* INDICATOR BOX */
+.indicator-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin:11px 0;}
+.indicator-name{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.indicator-desc{font-size:.86rem;color:var(--text2);line-height:1.7;}
+.indicator-use{font-size:.78rem;color:var(--accent);margin-top:6px;}
+
+/* COMPLETION */
+.completion-banner{text-align:center;padding:56px 24px;background:linear-gradient(135deg,rgba(0,229,160,0.08),rgba(90,171,255,0.06));border:1px solid rgba(0,229,160,0.2);border-radius:20px;margin:56px 0;}
+.completion-icon{font-size:3.5rem;margin-bottom:14px;}
+.completion-title{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;color:var(--accent);margin-bottom:10px;}
+.completion-text{color:var(--text2);max-width:500px;margin:0 auto 20px;}
+.completion-author{font-size:.7rem;color:var(--muted);margin-top:14px;letter-spacing:1px;}
+.completion-author b{color:var(--accent);}
+
+@media(max-width:640px){
+  .course-nav{padding:0 12px;}
+  .course-wrap{padding:0 13px 100px;}
+  .chapter{padding:56px 0 36px;}
+  .def-grid,.strategy-grid,.psych-grid{grid-template-columns:1fr;}
+  .steps::before{display:none;}
+  .hero-stats{gap:18px;}
+  .disc-card{padding:28px 20px;}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── LOGIN GATE ── */
+#login-gate{position:fixed;inset:0;z-index:99998;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;}
+#login-gate.hidden{display:none;}
+.login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px 32px;max-width:420px;width:100%;text-align:center;}
+.login-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:4px;}
+.login-sub{font-size:.68rem;color:var(--muted);letter-spacing:2px;margin-bottom:28px;}
+.login-tabs{display:flex;gap:4px;background:var(--surface);border-radius:9px;padding:3px;margin-bottom:24px;}
+.login-tab{flex:1;padding:8px;border:none;background:transparent;font-family:'Heebo',sans-serif;font-size:.78rem;color:var(--muted);border-radius:7px;cursor:pointer;transition:all .2s;}
+.login-tab.active{background:var(--accent);color:#000;font-weight:700;}
+.login-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;text-align:right;}
+.login-label{font-size:.7rem;color:var(--muted);letter-spacing:.5px;}
+.login-input{background:var(--surface);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:'Heebo',sans-serif;font-size:.95rem;padding:11px 14px;outline:none;transition:border-color .2s;width:100%;}
+.login-input:focus{border-color:var(--accent);}
+.login-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:11px;padding:13px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:6px;}
+.login-btn:hover{filter:brightness(1.1);}
+.login-btn:disabled{opacity:.5;pointer-events:none;}
+.login-error{font-size:.78rem;color:var(--red);margin-top:10px;min-height:18px;}
+.login-success{font-size:.78rem;color:var(--accent);margin-top:10px;min-height:18px;}
+.login-author{font-size:.63rem;color:var(--muted);margin-top:20px;}
+.login-tab-panel{display:none;}
+.login-tab-panel.active{display:block;}
+
+/* ── ADMIN PANEL ── */
+#admin-panel{display:none;position:fixed;inset:0;z-index:99997;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+#admin-panel.open{display:flex;}
+.admin-card{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:32px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;}
+.admin-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;}
+.admin-close{background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:7px;width:30px;height:30px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
+.admin-section{margin-bottom:24px;}
+.admin-sec-title{font-size:.7rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+.admin-input{background:var(--surface);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Heebo',sans-serif;font-size:.9rem;padding:10px 13px;outline:none;border-color:.2s;width:100%;margin-bottom:9px;}
+.admin-input:focus{border-color:var(--accent);}
+.admin-btn{background:var(--accent);color:#000;border:none;border-radius:8px;padding:10px 20px;font-family:'Heebo',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;width:100%;}
+.admin-btn:hover{filter:brightness(1.1);}
+.admin-msg{font-size:.78rem;margin-top:8px;min-height:18px;}
+.admin-msg.ok{color:var(--accent);}
+.admin-msg.err{color:var(--red);}
+.admin-users-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.admin-user-item{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.83rem;}
+.admin-user-info{flex:1;}
+.admin-user-name{font-weight:700;color:var(--text);}
+.admin-user-email{font-size:.72rem;color:var(--muted);}
+.admin-user-toggle{font-size:.65rem;padding:3px 10px;border-radius:100px;border:none;cursor:pointer;font-family:'Heebo',sans-serif;font-weight:600;}
+.admin-user-active{background:rgba(255,95,87,0.1);color:var(--red);border:1px solid rgba(255,95,87,0.25);}
+.admin-user-inactive{background:rgba(0,229,160,0.1);color:var(--accent);border:1px solid rgba(0,229,160,0.25);}
+
+/* USER MENU */
+.user-menu-btn{position:fixed;bottom:70px;left:20px;z-index:200;background:var(--bg2);border:1px solid var(--border2);border-radius:100px;padding:8px 16px;font-family:'Heebo',sans-serif;font-size:.72rem;color:var(--text2);cursor:pointer;display:none;align-items:center;gap:8px;transition:all .2s;}
+.user-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+.user-menu-btn.visible{display:flex;}
+
+</style>
+</head>
+<body>
+
+<!-- DISCLAIMER GATE -->
+<!-- LOGIN GATE -->
+<div id="login-gate">
+  <div class="login-card">
+    <div class="login-logo">📈 StockLens Academy</div>
+    <div class="login-sub">COURSE ACCESS</div>
+
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="switchLoginTab('login')">כניסה</button>
+      <button class="login-tab" onclick="switchLoginTab('change')">שינוי סיסמה</button>
+    </div>
+
+    <!-- LOGIN TAB -->
+    <div class="login-tab-panel active" id="tab-login">
+      <div class="login-field">
+        <label class="login-label">שם משתמש</label>
+        <input class="login-input" id="login-username" type="text" placeholder="הכנס שם משתמש" autocomplete="username" />
+      </div>
+      <div class="login-field">
+        <label class="login-label">סיסמה</label>
+        <input class="login-input" id="login-password" type="password" placeholder="הכנס סיסמה" autocomplete="current-password" />
+      </div>
+      <button class="login-btn" id="login-submit-btn" onclick="doLogin()">כניסה לקורס ←</button>
+      <div class="login-error" id="login-error"></div>
+    </div>
+
+    <!-- CHANGE PASSWORD TAB -->
+    <div class="login-tab-panel" id="tab-change">
+      <div class="login-field">
+        <label class="login-label">שם משתמש</label>
+        <input class="login-input" id="cp-username" type="text" placeholder="שם משתמש" />
+      </div>
+      <div class="login-field">
+        <label class="login-label">אימייל</label>
+        <input class="login-input" id="cp-email" type="email" placeholder="האימייל שלך" />
+      </div>
+      <div class="login-field">
+        <label class="login-label">סיסמה נוכחית</label>
+        <input class="login-input" id="cp-old-pass" type="password" placeholder="סיסמה ישנה" />
+      </div>
+      <div class="login-field">
+        <label class="login-label">סיסמה חדשה</label>
+        <input class="login-input" id="cp-new-pass" type="password" placeholder="סיסמה חדשה (מינימום 6 תווים)" />
+      </div>
+      <button class="login-btn" onclick="doChangePassword()">שנה סיסמה ←</button>
+      <div class="login-error" id="cp-error"></div>
+      <div class="login-success" id="cp-success"></div>
+    </div>
+
+    <div class="login-author">StockLens Academy · <b style="color:var(--accent)">Lidor Filiba</b></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="admin-card">
+    <div class="admin-title">
+      🛡 ניהול משתמשים
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-section">
+      <div class="admin-sec-title">➕ הוסף משתמש חדש</div>
+      <input class="admin-input" id="new-username" placeholder="שם משתמש" />
+      <input class="admin-input" id="new-email" placeholder="אימייל" type="email" />
+      <input class="admin-input" id="new-password" placeholder="סיסמה זמנית" type="password" />
+      <button class="admin-btn" onclick="adminCreateUser()">צור משתמש</button>
+      <div class="admin-msg" id="admin-create-msg"></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-sec-title">👥 משתמשים קיימים</div>
+      <div class="admin-users-list" id="admin-users-list">טוען...</div>
+    </div>
+  </div>
+</div>
+
+<!-- USER MENU BUTTON -->
+<button class="user-menu-btn" id="user-menu-btn" onclick="showUserMenu()">
+  <span id="user-menu-label">👤</span>
+</button>
+
+<div id="disclaimer-gate">
+  <div class="disc-card">
+    <div class="disc-logo">📈 StockLens Academy</div>
+    <div class="disc-sub">לפני שמתחילים</div>
+    <div class="disc-title">הצהרת אחריות</div>
+    <div class="disc-text">
+      המידע בקורס זה נועד <strong>למטרות לימוד בלבד</strong>. אין לראות בו ייעוץ פיננסי, המלצה לקנות או למכור ניירות ערך, או תחליף לייעוץ מקצועי מורשה.<br><br>
+      השקעה בשוק ההון כרוכה בסיכון של <strong>אובדן חלקי או מלא של ההון המושקע</strong>. ביצועי עבר אינם מבטיחים תוצאות עתידיות.
+    </div>
+    <div class="disc-check" id="disc-check1" onclick="toggleDisc(1)">
+      <div class="disc-checkbox"></div>
+      <div class="disc-check-text">אני מבין/ה שהמידע בקורס זה הוא לצרכי לימוד בלבד ואינו ייעוץ השקעות.</div>
+    </div>
+    <div class="disc-check" id="disc-check2" onclick="toggleDisc(2)">
+      <div class="disc-checkbox"></div>
+      <div class="disc-check-text">אני מבין/ה שהשקעה בשוק ההון כרוכה בסיכון ואני לוקח/ת אחריות מלאה על החלטותיי.</div>
+    </div>
+    <button class="disc-btn" id="disc-btn" onclick="startCourse()">אני מבין/ה — בוא נתחיל ←</button>
+    <div class="disc-author">StockLens Academy · מאת <b>Lidor Filiba</b></div>
+  </div>
+</div>
+
+<div id="main-content" style="display:none">
+
+<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">📈 StockLens Academy</div>
+  <h1>שוק ההון<br><em>מ-0 עד 100</em></h1>
+  <p>המדריך המלא בעברית — ממושגי יסוד ועד מסחר עצמאי. כל מה שצריך לדעת כדי להתחיל להשקיע בצורה חכמה ומחושבת.</p>
+  <div class="hero-author">קורס מאת <b>Lidor Filiba</b> · מבית StockLens · אינו מהווה ייעוץ השקעות</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">11</div><div class="hero-stat-label">פרקים</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">0₪</div><div class="hero-stat-label">עלות</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">פרקטי</div></div>
+  </div>
+  <a href="#start" class="hero-cta">התחל ללמוד ←</a>
+</section>
+
+<!-- NAV -->
+<nav class="course-nav">
+  <div class="nav-logo">📈 Academy</div>
+  <div class="nav-chapters">
+    <button class="nav-ch" onclick="scrollToId('ch1')">1. יסודות</button>
+    <button class="nav-ch" onclick="scrollToId('ch2')">2. מדדים</button>
+    <button class="nav-ch" onclick="scrollToId('ch3')">3. ניירות ערך</button>
+    <button class="nav-ch" onclick="scrollToId('ch4')">4. ניתוח</button>
+    <button class="nav-ch" onclick="scrollToId('ch5')">5. גרפים</button>
+    <button class="nav-ch" onclick="scrollToId('ch6')">6. StockLens</button>
+    <button class="nav-ch" onclick="scrollToId('ch7')">7. אסטרטגיות</button>
+    <button class="nav-ch" onclick="scrollToId('ch8')">8. מאקרו</button>
+    <button class="nav-ch" onclick="scrollToId('ch9')">9. פסיכולוגיה</button>
+    <button class="nav-ch" onclick="scrollToId('ch10')">10. ברוקרים</button>
+    <button class="nav-ch" onclick="scrollToId('ch11')">11. דמו</button>
+  </div>
+</nav>
+
+<div class="course-wrap" id="start">
+
+<!-- ══════════════════════════════════ CH1 ══════════════════════════════════ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-header">
+    <div class="chapter-num">01</div>
+    <div><div class="chapter-title">מה זה שוק ההון?</div><div class="chapter-subtitle">הבסיס שכל אחד חייב להכיר</div></div>
+  </div>
+
+  <p><strong>שוק ההון</strong> הוא בעצם שוק ענק שבו אנשים וחברות קונים ומוכרים חלקי בעלות בחברות. אם אתה רוצה — זה כמו שוק הכרמל, רק שבמקום ירקות קונים מניות.</p>
+
+  <div class="callout info">
+    <div class="callout-icon">💭</div>
+    <div class="callout-body">
+      <div class="callout-title">למה להשקיע בכלל?</div>
+      דמיין ששמת 10,000₪ מתחת למזרן ב-2000.<br>
+      היום יש לך בדיוק 10,000₪ — אבל בגלל אינפלציה, הכסף הזה שווה <strong>הרבה פחות</strong> מאז.<br><br>
+      אם לעומת זאת היית שם את אותה 10,000₪ ב-S&P 500 (מדד של 500 החברות הגדולות בארה"ב) — היית מסיים עם <strong>כ-70,000₪</strong>.<br><br>
+      <strong>כסף שיושב בלי לעבוד — מפסיד ערך.</strong>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">חשוב לדעת</div>
+      הדוגמה למעלה מבוססת על ביצועי <strong>העבר</strong> של S&P 500. ביצועי עבר <strong>אינם מבטיחים</strong> תוצאות עתידיות. שוק ההון יכול לרדת בחדות — וחשוב להיות מוכן לכך.
+    </div>
+  </div>
+
+  <h3>איך זה עובד — ההסבר הפשוט</h3>
+  <p>חברה כמו אפל רוצה כסף כדי לפתח מוצר חדש. במקום ללכת לבנק — היא <mark>מוכרת לציבור חלקים ממנה</mark>. כל חלק כזה נקרא <strong>מניה</strong>.</p>
+  <p>אם קנית מניה של אפל ואפל מרוויחה יותר → יותר אנשים רוצים לקנות מניה → הביקוש עולה → המחיר עולה → אתה מרוויח.</p>
+
+  <h3>מה זה Ticker Symbol?</h3>
+  <p>כל חברה בבורסה מזוהה בקוד קצר. זה מה שמקלידים כשרוצים לחפש מניה:</p>
+  <div class="def-grid">
+    <div class="def-card"><div class="def-term">AAPL</div><div class="def-desc">Apple Inc.</div></div>
+    <div class="def-card"><div class="def-term">MSFT</div><div class="def-desc">Microsoft</div></div>
+    <div class="def-card"><div class="def-term">NVDA</div><div class="def-desc">NVIDIA</div></div>
+    <div class="def-card"><div class="def-term">TSLA</div><div class="def-desc">Tesla</div></div>
+    <div class="def-card"><div class="def-term">AMZN</div><div class="def-desc">Amazon</div></div>
+    <div class="def-card"><div class="def-term">GOOG</div><div class="def-desc">Alphabet (Google)</div></div>
+  </div>
+
+  <h3>חישוב רווח — דוגמה פשוטה</h3>
+  <div class="example-box">
+    <div class="example-label">דוגמה</div>
+    <div class="example-calc">
+      קנית 10 מניות של AAPL במחיר $150 כל אחת → שילמת $1,500<br>
+      אחרי 6 חודשים המחיר עלה ל-$180 → מכרת ב-$1,800<br>
+      רווח: $1,800 פחות $1,500 = <strong>$300</strong>
+    </div>
+    <div class="example-result">תשואה = (300 ÷ 1,500) × 100 = +20% ✅</div>
+  </div>
+
+  <h3>מושגים שחשוב להכיר</h3>
+  <div class="def-grid">
+    <div class="def-card"><div class="def-term">מניה (Stock)</div><div class="def-desc">חלק בעלות בחברה. ככל שיש לך יותר מניות — יש לך יותר חלק בחברה.</div></div>
+    <div class="def-card"><div class="def-term">Portfolio (תיק)</div><div class="def-desc">כלל המניות וניירות הערך שאתה מחזיק. כמו תיק נסיעות — רק עם השקעות.</div></div>
+    <div class="def-card"><div class="def-term">דיבידנד</div><div class="def-desc">כסף שחברה מחלקת לבעלי המניות שלה מתוך רווחיה. לא כל חברה מחלקת.</div></div>
+    <div class="def-card"><div class="def-term">Bid / Ask</div><div class="def-desc">Bid = המחיר שקונה מוכן לשלם. Ask = המחיר שמוכר דורש. ההפרש ביניהם נקרא Spread.</div></div>
+    <div class="def-card"><div class="def-term">IPO</div><div class="def-desc">הפעם הראשונה שחברה מנפיקה מניות לציבור. "יציאה לבורסה".</div></div>
+    <div class="def-card"><div class="def-term">Market Cap</div><div class="def-desc">שווי שוק כולל של חברה = מחיר מניה כפול מספר המניות.</div></div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">⏰</div>
+    <div class="callout-body">
+      <div class="callout-title">שעות מסחר אמריקאי — בשעון ישראל</div>
+      <strong>קיץ (אפריל–אוקטובר):</strong> 16:30 עד 23:00<br>
+      <strong>חורף (נובמבר–מרץ):</strong> 15:30 עד 22:00
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 1</div>
+    <div class="quiz-q">קנית מניה ב-$200 ומכרת ב-$160. מה קרה?</div>
+    <div class="quiz-options" id="q1">
+      <div class="quiz-option" onclick="answer('q1','wrong',this)"><span class="quiz-opt-letter">א</span>רווח של 20%</div>
+      <div class="quiz-option" onclick="answer('q1','correct',this)"><span class="quiz-opt-letter">ב</span>הפסד של 20%</div>
+      <div class="quiz-option" onclick="answer('q1','wrong',this)"><span class="quiz-opt-letter">ג</span>הפסד של 40%</div>
+    </div>
+    <div class="quiz-explain" id="q1-explain">✅ נכון! (160−200) ÷ 200 × 100 = −20%. הפסד של $40 על $200 = 20% הפסד.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH2 ══════════════════════════════════ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-header">
+    <div class="chapter-num gold">02</div>
+    <div><div class="chapter-title">מדדים — ה"בָּרוֹמֶטֶר" של השוק</div><div class="chapter-subtitle">S&P 500, NASDAQ, Dow Jones, VIX ו-ETF</div></div>
+  </div>
+
+  <p>במקום לעקוב אחרי 500 מניות שונות — <strong>מדד</strong> עושה את זה בשבילך ונותן לך מספר אחד שמייצג את כולן.</p>
+  <p>חשוב להדגיש: הנתונים ההיסטוריים על תשואות מדדים מתארים <strong>מה שהיה</strong> — לא מה שיהיה. שוק יכול לרדת משמעותית לתקופות ממושכות.</p>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">🏆 S&P 500</div><div class="metric-badges"><span class="badge badge-blue">500 חברות</span></div></div>
+    <div class="metric-desc">500 החברות הגדולות בארה"ב. נחשב <strong>המדד הכי מייצג</strong> של הכלכלה האמריקאית. <strong>היסטורית</strong> (מאז 1928) — ממוצע שנתי של כ-10%, אך בשנים מסוימות ירד גם 30-40%.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">💻 NASDAQ 100</div><div class="metric-badges"><span class="badge badge-purple">טכנולוגיה</span></div></div>
+    <div class="metric-desc">100 חברות הטכנולוגיה הגדולות. Apple, NVIDIA, Microsoft, Meta, Tesla. <strong>היסטורית</strong> — תשואה גבוהה יותר מ-S&P, אך גם ירידות חדות יותר בזמן משבר.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">😨 VIX — מדד הפחד</div><div class="metric-badges"><span class="badge badge-red">&gt;30 פאניקה</span><span class="badge badge-green">&lt;15 שקט</span></div></div>
+    <div class="metric-desc">מודד ציפיות לתנודתיות. VIX גבוה = שוק פחדן ותנודתי. VIX נמוך = שקט. <strong>זהו אינדיקטור של פחד — לא תחזית</strong> לאן ילך השוק.</div>
+  </div>
+
+  <h3>מה זה ETF?</h3>
+  <p>תעודת סל (ETF) = <strong>קנה את כל המדד כאילו זו מניה אחת</strong>. במקום לקנות 500 מניות בנפרד — קונה ETF אחד שכולל את כולן.</p>
+  <div class="callout tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <div class="callout-title">ETF נפוצים שכדאי להכיר</div>
+      <strong>SPY / VOO</strong> — עוקב S&P 500<br>
+      <strong>QQQ</strong> — עוקב NASDAQ 100<br>
+      <strong>VTI</strong> — כל שוק המניות האמריקאי<br>
+      <strong>GLD</strong> — זהב | <strong>TLT</strong> — אגרות חוב ממשלתיות
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 2</div>
+    <div class="quiz-q">מה ה-VIX מודד?</div>
+    <div class="quiz-options" id="q2">
+      <div class="quiz-option" onclick="answer('q2','wrong',this)"><span class="quiz-opt-letter">א</span>את מחיר הזהב</div>
+      <div class="quiz-option" onclick="answer('q2','correct',this)"><span class="quiz-opt-letter">ב</span>ציפיות לתנודתיות בשוק — "מדד הפחד"</div>
+      <div class="quiz-option" onclick="answer('q2','wrong',this)"><span class="quiz-opt-letter">ג</span>תשואה שנתית ממוצעת</div>
+    </div>
+    <div class="quiz-explain" id="q2-explain">✅ נכון! VIX גבוה = שוק לא יציב ופחדן. הוא לא אומר לאן ילך השוק — רק שהתנודתיות גבוהה.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH3 ══════════════════════════════════ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-header">
+    <div class="chapter-num blue">03</div>
+    <div><div class="chapter-title">סוגי ניירות ערך והוראות מסחר</div><div class="chapter-subtitle">מניות, אגרות חוב, ETF — ואיך מבצעים קנייה</div></div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>סוג</th><th>סיכון</th><th>תשואה</th><th>מתאים ל</th></tr></thead>
+      <tbody>
+        <tr><td><strong>מניות צמיחה</strong></td><td style="color:var(--red)">גבוה</td><td style="color:var(--accent)">גבוה</td><td>מי שמוכן לסיכון</td></tr>
+        <tr><td><strong>ETF מדד</strong></td><td style="color:var(--gold)">בינוני</td><td style="color:var(--gold)">בינוני</td><td>טווח ארוך</td></tr>
+        <tr><td><strong>מניות דיבידנד</strong></td><td style="color:var(--gold)">בינוני-נמוך</td><td style="color:var(--gold)">בינוני</td><td>הכנסה פאסיבית</td></tr>
+        <tr><td><strong>אגרות חוב</strong></td><td style="color:var(--accent)">נמוך</td><td style="color:var(--red)">נמוך</td><td>שמרנים</td></tr>
+        <tr><td><strong>אופציות</strong></td><td style="color:var(--red)">גבוה מאוד</td><td style="color:var(--accent)">גבוה מאוד</td><td>מנוסים בלבד</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3 סוגי הוראות שכל מתחיל חייב להכיר</h3>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Market Order — קנה עכשיו</div><div class="metric-badges"><span class="badge badge-blue">מיידי</span></div></div>
+    <div class="metric-desc">אומר לברוקר: "קנה לי 10 מניות של AAPL — עכשיו, בכל מחיר שיש." מהיר, אבל אתה לא שולט במחיר המדויק.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Limit Order — קנה רק במחיר שאני רוצה</div><div class="metric-badges"><span class="badge badge-green">שליטה</span></div></div>
+    <div class="metric-desc">אומר לברוקר: "קנה לי 10 AAPL — <strong>רק אם המחיר יגיע ל-$175 או פחות</strong>." ההוראה ממתינה עד שהמחיר מגיע לשם.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Stop Loss — מכור אוטומטית אם יש הפסד</div><div class="metric-badges"><span class="badge badge-red">הגנה</span></div></div>
+    <div class="metric-desc">אומר לברוקר: "קניתי ב-$200. אם המחיר יירד ל-$170 — מכור אוטומטית." מגביל את ההפסד שלך ל-15%. <strong>זה הכלי הכי חשוב לניהול סיכונים.</strong></div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 3</div>
+    <div class="quiz-q">אתה רוצה לקנות מניה ב-$150 — אבל עכשיו היא נסחרת ב-$165. איזה הוראה תשתמש?</div>
+    <div class="quiz-options" id="q3">
+      <div class="quiz-option" onclick="answer('q3','wrong',this)"><span class="quiz-opt-letter">א</span>Market Order</div>
+      <div class="quiz-option" onclick="answer('q3','correct',this)"><span class="quiz-opt-letter">ב</span>Limit Order ב-$150</div>
+      <div class="quiz-option" onclick="answer('q3','wrong',this)"><span class="quiz-opt-letter">ג</span>Stop Loss</div>
+    </div>
+    <div class="quiz-explain" id="q3-explain">✅ נכון! Limit Order ב-$150 — ההוראה תשב ותחכה. אם המחיר יגיע ל-$150 — תתבצע הקנייה.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH4 ══════════════════════════════════ -->
+<section class="chapter" id="ch4">
+  <div class="chapter-header">
+    <div class="chapter-num purple">04</div>
+    <div><div class="chapter-title">ניתוח פונדמנטלי — לקרוא את מצבה הפיננסי של חברה</div><div class="chapter-subtitle">מה המספרים אומרים — בשפה פשוטה</div></div>
+  </div>
+
+  <p>ניתוח פונדמנטלי שואל שאלה אחת: <strong>"האם החברה הזאת שווה את המחיר שנדרש ממני לשלם?"</strong></p>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">P/E Ratio — מכפיל רווח</div><div class="metric-badges"><span class="badge badge-green">&lt;15 זול</span><span class="badge badge-gold">15-25 הוגן</span><span class="badge badge-red">&gt;25 יקר</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> כמה שנים של רווחים תצטרך כדי "להחזיר" את מה ששילמת.<br>
+      P/E של 20 = אתה משלם $20 כדי לקבל $1 בשנה. כמו לקנות דירה ב-20 שנות שכירות.<br><br>
+      <strong>חשוב:</strong> P/E גבוה לא תמיד רע — חברות צמיחה מהירה לרוב נסחרות ב-P/E גבוה כי השוק מתמחר את הצמיחה העתידית.
+    </div>
+    <div class="metric-formula">P/E = מחיר מניה ÷ EPS (רווח למניה)</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">EPS — רווח למניה</div><div class="metric-badges"><span class="badge badge-green">חיובי וגדל = טוב</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> כמה כסף הרוויחה החברה על כל מניה שיש בה.<br>
+      EPS של $5 = על כל מניה, החברה הרוויחה השנה $5 נטו.<br>
+      EPS שגדל רבעון אחרי רבעון = החברה הולכת וגדלה.
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Profit Margin — מרווח רווח</div><div class="metric-badges"><span class="badge badge-green">&gt;20% מצוין</span><span class="badge badge-gold">10-20% טוב</span><span class="badge badge-red">&lt;5% חלש</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> על כל ₪100 שהחברה מכרה — כמה נשאר לה כרווח אחרי כל ההוצאות?<br>
+      Profit Margin של 25% = על כל $100 הכנסה, $25 רווח נקי.<br>
+      <strong>שים לב:</strong> חברות טכנולוגיה כמו NVIDIA = 55%+. סופרמרקט = 2-3%. השווה תמיד לסקטור.
+    </div>
+    <div class="metric-formula">Profit Margin = (רווח נקי ÷ הכנסות סה"כ) × 100%</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Free Cash Flow (FCF) — כסף אמיתי</div><div class="metric-badges"><span class="badge badge-green">חיובי = בריא</span><span class="badge badge-red">שלילי = בעיה</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> חברה יכולה להראות "רווח" בספרים — אבל בפועל אין לה מזומן.<br>
+      FCF = הכסף שנכנס לחברה מפעילות שוטפת, <strong>מינוס</strong> מה שהיא הוציאה על ציוד ותשתיות (CapEx).<br>
+      זה הכסף ה"אמיתי" שיכול לשלם דיבידנד, לחזור על מניות, או להשקיע בצמיחה.<br>
+      <strong>דוגמה:</strong> חברה הרוויחה $100M — אבל הוציאה $90M על מכונות חדשות. FCF = רק $10M.
+    </div>
+    <div class="metric-formula">FCF = תזרים מתפעול − הוצאות הוניות (CapEx)</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">ROE — תשואה על ההון העצמי</div><div class="metric-badges"><span class="badge badge-green">&gt;15% חזק</span><span class="badge badge-gold">10-15% סביר</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> כמה רווח הרוויחה החברה על כל $100 שהמשקיעים שמו בה?<br>
+      ROE של 25% = על כל $100 השקעת בעלים, החברה הרוויחה $25.<br>
+      ROE גבוה = הנהלה טובה שמנהלת ביעילות.
+    </div>
+    <div class="metric-formula">ROE = (רווח נקי ÷ הון עצמי) × 100%</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">מאזן — נכסים, חובות, והון עצמי</div></div>
+    <div class="metric-desc">
+      <strong>Current Ratio</strong> = נכסים שוטפים ÷ התחייבויות שוטפות.<br>
+      בשפה פשוטה: האם יש לחברה מספיק כסף לשלם את חובותיה ב-12 החודשים הקרובים?<br>
+      מעל 1.5 = בסדר. מתחת ל-1 = יש בעיה נזילות.<br><br>
+      <strong>Long-term Debt</strong> = חוב לטווח ארוך. בדוק: האם החוב גדול בצורה מדאיגה ביחס לרווחים?<br>
+      <strong>Shareholder Equity</strong> = מה שנשאר לבעלי המניות אחרי חיסור כל החובות מהנכסים. חיובי = טוב.
+    </div>
+  </div>
+
+  <h3>Earnings Season — ה"דוחות" הרבעוניים</h3>
+  <div class="callout info">
+    <div class="callout-icon">📅</div>
+    <div class="callout-body">
+      <div class="callout-title">מה קורה 4 פעמים בשנה</div>
+      כל חברה ציבורית חייבת לפרסם דוח רווחים כל רבעון. זה היום הכי תנודתי למניה.<br><br>
+      <strong>EPS Surprise:</strong> הרוויחה יותר מהצפוי → לרוב עולה. פחות מהצפוי → לרוב יורדת.<br>
+      <strong>Guidance:</strong> מה החברה צופה לרבעון הבא — לפעמים חשוב אף יותר מהתוצאות.
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 4</div>
+    <div class="quiz-q">חברה הרוויחה $100M — אבל Free Cash Flow שלה הוא −$20M. מה זה אומר?</div>
+    <div class="quiz-options" id="q4">
+      <div class="quiz-option" onclick="answer('q4','wrong',this)"><span class="quiz-opt-letter">א</span>החברה מצוינת — הרוויחה $100M</div>
+      <div class="quiz-option" onclick="answer('q4','correct',this)"><span class="quiz-opt-letter">ב</span>יש לבדוק — הוציאה יותר ממה שנכנס למזומן</div>
+      <div class="quiz-option" onclick="answer('q4','wrong',this)"><span class="quiz-opt-letter">ג</span>הכל תקין — FCF שלילי הוא נורמלי תמיד</div>
+    </div>
+    <div class="quiz-explain" id="q4-explain">✅ נכון! FCF שלילי אומר שלחברה אין מזומן פנוי למרות הרווח. לפעמים זה בגלל השקעה גדולה (לא נורא) — אבל חשוב להבין למה.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH5 ══════════════════════════════════ -->
+<section class="chapter" id="ch5">
+  <div class="chapter-header">
+    <div class="chapter-num">05</div>
+    <div><div class="chapter-title">איך קוראים גרף מניה</div><div class="chapter-subtitle">נרות יפניים, ממוצעים נעים, אינדיקטורים ו-TradingView</div></div>
+  </div>
+
+  <p>גרף מניה נראה מפחיד בהתחלה — אבל אחרי שמבינים אותו הוא הכלי הכי חזק שיש. בפרק הזה נלמד <strong>מאפס</strong> איך לקרוא גרף.</p>
+
+  <h3>ציר X וציר Y — הבסיס</h3>
+  <p><strong>ציר X (אופקי)</strong> = זמן — ימים, שבועות, חודשים.<br>
+  <strong>ציר Y (אנכי)</strong> = מחיר — כמה שווה המניה בכל רגע.</p>
+
+  <h3>נר יפני — הבלוק הבסיסי</h3>
+  <p>כל נר מייצג תקופת זמן אחת (יום / שעה / שבוע) וכולל 4 מחירים:</p>
+
+  <!-- CANDLE VISUAL - CSS-based, no SVG text overlap -->
+  <div class="candle-visual-wrap">
+    <div class="candle-visual-row">
+      <!-- GREEN CANDLE -->
+      <div class="candle-visual-block">
+        <div class="cv-label-top">High — הכי גבוה</div>
+        <div class="cv-wick cv-wick-green"></div>
+        <div class="cv-body cv-body-green">
+          <div class="cv-body-label-top">Close<br>סגירה</div>
+          <div class="cv-body-label-bot">Open<br>פתיחה</div>
+        </div>
+        <div class="cv-wick cv-wick-green"></div>
+        <div class="cv-label-bot">Low — הכי נמוך</div>
+        <div class="cv-caption cv-caption-green">✅ נר ירוק = עלייה<br><span>סגירה גבוהה מפתיחה</span></div>
+      </div>
+      <!-- RED CANDLE -->
+      <div class="candle-visual-block">
+        <div class="cv-label-top">High — הכי גבוה</div>
+        <div class="cv-wick cv-wick-red"></div>
+        <div class="cv-body cv-body-red">
+          <div class="cv-body-label-top">Open<br>פתיחה</div>
+          <div class="cv-body-label-bot">Close<br>סגירה</div>
+        </div>
+        <div class="cv-wick cv-wick-red"></div>
+        <div class="cv-label-bot">Low — הכי נמוך</div>
+        <div class="cv-caption cv-caption-red">❌ נר אדום = ירידה<br><span>סגירה נמוכה מפתיחה</span></div>
+      </div>
+    </div>
+    <div class="cv-note">הפתיל הדק = הטווח הכולל של היום — הכי גבוה והכי נמוך שהמחיר הגיע</div>
+  </div>
+
+  <h3>סוגי נרות יפניים ומה הם אומרים</h3>
+  <p>כל צורת נר מספרת סיפור. הנה הנרות הכי חשובים שכדאי להכיר:</p>
+
+  <div class="candle-patterns-grid">
+    <div class="cp-card">
+      <div class="cp-visual">
+        <div class="cp-wick" style="background:#00e5a0;height:16px"></div>
+        <div class="cp-body" style="background:#00e5a0;height:70px;width:28px"></div>
+        <div class="cp-wick" style="background:#00e5a0;height:10px"></div>
+      </div>
+      <div class="cp-name" style="color:var(--accent)">Marubozu ירוק</div>
+      <div class="cp-desc">גוף גדול, כמעט בלי פתילים. קונים שלטו לחלוטין.</div>
+      <div class="cp-signal cp-bull">📈 עוצמת עלייה</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual">
+        <div class="cp-wick" style="background:#ff5f57;height:10px"></div>
+        <div class="cp-body" style="background:#ff5f57;height:70px;width:28px"></div>
+        <div class="cp-wick" style="background:#ff5f57;height:16px"></div>
+      </div>
+      <div class="cp-name" style="color:var(--red)">Marubozu אדום</div>
+      <div class="cp-desc">גוף גדול אדום, בלי פתילים. מוכרים שלטו לחלוטין.</div>
+      <div class="cp-signal cp-bear">📉 עוצמת ירידה</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual">
+        <div class="cp-wick" style="background:#888;height:40px"></div>
+        <div class="cp-body" style="background:var(--border2);height:14px;width:28px;border:1px solid #888"></div>
+        <div class="cp-wick" style="background:#888;height:40px"></div>
+      </div>
+      <div class="cp-name" style="color:var(--gold)">Doji</div>
+      <div class="cp-desc">גוף קטן מאוד, פתילים משני הצדדים. קונים ומוכרים מאוזנים.</div>
+      <div class="cp-signal cp-neutral">⚠️ חוסר ודאות / היפוך אפשרי</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual">
+        <div class="cp-wick" style="background:#00e5a0;height:5px"></div>
+        <div class="cp-body" style="background:#00e5a0;height:30px;width:28px"></div>
+        <div class="cp-wick" style="background:#00e5a0;height:55px"></div>
+      </div>
+      <div class="cp-name" style="color:var(--accent)">Hammer (פטיש)</div>
+      <div class="cp-desc">גוף קטן למעלה, פתיל ארוך למטה. מוכרים ניסו לדחוף מטה — אבל קונים החזירו.</div>
+      <div class="cp-signal cp-bull">📈 סימן היפוך שורי (לאחר ירידה)</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual">
+        <div class="cp-wick" style="background:#ff5f57;height:55px"></div>
+        <div class="cp-body" style="background:#ff5f57;height:30px;width:28px"></div>
+        <div class="cp-wick" style="background:#ff5f57;height:5px"></div>
+      </div>
+      <div class="cp-name" style="color:var(--red)">Shooting Star</div>
+      <div class="cp-desc">גוף קטן למטה, פתיל ארוך למעלה. קונים ניסו לדחוף — אבל מוכרים החזירו.</div>
+      <div class="cp-signal cp-bear">📉 סימן היפוך דובי (לאחר עלייה)</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual" style="gap:3px;flex-direction:row;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#ff5f57;width:14px;height:8px;border-radius:2px"></div>
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+          <div style="background:#ff5f57;width:14px;height:32px;border-radius:2px"></div>
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#00e5a0;width:2px;height:5px"></div>
+          <div style="background:#00e5a0;width:14px;height:52px;border-radius:2px"></div>
+          <div style="background:#00e5a0;width:2px;height:5px"></div>
+        </div>
+      </div>
+      <div class="cp-name" style="color:var(--accent)">Bullish Engulfing</div>
+      <div class="cp-desc">נר אדום קטן + נר ירוק גדול שבולע אותו. קונים השתלטו לחלוטין.</div>
+      <div class="cp-signal cp-bull">📈 סימן היפוך שורי חזק</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual" style="gap:3px;flex-direction:row;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#00e5a0;width:2px;height:5px"></div>
+          <div style="background:#00e5a0;width:14px;height:52px;border-radius:2px"></div>
+          <div style="background:#00e5a0;width:2px;height:5px"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+          <div style="background:#ff5f57;width:14px;height:32px;border-radius:2px"></div>
+          <div style="background:#ff5f57;width:2px;height:8px"></div>
+        </div>
+      </div>
+      <div class="cp-name" style="color:var(--red)">Bearish Engulfing</div>
+      <div class="cp-desc">נר ירוק קטן + נר אדום גדול שבולע אותו. מוכרים השתלטו.</div>
+      <div class="cp-signal cp-bear">📉 סימן היפוך דובי חזק</div>
+    </div>
+    <div class="cp-card">
+      <div class="cp-visual" style="gap:2px;flex-direction:row;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+          <div style="background:#ff5f57;width:14px;height:40px;border-radius:2px"></div>
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+          <div style="background:#ff5f57;width:14px;height:30px;border-radius:2px"></div>
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="background:#00e5a0;width:2px;height:5px"></div>
+          <div style="background:#00e5a0;width:14px;height:18px;border-radius:2px"></div>
+          <div style="background:#00e5a0;width:2px;height:5px"></div>
+        </div>
+      </div>
+      <div class="cp-name" style="color:var(--accent)">Morning Star</div>
+      <div class="cp-desc">3 נרות: אדום גדול → קטן (Doji) → ירוק. אחרי ירידה — קונים מתחזקים.</div>
+      <div class="cp-signal cp-bull">📈 היפוך שורי אמין</div>
+    </div>
+  </div>
+
+  <h3>תבניות גרף — דפוסים שחוזרים על עצמם</h3>
+  <div class="callout info">
+    <div class="callout-icon">📐</div>
+    <div class="callout-body">
+      <div class="callout-title">מה זה תבנית גרף?</div>
+      תבנית גרף היא צורה שמחיר מניה יוצר לאורך שבועות/חודשים, שהיסטורית מצביעה על כיוון עתידי. חשוב: אף תבנית לא עובדת 100% מהזמן.
+    </div>
+  </div>
+
+  <div class="pattern-grid">
+    <div class="pattern-card">
+      <div class="pattern-name">☕ Cup & Handle — ספל וידית</div>
+      <svg viewBox="0 0 220 90" class="pattern-svg">
+        <polyline points="10,20 50,55 80,70 110,72 140,55 170,20" fill="none" stroke="#00e5a0" stroke-width="2.5" stroke-linecap="round"/>
+        <polyline points="170,20 185,30 195,28 210,18" fill="none" stroke="#00e5a0" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="10" y1="20" x2="210" y2="20" stroke="#555" stroke-width="1" stroke-dasharray="4"/>
+        <text x="75" y="85" fill="#888" font-size="9" font-family="Heebo">ספל</text>
+        <text x="185" y="45" fill="#888" font-size="9" font-family="Heebo">ידית</text>
+        <text x="145" y="14" fill="#00e5a0" font-size="9" font-family="Heebo">↗ פריצה</text>
+      </svg>
+      <div class="pattern-desc">ירידה עגולה → עלייה חזרה לשיא → ירידה קטנה (ידית) → פריצה למעלה. סימן שורי חזק.</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-name">👤 Head & Shoulders — ראש וכתפיים</div>
+      <svg viewBox="0 0 220 90" class="pattern-svg">
+        <polyline points="10,70 40,45 60,50 90,20 120,50 150,42 175,55 210,70" fill="none" stroke="#ff5f57" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="10" y1="52" x2="210" y2="52" stroke="#555" stroke-width="1" stroke-dasharray="4"/>
+        <text x="82" y="16" fill="#888" font-size="9" font-family="Heebo">ראש</text>
+        <text x="28" y="43" fill="#888" font-size="9" font-family="Heebo">כתף</text>
+        <text x="148" y="40" fill="#888" font-size="9" font-family="Heebo">כתף</text>
+        <text x="60" y="66" fill="#ff5f57" font-size="9" font-family="Heebo">קו צוואר</text>
+        <text x="155" y="80" fill="#ff5f57" font-size="9" font-family="Heebo">↘ פריצה</text>
+      </svg>
+      <div class="pattern-desc">שלושה שיאים — האמצעי הכי גבוה. פריצה מתחת ל"קו הצוואר" = תחילת ירידה. תבנית דובית קלאסית.</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-name">📐 Triangle — משולש</div>
+      <svg viewBox="0 0 220 90" class="pattern-svg">
+        <line x1="10" y1="15" x2="180" y2="42" stroke="#00e5a0" stroke-width="2" stroke-dasharray="0"/>
+        <line x1="10" y1="75" x2="180" y2="48" stroke="#ff5f57" stroke-width="2"/>
+        <polyline points="180,42 200,30 210,20" fill="none" stroke="#00e5a0" stroke-width="2" stroke-linecap="round"/>
+        <text x="5" y="12" fill="#888" font-size="9" font-family="Heebo">התנגדות</text>
+        <text x="5" y="88" fill="#888" font-size="9" font-family="Heebo">תמיכה</text>
+        <text x="182" y="26" fill="#00e5a0" font-size="9" font-family="Heebo">↗ פריצה</text>
+      </svg>
+      <div class="pattern-desc">קו התנגדות שירד + קו תמיכה שעלה. המחיר מתכנס לנקודה → לרוב פריצה חזקה לכיוון אחד.</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-name">🏁 Double Top — כפל שיא</div>
+      <svg viewBox="0 0 220 90" class="pattern-svg">
+        <polyline points="10,75 50,25 90,70 130,25 170,70 210,75" fill="none" stroke="#ff5f57" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="10" y1="68" x2="210" y2="68" stroke="#555" stroke-width="1" stroke-dasharray="4"/>
+        <text x="35" y="22" fill="#888" font-size="9" font-family="Heebo">שיא 1</text>
+        <text x="115" y="22" fill="#888" font-size="9" font-family="Heebo">שיא 2</text>
+        <text x="155" y="82" fill="#ff5f57" font-size="9" font-family="Heebo">↘ פריצה</text>
+      </svg>
+      <div class="pattern-desc">מחיר מגיע לאותו שיא פעמיים ונכשל. לרוב מסמן תחילת ירידה ממושכת. תבנית דובית.</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-name">🚀 Double Bottom — כפל שפל</div>
+      <svg viewBox="0 0 220 90" class="pattern-svg">
+        <polyline points="10,15 50,65 90,20 130,65 170,20 210,15" fill="none" stroke="#00e5a0" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="10" y1="22" x2="210" y2="22" stroke="#555" stroke-width="1" stroke-dasharray="4"/>
+        <text x="33" y="80" fill="#888" font-size="9" font-family="Heebo">שפל 1</text>
+        <text x="113" y="80" fill="#888" font-size="9" font-family="Heebo">שפל 2</text>
+        <text x="155" y="16" fill="#00e5a0" font-size="9" font-family="Heebo">↗ פריצה</text>
+      </svg>
+      <div class="pattern-desc">מחיר יורד לאותה רמה פעמיים ומיתאושש. סימן שורי — הקונים מגנים על הרמה.</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-name">🏴‍☠️ Flag — דגל</div>
+      <svg viewBox="0 0 220 90" class="pattern-svg">
+        <line x1="10" y1="80" x2="80" y2="20" stroke="#00e5a0" stroke-width="2.5"/>
+        <polyline points="80,20 100,30 120,25 140,35 160,28" fill="none" stroke="#00e5a0" stroke-width="2" stroke-linecap="round"/>
+        <polyline points="160,28 180,15 210,5" fill="none" stroke="#00e5a0" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="30" y="58" fill="#888" font-size="9" font-family="Heebo">עמוד</text>
+        <text x="105" y="50" fill="#888" font-size="9" font-family="Heebo">דגל</text>
+        <text x="165" y="22" fill="#00e5a0" font-size="9" font-family="Heebo">↗ המשך</text>
+      </svg>
+      <div class="pattern-desc">עלייה חדה (עמוד) → תנודה קטנה צידה (דגל) → המשך עלייה. תבנית המשך שורית.</div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">זכור תמיד</div>
+      תבניות גרף עובדות <strong>חלק מהזמן</strong> — לא תמיד. אף פעם אל תקנה רק בגלל תבנית גרף. <strong>תמיד שלב עם ניתוח פונדמנטלי.</strong>
+    </div>
+  </div>
+
+  <h3>ממוצע נע (Moving Average — MA)</h3>
+  <p>ממוצע נע הוא <strong>קו על הגרף שמחליק את תנודות המחיר</strong> ומראה את הכיוון הכללי. הוא מחושב על ידי ממוצע של X ימי סגירה אחרונים.</p>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">MA50 — ממוצע 50 יום</div><div class="metric-badges"><span class="badge badge-blue">טרנד בינוני</span></div></div>
+    <div class="metric-desc">הקו מחשב את ממוצע מחיר הסגירה של 50 הימים האחרונים. <strong>מחיר מעל MA50 = מגמה עולה קצרה-בינונית.</strong></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">MA200 — ממוצע 200 יום</div><div class="metric-badges"><span class="badge badge-gold">טרנד ארוך</span></div></div>
+    <div class="metric-desc"><strong>הקו הכי חשוב.</strong> מחיר מעל MA200 = מגמה עולה ארוכת טווח. יורד מתחת ל-MA200 = סימן שמגמה ארוכת טווח השתנתה.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🔀</div>
+    <div class="callout-body">
+      <div class="callout-title">Golden Cross ו-Death Cross</div>
+      <strong>Golden Cross:</strong> MA50 עולה <em>מעל</em> MA200 = סימן שורי (עלייה). משקיעים רבים מסתכלים על זה.<br>
+      <strong>Death Cross:</strong> MA50 יורד <em>מתחת</em> MA200 = סימן דובי (ירידה).
+    </div>
+  </div>
+
+  <h3>Support ו-Resistance — קירות בגרף</h3>
+  <p><strong>Support (תמיכה)</strong> = רמת מחיר שממנה המניה "קפצה" חזרה מספר פעמים. כשמגיעים לשם — לרוב יש קנייה.</p>
+  <p><strong>Resistance (התנגדות)</strong> = רמת מחיר שממנה המניה "נפלה" מספר פעמים. כשמגיעים לשם — לרוב יש מכירה.</p>
+
+  <h3>אינדיקטורים — הכלים שמוסיפים על הגרף</h3>
+  <p>אינדיקטורים הם <strong>חישובים מתמטיים על המחיר</strong> שמוצגים כקווים על הגרף או מתחתיו. הם עוזרים לזהות תבניות שקשה לראות בעיניים.</p>
+
+  <div class="indicator-box">
+    <div class="indicator-name">RSI — Relative Strength Index</div>
+    <div class="indicator-desc">מספר בין 0 ל-100 שמודד האם המניה "נקנתה יתר" או "נמכרה יתר".<br>
+    <strong>מעל 70</strong> = הרבה אנשים קנו — ייתכן שזה יקר מדי.<br>
+    <strong>מתחת 30</strong> = הרבה אנשים מכרו — ייתכן שזה זול מדי.</div>
+    <div class="indicator-use">📍 איך להוסיף ב-TradingView: לחץ על "Indicators" ← חפש "RSI" ← הוסף</div>
+  </div>
+
+  <div class="indicator-box">
+    <div class="indicator-name">MACD — Moving Average Convergence Divergence</div>
+    <div class="indicator-desc">מראה <strong>האם המומנטום של המחיר עולה או יורד</strong>. כשהקו ה-MACD חוצה את קו ה-Signal מלמטה למעלה = סימן קנייה. ההפך = סימן מכירה.</div>
+    <div class="indicator-use">📍 TradingView: Indicators ← "MACD"</div>
+  </div>
+
+  <div class="indicator-box">
+    <div class="indicator-name">Bollinger Bands</div>
+    <div class="indicator-desc">שלושה קווים סביב המחיר שמראים טווח תנודה "נורמלי". כשהמחיר נוגע בקו <strong>העליון</strong> — ייתכן קנוי יתר. <strong>תחתון</strong> — ייתכן מכור יתר.</div>
+    <div class="indicator-use">📍 TradingView: Indicators ← "BB" או "Bollinger"</div>
+  </div>
+
+  <div class="indicator-box">
+    <div class="indicator-name">Volume — נפח מסחר</div>
+    <div class="indicator-desc">עמודות בתחתית הגרף שמראות <strong>כמה מניות נסחרו</strong> באותו יום/שעה.<br>
+    עלייה עם Volume גבוה = עלייה משמעותית. עלייה עם Volume נמוך = לא בטוח שתמשיך.</div>
+    <div class="indicator-use">📍 מוצג כברירת מחדל ב-TradingView</div>
+  </div>
+
+  <h3>TradingView — הכלי המרכזי לגרפים</h3>
+  <div class="callout tip">
+    <div class="callout-icon">📊</div>
+    <div class="callout-body">
+      <div class="callout-title">איך מתחילים ב-TradingView</div>
+      1. כנס ל-<strong>tradingview.com</strong> (יש גם אפליקציה מעולה)<br>
+      2. חפש את סימול המניה בשורת החיפוש למעלה (AAPL, NVDA וכו')<br>
+      3. לחץ על <strong>"Indicators"</strong> בסרגל למעלה להוספת אינדיקטורים<br>
+      4. שנה טווח זמן: 1D = יום אחד, 1W = שבוע, 1M = חודש<br>
+      5. ניתן גם לצייר קווי Support/Resistance עם כלי העיפרון
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">חשוב לדעת על ניתוח טכני</div>
+      ניתוח טכני הוא <strong>כלי עזר</strong> — לא נבואה. אף אחד לא יכול לנבא את השוק בוודאות. רוב המשקיעים לטווח ארוך מתמקדים בניתוח פונדמנטלי ומשתמשים בטכני רק לתזמון כניסה.
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 5</div>
+    <div class="quiz-q">RSI של מניה הגיע ל-78. מה זה מרמז?</div>
+    <div class="quiz-options" id="q5">
+      <div class="quiz-option" onclick="answer('q5','wrong',this)"><span class="quiz-opt-letter">א</span>הוא בטוח ימשיך לעלות</div>
+      <div class="quiz-option" onclick="answer('q5','correct',this)"><span class="quiz-opt-letter">ב</span>ייתכן שהוא "קנוי יתר" — לא המלצה אוטומטית לקנות</div>
+      <div class="quiz-option" onclick="answer('q5','wrong',this)"><span class="quiz-opt-letter">ג</span>חייב לרדת מיד</div>
+    </div>
+    <div class="quiz-explain" id="q5-explain">✅ נכון! RSI מעל 70 = אזהרה לקנוי יתר. זה לא אומר שחייב לרדת מיד — אבל כדאי לנהוג בזהירות.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH6 ══════════════════════════════════ -->
+<section class="chapter" id="ch6">
+  <div class="chapter-header">
+    <div class="chapter-num">06</div>
+    <div><div class="chapter-title">קריאת חברה עם StockLens</div><div class="chapter-subtitle">מדריך מעשי שלב-אחרי-שלב</div></div>
+  </div>
+
+  <div class="reading-flow">
+    <div class="reading-step"><div class="reading-step-icon">🔍</div><div><div class="reading-step-title">שלב 1: הקלד Ticker ולחץ Analyze</div><div class="reading-step-desc">ב-Overview הקלד את קוד המניה (AAPL, NVDA וכו') ולחץ Analyze.</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">🏥</div><div><div class="reading-step-title">שלב 2: Health Score</div><div class="reading-step-desc">מעל 60 = חברה בריאה. מתחת 40 = שאל למה לפני שתקנה.</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">💰</div><div><div class="reading-step-title">שלב 3: Analyst Ratings</div><div class="reading-step-desc">Consensus ו-Price Target — מה אנליסטים חושבים.</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">📊</div><div><div class="reading-step-title">שלב 4: Valuation</div><div class="reading-step-desc">P/E הגיוני לסקטור? EPS גדל? השווה לחברות דומות.</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">💵</div><div><div class="reading-step-title">שלב 5: Cash Flow</div><div class="reading-step-desc">FCF חיובי = מייצרת כסף אמיתי. Revenue Growth YoY > 10% = צמיחה בריאה.</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">🏦</div><div><div class="reading-step-title">שלב 6: מאזן</div><div class="reading-step-desc">Current Ratio מעל 1. Long-term Debt לא גדול מדי. Shareholder Equity חיובי.</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">⚔</div><div><div class="reading-step-title">שלב 7: Stock vs Stock</div><div class="reading-step-desc">השווה לחברה מתחרה — מי מנצח ב-11 מדדים?</div></div></div>
+    <div class="reading-step"><div class="reading-step-icon">⚡</div><div><div class="reading-step-title">שלב 8: Quarter Compare</div><div class="reading-step-desc">בדוק מגמה רבעונית — האם EPS וההכנסות גדלים?</div></div></div>
+  </div>
+
+  <div class="demo-box">
+    <h3>🚀 משימה מעשית</h3>
+    <p style="color:var(--text2);margin:10px 0">נתח AAPL, MSFT ו-NVDA ב-StockLens. השווה ב-Stock vs Stock. כתוב את Health Score וAnalyst Consensus של כל אחת.</p>
+    <a href="https://lidorfiliba.github.io/StockLens/" target="_blank" class="demo-link">פתח StockLens →</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH7 ══════════════════════════════════ -->
+<section class="chapter" id="ch7">
+  <div class="chapter-header">
+    <div class="chapter-num gold">07</div>
+    <div><div class="chapter-title">אסטרטגיות + ניהול סיכונים</div><div class="chapter-subtitle">Risk/Reward, Position Sizing, Diversification</div></div>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card"><div class="strategy-icon">🐢</div><div class="strategy-name">Buy & Hold</div><div class="strategy-desc">קונה מניות איכותיות ומחזיק אותן שנים. פשוט ומוכח. <strong>ו"ורן באפט</strong> — המשקיע הגדול בעולם, שהגדיל הון של $10,000 לכמעט $130 מיליארד — בנה את עושרו על אסטרטגיה זו.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
+    <div class="strategy-card"><div class="strategy-icon">📅</div><div class="strategy-name">Dollar Cost Averaging</div><div class="strategy-desc">משקיע סכום קבוע כל חודש ללא תלות במחיר. מוריד את הסיכון של "כניסה בשיא".</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
+    <div class="strategy-card"><div class="strategy-icon">💰</div><div class="strategy-name">Dividend Investing</div><div class="strategy-desc">מניות שמחלקות תשלום חודשי/רבעוני — הכנסה פאסיבית.</div><span class="strategy-tag badge badge-blue">טווח ארוך</span></div>
+    <div class="strategy-card"><div class="strategy-icon">🚀</div><div class="strategy-name">Growth Investing</div><div class="strategy-desc">חברות שגדלות מהר. סיכון גבוה, פוטנציאל גבוה.</div><span class="strategy-tag badge badge-gold">בינוני</span></div>
+    <div class="strategy-card"><div class="strategy-icon">🔍</div><div class="strategy-name">Value Investing</div><div class="strategy-desc">חברות טובות שנסחרות בזול. P/E נמוך, FCF גבוה.</div><span class="strategy-tag badge badge-gold">מנוסים</span></div>
+    <div class="strategy-card"><div class="strategy-icon">⚡</div><div class="strategy-name">Swing Trading</div><div class="strategy-desc">קנייה ומכירה בתוך ימים-שבועות. דורש ניתוח טכני מעמיק.</div><span class="strategy-tag badge badge-red">מנוסים בלבד</span></div>
+  </div>
+
+  <h3>Risk/Reward Ratio — הכלל שמגן על הכסף</h3>
+  <div class="example-box">
+    <div class="example-label">דוגמה</div>
+    <div class="example-calc">
+      קניתי ב-$100 · Stop Loss ב-$90 → סיכון $10<br>
+      Target ב-$130 → פוטנציאל רווח $30<br>
+    </div>
+    <div class="example-result">R:R = 1:3 ✅ — כלל: לעולם אל תכנס לעסקה עם R:R נמוך מ-1:2</div>
+  </div>
+
+  <h3>Position Sizing — כמה לשים בכל מניה</h3>
+  <div class="example-box">
+    <div class="example-label">כלל 5%</div>
+    <div class="example-calc">תיק של 50,000₪ → מקסימום 5% בחברה אחת = 2,500₪<br>אפילו אם החברה תפשוט רגל לחלוטין → תפסיד רק 5% מהתיק</div>
+    <div class="example-result">פיזור = ביטוח על התיק שלך 🛡</div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🌍</div>
+    <div class="callout-body">
+      <div class="callout-title">תיק מאוזן לדוגמה למתחיל</div>
+      <strong>40%</strong> — ETF של S&P 500 (יציבות)<br>
+      <strong>20%</strong> — ETF של NASDAQ 100 (צמיחה)<br>
+      <strong>25%</strong> — 5 מניות בודדות שניתחת, עד 5% כל אחת<br>
+      <strong>10%</strong> — סקטור שאתה מאמין בו (AI, ביוטק)<br>
+      <strong>5%</strong> — מזומן להזדמנויות
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">🏦</div>
+    <div class="callout-body">
+      <div class="callout-title">מיסוי בישראל — בקצרה</div>
+      מס רווח הון: <strong>25%</strong> על כל רווח ממניות זרות.<br>
+      ברוקר ישראלי → מס מנוכה אוטומטי.<br>
+      ברוקר זר (eToro, IBKR) → דיווח עצמי לרשות המיסים בסוף שנה.
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 7</div>
+    <div class="quiz-q">תיק של 100,000₪. לפי כלל 5% — כמה מקסימום לשים במניה אחת?</div>
+    <div class="quiz-options" id="q7">
+      <div class="quiz-option" onclick="answer('q7','wrong',this)"><span class="quiz-opt-letter">א</span>20,000₪</div>
+      <div class="quiz-option" onclick="answer('q7','correct',this)"><span class="quiz-opt-letter">ב</span>5,000₪</div>
+      <div class="quiz-option" onclick="answer('q7','wrong',this)"><span class="quiz-opt-letter">ג</span>50,000₪</div>
+    </div>
+    <div class="quiz-explain" id="q7-explain">✅ נכון! 5% מ-100,000₪ = 5,000₪. גם אם החברה תקרוס לגמרי — תפסיד רק 5% מהתיק.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH8 ══════════════════════════════════ -->
+<section class="chapter" id="ch8">
+  <div class="chapter-header">
+    <div class="chapter-num blue">08</div>
+    <div><div class="chapter-title">מאקרו — הסביבה שמשפיעה על הכל</div><div class="chapter-subtitle">ריבית הפד, אינפלציה, GDP — ואיפה עוקבים</div></div>
+  </div>
+
+  <p>גם אם בחרת מניה מעולה — אם הסביבה הכלכלית גרועה, היא עלולה לרדת. <strong>המאקרו הוא ה"רוח" שמניעה את הסירה.</strong></p>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">ריבית הפד (Federal Reserve Rate)</div><div class="metric-badges"><span class="badge badge-red">עולה = שוק לחוץ</span><span class="badge badge-green">יורדת = שוק שמח</span></div></div>
+    <div class="metric-desc">
+      הפד (הבנק המרכזי של ארה"ב) קובע את הריבית הבסיסית. ריבית גבוהה = הלוואות יקרות = חברות מרוויחות פחות = מניות יורדות.<br><br>
+      <strong>FOMC Meeting</strong> = ישיבת הפד, 8 פעמים בשנה. יום תנודתי מאוד.
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">אינפלציה — CPI ו-PCE</div><div class="metric-badges"><span class="badge badge-gold">יעד הפד: ~2%</span></div></div>
+    <div class="metric-desc">אינפלציה גבוהה → הפד מעלה ריבית → שוק יורד. אינפלציה נמוכה → הפד יכול להוריד ריבית → שוק עולה.</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">GDP — צמיחה כלכלית</div><div class="metric-badges"><span class="badge badge-green">חיובי = טוב</span><span class="badge badge-red">2 רבעונים שלילי = מיתון</span></div></div>
+    <div class="metric-desc">כמה הכלכלה גדלה. שני רבעונים רצופים שליליים = מיתון רשמי. מיתון לרוב = Bear Market.</div>
+  </div>
+
+  <h3>Sector Rotation — מה עובד מתי</h3>
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>מצב</th><th>סקטורים חזקים</th><th>סקטורים חלשים</th></tr></thead>
+      <tbody>
+        <tr><td>ריבית עולה</td><td style="color:var(--accent)">בנקים, אנרגיה</td><td style="color:var(--red)">טכנולוגיה, נדל"ן</td></tr>
+        <tr><td>ריבית יורדת</td><td style="color:var(--accent)">טכנולוגיה, נדל"ן</td><td style="color:var(--red)">בנקים</td></tr>
+        <tr><td>מיתון</td><td style="color:var(--accent)">בריאות, מצרכי יסוד</td><td style="color:var(--red)">צמיחה, יוקרה</td></tr>
+        <tr><td>שוק שורי</td><td style="color:var(--accent)">טכנולוגיה, צמיחה</td><td style="color:var(--red)">אגח, זהב</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">📱</div>
+    <div class="callout-body">
+      <div class="callout-title">איפה עוקבים אחרי נתוני מאקרו</div>
+      <strong>Investing.com</strong> — האפליקציה/אתר הכי מומלץ. יש שם "Economic Calendar" עם כל הנתונים הכלכליים הצפויים, פרסומים בזמן אמת, ריבית הפד, CPI ועוד.<br><br>
+      <strong>FRED (fred.stlouisfed.org)</strong> — אתר הבנק המרכזי. גרפים מלאים על ריבית, אינפלציה, GDP.<br><br>
+      <strong>Bloomberg / Reuters</strong> — חדשות פיננסיות עדכניות.
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 8</div>
+    <div class="quiz-q">הפד הודיע על העלאת ריבית של 0.5%. איזה סקטור צפוי להיפגע יותר?</div>
+    <div class="quiz-options" id="q8">
+      <div class="quiz-option" onclick="answer('q8','correct',this)"><span class="quiz-opt-letter">א</span>טכנולוגיה — חברות צמיחה עם הלוואות יקרות</div>
+      <div class="quiz-option" onclick="answer('q8','wrong',this)"><span class="quiz-opt-letter">ב</span>בנקים — הם נהנים מריבית גבוהה</div>
+      <div class="quiz-option" onclick="answer('q8','wrong',this)"><span class="quiz-opt-letter">ג</span>אנרגיה</div>
+    </div>
+    <div class="quiz-explain" id="q8-explain">✅ נכון! ריבית גבוהה פוגעת בחברות טכנולוגיה שנסחרות לפי ציפיות עתידיות — ריבית גבוהה "מוזילה" את ערכן.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH9 ══════════════════════════════════ -->
+<section class="chapter" id="ch9">
+  <div class="chapter-header">
+    <div class="chapter-num red">09</div>
+    <div><div class="chapter-title">פסיכולוגיה של המשקיע</div><div class="chapter-subtitle">האויב הכי גדול שלך — נמצא בראש שלך</div></div>
+  </div>
+
+  <p><strong>90% מהמשקיעים מפסידים לא בגלל ניתוח רע — אלא בגלל החלטות רגשיות.</strong></p>
+
+  <div class="psych-grid">
+    <div class="psych-card"><div class="psych-emoji">😱</div><div class="psych-name">FOMO</div><div class="psych-desc">מניה עלתה 50% ואתה קונה כי "היא ממשיכה לעלות". לרוב — נכנס בשיא ומפסיד.</div><div class="psych-fix">✅ פתרון: נתח לפני שתקנה. פספסת? המתן להזדמנות הבאה.</div></div>
+    <div class="psych-card"><div class="psych-emoji">😰</div><div class="psych-name">Panic Selling</div><div class="psych-desc">שוק יורד 15% → פחד → מוכר הכל → שוק מתאושש. המפסידים הגדולים מכרו בתחתית.</div><div class="psych-fix">✅ פתרון: הגדר Stop Loss מראש. אל תחליט תחת לחץ.</div></div>
+    <div class="psych-card"><div class="psych-emoji">🔒</div><div class="psych-name">Anchoring Bias</div><div class="psych-desc">"קניתי ב-$100, לא מוכר מתחת ל-$100." המחיר שקנית לא מעניין את השוק.</div><div class="psych-fix">✅ פתרון: שאל "האם הייתי קונה אותה היום?" — לא "כמה שילמתי".</div></div>
+    <div class="psych-card"><div class="psych-emoji">🤑</div><div class="psych-name">Overconfidence</div><div class="psych-desc">אחרי כמה הצלחות — מרגיש שאתה חכם מהשוק. מסתכן יותר מדי.</div><div class="psych-fix">✅ פתרון: תמיד 5% מקסימום. הצלחה = מזל + ניתוח.</div></div>
+    <div class="psych-card"><div class="psych-emoji">📓</div><div class="psych-name">Trading Journal</div><div class="psych-desc">תעד כל עסקה: למה קנית, מה ציפית, מה קרה. זה הכלי מספר 1 לשיפור.</div><div class="psych-fix">✅ כלי: Google Sheets פשוט. 5 דקות לכל עסקה.</div></div>
+    <div class="psych-card"><div class="psych-emoji">🎲</div><div class="psych-name">Gambler's Fallacy</div><div class="psych-desc">"ירדה 5 ימים — חייבת לעלות מחר." שוק לא פועל כמו קזינו.</div><div class="psych-fix">✅ פתרון: נתח פונדמנטלס — לא ספרי ימים.</div></div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">🧠</div>
+    <div class="callout-body">
+      <div class="callout-title">מה ו"ורן באפט אמר</div>
+      ו"ורן באפט (Warren Buffett) הוא המשקיע המצליח ביותר בהיסטוריה. הוא בנה הון של מאות מיליארדי דולרים בשיטת Buy &amp; Hold פשוטה.<br><br>
+      <em>"Be fearful when others are greedy, and greedy when others are fearful."</em><br>
+      <strong>קנה כשכולם פוחדים. מכור כשכולם נלהבים.</strong>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 9</div>
+    <div class="quiz-q">קנית ב-$100 ועכשיו $70. הפונדמנטלס חלשים. מה עושים?</div>
+    <div class="quiz-options" id="q9">
+      <div class="quiz-option" onclick="answer('q9','wrong',this)"><span class="quiz-opt-letter">א</span>מחזיק — "לא מוכר בהפסד"</div>
+      <div class="quiz-option" onclick="answer('q9','correct',this)"><span class="quiz-opt-letter">ב</span>מוכר ועובר לחברה טובה יותר</div>
+      <div class="quiz-option" onclick="answer('q9','wrong',this)"><span class="quiz-opt-letter">ג</span>קונה עוד — "זה זול"</div>
+    </div>
+    <div class="quiz-explain" id="q9-explain">✅ נכון! Anchoring Bias גורם לנו לחכות שיחזור ל-$100. אבל אם הפונדמנטלס חלשים — טוב יותר לצאת ולהשקיע את הכסף בחברה חזקה.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH10 ══════════════════════════════════ -->
+<section class="chapter" id="ch10">
+  <div class="chapter-header">
+    <div class="chapter-num purple">10</div>
+    <div><div class="chapter-title">ברוקרים — איפה פותחים חשבון</div><div class="chapter-subtitle">ישראלים ובינלאומיים + שלבי פתיחת חשבון</div></div>
+  </div>
+
+  <div class="broker-card">
+    <div class="broker-icon">🏦</div>
+    <div class="broker-info">
+      <div class="broker-name">מיטב / אקסלנס / IBI</div>
+      <div class="broker-desc">ברוקרים ישראלים מסורתיים. שירות בעברית, מס מנוכה אוטומטית. עמלות: כ-$10–15 לעסקה.</div>
+      <div class="broker-tags"><span class="badge badge-green">מס אוטומטי</span><span class="badge badge-blue">שירות בעברית</span><span class="badge badge-red">עמלות גבוהות</span></div>
+    </div>
+  </div>
+  <div class="broker-card">
+    <div class="broker-icon">📱</div>
+    <div class="broker-info">
+      <div class="broker-name">Interactive Brokers ישראל</div>
+      <div class="broker-desc">עמלות נמוכות מאוד, מס אוטומטי. פלטפורמה מתקדמת — קצת מורכבת למתחילים.</div>
+      <div class="broker-tags"><span class="badge badge-green">עמלות נמוכות</span><span class="badge badge-green">מס אוטומטי</span><span class="badge badge-gold">ממשק מורכב</span></div>
+    </div>
+  </div>
+  <div class="broker-card">
+    <div class="broker-icon">🟡</div>
+    <div class="broker-info">
+      <div class="broker-name">eToro</div>
+      <div class="broker-desc">קל לשימוש, חשבון דמו מובנה. עמלה דרך Spread. דיווח מס עצמי.</div>
+      <div class="broker-tags"><span class="badge badge-green">קל לשימוש</span><span class="badge badge-blue">חשבון דמו</span><span class="badge badge-red">דיווח מס עצמי</span></div>
+    </div>
+  </div>
+  <div class="broker-card">
+    <div class="broker-icon">🟢</div>
+    <div class="broker-info">
+      <div class="broker-name">Interactive Brokers (IBKR)</div>
+      <div class="broker-desc">פופולרי מאוד בישראל. עמלות מינימליות, גישה לכל השווקים. דיווח מס עצמי.</div>
+      <div class="broker-tags"><span class="badge badge-green">עמלות מינימליות</span><span class="badge badge-blue">כל השווקים</span><span class="badge badge-red">דיווח מס עצמי</span></div>
+    </div>
+  </div>
+
+  <h3>שלבי פתיחת חשבון</h3>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">הרשמה באתר</div><div class="step-desc">מלא שם, ת"ז, כתובת, טלפון, אימייל.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">אימות זהות (KYC)</div><div class="step-desc">העלה תצלום ת"ז (קדמי + אחורי) ואישור כתובת (חשבון בנק / חשבון חשמל). לרוב לוקח 1-3 ימי עסקים.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">שאלון ניסיון</div><div class="step-desc">הברוקר ישאל על ניסיון בהשקעות. היה כן — זה להגנתך.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">הפקדה</div><div class="step-desc">העברה בנקאית. eToro מקבל גם כרטיס אשראי.</div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">מסחר ראשון ✅</div><div class="step-desc">חפש Ticker, בחר כמות, בחר Market/Limit Order, לחץ Buy.</div></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ CH11 ══════════════════════════════════ -->
+<section class="chapter" id="ch11">
+  <div class="chapter-header">
+    <div class="chapter-num red">11</div>
+    <div><div class="chapter-title">חשבון דמו + המעבר לכסף אמיתי</div><div class="chapter-subtitle">תוכנית 60 יום מדמו לתיק אמיתי</div></div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🎮</div>
+    <div class="callout-body">
+      <div class="callout-title">חשבון דמו — איפה פותחים</div>
+      <strong>eToro:</strong> הרשם → Virtual Portfolio → $100,000 וירטואלי<br>
+      <strong>TradingView:</strong> Paper Trading — ישירות בגרפים<br>
+      <strong>IBKR:</strong> Paper Trading Account בחינם
+    </div>
+  </div>
+
+  <h3>תוכנית 60 יום</h3>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">ימים 1–7: הכרת הפלטפורמה</div><div class="step-desc">קנה 5 מניות שאתה מכיר — רק כדי ללמוד את הממשק.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">ימים 8–14: ניתוח עם StockLens</div><div class="step-desc">נתח כל מניה שקנית. האם הקנייה מוצדקת פונדמנטלית?</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ימים 15–21: גרפים ב-TradingView</div><div class="step-desc">הוסף MA50, MA200, RSI לכל מניה. תתרגל לקרוא גרף.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">ימים 22–30: בנה תיק מאוזן</div><div class="step-desc">מכור מניות שלא עמדו בצ'קליסט. בנה ETF 50% + מניות 30% + סקטור 20%.</div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">ימים 31–45: Earnings Season</div><div class="step-desc">עקוב אחרי דוחות רבעוניים. ראה כמה המחיר זז ביום הדוח.</div></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title">ימים 46–60: Trading Journal</div><div class="step-desc">תעד כל עסקה: למה קנית, מה ציפית, מה קרה. זה הלימוד האמיתי.</div></div></div>
+  </div>
+
+  <h3>צ'קליסט — מוכן לכסף אמיתי?</h3>
+  <div class="checklist">
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>הרווחתי (או לא הפסדתי הרבה) בדמו לאורך 30+ יום</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>אני מבין למה כל מניה בתיק שלי</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>יש לי Trading Journal עם לפחות 10 עסקאות</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>פתחתי חשבון ברוקר ועשיתי KYC</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>קבעתי סכום שאני מוכן להשקיע (שאני יכול להפסיד)</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>יודע להשתמש ב-Limit Order, Stop Loss, Market Order</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>יודע לקרוא גרף ב-TradingView</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span>קראתי ופעלתי לפי צ'קליסט הקנייה של StockLens</span></div>
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-icon">🚫</div>
+    <div class="callout-body">
+      <div class="callout-title">7 דברים שאסור לעשות</div>
+      1. להשקיע יותר ממה שאתה מוכן להפסיד<br>
+      2. לקנות על בסיס טיפ ב-TikTok / Reddit<br>
+      3. לשים הכל בחברה אחת<br>
+      4. לנסות לתזמן את השוק<br>
+      5. למכור בפאניקה בכל ירידה<br>
+      6. לקנות בלי לנתח<br>
+      7. להתעלם מ-Stop Loss
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <h3>✅ עכשיו אתה מוכן להתחיל</h3>
+    <p style="color:var(--text2);margin:10px 0">פתח דמו, נתח חברות ב-StockLens, תקרא גרפים ב-TradingView — ואז תתחיל לבנות את התיק האמיתי שלך.</p>
+    <a href="https://lidorfiliba.github.io/StockLens/" target="_blank" class="demo-link">פתח StockLens →</a>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 בדיקת הבנה — פרק 11</div>
+    <div class="quiz-q">כמה זמן מומלץ לתרגל בדמו לפני שעוברים לכסף אמיתי?</div>
+    <div class="quiz-options" id="q11">
+      <div class="quiz-option" onclick="answer('q11','wrong',this)"><span class="quiz-opt-letter">א</span>יום אחד מספיק</div>
+      <div class="quiz-option" onclick="answer('q11','correct',this)"><span class="quiz-opt-letter">ב</span>לפחות 30–60 יום</div>
+      <div class="quiz-option" onclick="answer('q11','wrong',this)"><span class="quiz-opt-letter">ג</span>אין צורך בדמו</div>
+    </div>
+    <div class="quiz-explain" id="q11-explain">✅ נכון! 30-60 יום מאפשר לך להתמודד עם לפחות Earnings Season אחד ולראות תנודות אמיתיות בלי לסכן כסף.</div>
+  </div>
+</section>
+
+<!-- COMPLETION -->
+<div class="completion-banner">
+  <div class="completion-icon">🏆</div>
+  <div class="completion-title">כל הכבוד — סיימת את הקורס!</div>
+  <p class="completion-text">11 פרקים, 11 בדיקות הבנה, צ'קליסטים וכלים מעשיים. הדרך להצלחה: <strong>סבלנות, משמעת, ולמידה מתמדת.</strong></p>
+  <a href="https://lidorfiliba.github.io/StockLens/" target="_blank" class="demo-link">צא לדרך עם StockLens →</a>
+  <div class="completion-author">קורס זה נוצר על ידי <b>Lidor Filiba</b> · StockLens Academy<br>אינו מהווה ייעוץ השקעות · ביצועי עבר אינם ערובה לעתיד</div>
+</div>
+
+</div><!-- /course-wrap -->
+</div><!-- /main-content -->
+
+<script>
+
+/* ══════════════════════════════════════
+   AUTH SYSTEM — Supabase
+══════════════════════════════════════ */
+const SB_URL = 'https://flcakringwxebpeifhke.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsY2FrcmluZ3d4ZWJwZWlmaGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTIwMjAsImV4cCI6MjA4OTA4ODAyMH0.-j-id8o3FeYig15Xmq6QHV4eDMXUB98e3Z8p30Eaf2U';
+const ADMIN_USER = 'lidor_admin';
+
+// Simple hash function (SHA-256 via SubtleCrypto)
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password + 'sl_salt_2024');
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function sbFetch(path, options = {}) {
+  const r = await fetch(SB_URL + '/rest/v1/' + path, {
+    ...options,
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...(options.headers || {})
+    }
+  });
+  if (!r.ok) {
+    const err = await r.text();
+    throw new Error(err);
+  }
+  return r.json();
+}
+
+// Check session on load
+(function() {
+  const session = sessionStorage.getItem('sl_course_user');
+  if (session) {
+    const user = JSON.parse(session);
+    showCourse(user);
+  }
+})();
+
+function switchLoginTab(tab) {
+  document.querySelectorAll('.login-tab').forEach((el, i) => {
+    el.classList.toggle('active', ['login','change'][i] === tab);
+  });
+  document.querySelectorAll('.login-tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+async function doLogin() {
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('login-submit-btn');
+
+  if (!username || !password) { errEl.textContent = 'מלא שם משתמש וסיסמה'; return; }
+  errEl.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'מתחבר...';
+
+  try {
+    const hash = await hashPassword(password);
+    const data = await sbFetch('users?username=eq.' + encodeURIComponent(username) + '&select=*');
+    
+    if (!data || data.length === 0) {
+      errEl.textContent = 'שם משתמש לא נמצא';
+      btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
+      return;
+    }
+
+    const user = data[0];
+    if (!user.is_active) {
+      errEl.textContent = 'החשבון מושהה. פנה ל-Lidor Filiba';
+      btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
+      return;
+    }
+    if (user.password_hash !== hash) {
+      errEl.textContent = 'סיסמה שגויה';
+      btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
+      return;
+    }
+
+    sessionStorage.setItem('sl_course_user', JSON.stringify({
+      id: user.id, username: user.username, email: user.email, isAdmin: user.username === ADMIN_USER
+    }));
+    showCourse({ id: user.id, username: user.username, email: user.email, isAdmin: user.username === ADMIN_USER });
+  } catch(e) {
+    errEl.textContent = 'שגיאת חיבור — נסה שוב';
+    console.error(e);
+  }
+  btn.disabled = false;
+  btn.textContent = 'כניסה לקורס ←';
+}
+
+function showCourse(user) {
+  document.getElementById('login-gate').classList.add('hidden');
+  document.getElementById('main-content').style.display = 'block';
+  
+  // Show user menu
+  const menuBtn = document.getElementById('user-menu-btn');
+  menuBtn.classList.add('visible');
+  document.getElementById('user-menu-label').textContent = '👤 ' + user.username + (user.isAdmin ? ' ⚙️' : '');
+
+  // Admin shortcut
+  if (user.isAdmin) {
+    menuBtn.innerHTML = '<span>👤 ' + user.username + '</span><span style="color:var(--accent)">⚙ ניהול</span>';
+  }
+}
+
+function showUserMenu() {
+  const user = JSON.parse(sessionStorage.getItem('sl_course_user') || '{}');
+  if (user.isAdmin) {
+    openAdmin();
+  } else {
+    if (confirm('👤 ' + user.username + '\n\nרוצה להתנתק?')) {
+      sessionStorage.removeItem('sl_course_user');
+      location.reload();
+    }
+  }
+}
+
+async function doChangePassword() {
+  const username = document.getElementById('cp-username').value.trim();
+  const email = document.getElementById('cp-email').value.trim();
+  const oldPass = document.getElementById('cp-old-pass').value;
+  const newPass = document.getElementById('cp-new-pass').value;
+  const errEl = document.getElementById('cp-error');
+  const sucEl = document.getElementById('cp-success');
+  errEl.textContent = ''; sucEl.textContent = '';
+
+  if (!username || !email || !oldPass || !newPass) { errEl.textContent = 'מלא את כל השדות'; return; }
+  if (newPass.length < 6) { errEl.textContent = 'סיסמה חדשה חייבת להיות לפחות 6 תווים'; return; }
+
+  try {
+    const oldHash = await hashPassword(oldPass);
+    const data = await sbFetch('users?username=eq.' + encodeURIComponent(username) + '&email=eq.' + encodeURIComponent(email));
+    
+    if (!data || data.length === 0) { errEl.textContent = 'שם משתמש או אימייל שגויים'; return; }
+    const user = data[0];
+    if (user.password_hash !== oldHash) { errEl.textContent = 'סיסמה נוכחית שגויה'; return; }
+    
+    const newHash = await hashPassword(newPass);
+    await sbFetch('users?id=eq.' + user.id, {
+      method: 'PATCH',
+      body: JSON.stringify({ password_hash: newHash })
+    });
+    sucEl.textContent = '✅ הסיסמה שונתה בהצלחה! עכשיו תוכל להתחבר.';
+    document.getElementById('cp-old-pass').value = '';
+    document.getElementById('cp-new-pass').value = '';
+  } catch(e) {
+    errEl.textContent = 'שגיאה — נסה שוב';
+    console.error(e);
+  }
+}
+
+// ── ADMIN FUNCTIONS ──
+function openAdmin() {
+  document.getElementById('admin-panel').classList.add('open');
+  loadAdminUsers();
+}
+
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
+}
+
+async function loadAdminUsers() {
+  const listEl = document.getElementById('admin-users-list');
+  try {
+    const data = await sbFetch('users?select=id,username,email,is_active,created_at&order=created_at.desc');
+    if (!data || data.length === 0) {
+      listEl.innerHTML = '<div style="color:var(--muted);font-size:.82rem">אין משתמשים עדיין</div>';
+      return;
+    }
+    listEl.innerHTML = data.map(u => `
+      <div class="admin-user-item">
+        <div class="admin-user-info">
+          <div class="admin-user-name">@${u.username}</div>
+          <div class="admin-user-email">${u.email}</div>
+        </div>
+        <button class="admin-user-toggle ${u.is_active ? 'admin-user-active' : 'admin-user-inactive'}"
+          onclick="adminToggleUser('${u.id}',${u.is_active})">
+          ${u.is_active ? '🔴 השהה' : '🟢 הפעל'}
+        </button>
+      </div>
+    `).join('');
+  } catch(e) {
+    listEl.innerHTML = '<div style="color:var(--red)">שגיאה בטעינה</div>';
+  }
+}
+
+async function adminCreateUser() {
+  const username = document.getElementById('new-username').value.trim();
+  const email = document.getElementById('new-email').value.trim();
+  const password = document.getElementById('new-password').value;
+  const msgEl = document.getElementById('admin-create-msg');
+  msgEl.className = 'admin-msg';
+
+  if (!username || !email || !password) { msgEl.textContent = 'מלא את כל השדות'; msgEl.classList.add('err'); return; }
+  if (password.length < 6) { msgEl.textContent = 'סיסמה חייבת להיות לפחות 6 תווים'; msgEl.classList.add('err'); return; }
+
+  try {
+    const hash = await hashPassword(password);
+    await sbFetch('users', {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password_hash: hash, is_active: true })
+    });
+    msgEl.textContent = '✅ המשתמש ' + username + ' נוצר בהצלחה!';
+    msgEl.classList.add('ok');
+    document.getElementById('new-username').value = '';
+    document.getElementById('new-email').value = '';
+    document.getElementById('new-password').value = '';
+    loadAdminUsers();
+  } catch(e) {
+    const msg = e.message.includes('duplicate') ? 'שם משתמש או אימייל כבר קיים' : 'שגיאה — נסה שוב';
+    msgEl.textContent = msg;
+    msgEl.classList.add('err');
+    console.error(e);
+  }
+}
+
+async function adminToggleUser(id, currentActive) {
+  try {
+    await sbFetch('users?id=eq.' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({ is_active: !currentActive })
+    });
+    loadAdminUsers();
+  } catch(e) {
+    alert('שגיאה בעדכון');
+  }
+}
+
+// Enter key on login
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !document.getElementById('login-gate').classList.contains('hidden')) {
+    doLogin();
+  }
+});
+
+// DISCLAIMER
+let checks = {1:false, 2:false};
+function toggleDisc(n){
+  const el = document.getElementById('disc-check'+n);
+  checks[n] = !checks[n];
+  el.classList.toggle('checked', checks[n]);
+  const btn = document.getElementById('disc-btn');
+  const allChecked = checks[1] && checks[2];
+  btn.classList.toggle('active', allChecked);
+}
+function startCourse(){
+  document.getElementById('disclaimer-gate').classList.add('hidden');
+  document.getElementById('main-content').style.display = 'block';
+  sessionStorage.setItem('disc_ok','1'); // resets on new tab
+}
+if(sessionStorage.getItem('disc_ok')==='1'){
+  document.getElementById('disclaimer-gate').classList.add('hidden');
+  document.getElementById('main-content').style.display='block';
+}
+
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const doc=document.documentElement;
+  const pct=(doc.scrollTop/(doc.scrollHeight-doc.clientHeight))*100;
+  document.getElementById('progressBar').style.width=Math.min(pct,100)+'%';
+});
+
+// Intersection Observer
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      const id=e.target.id;
+      document.querySelectorAll('.nav-ch').forEach(b=>{
+        b.classList.toggle('active',b.getAttribute('onclick')?.includes(id));
+      });
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.chapter').forEach(ch=>obs.observe(ch));
+
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+
+// Quiz
+function answer(qId,type,el){
+  const c=document.getElementById(qId);
+  if(c.dataset.answered)return;
+  c.dataset.answered='1';
+  el.classList.add(type);
+  c.querySelectorAll('.quiz-option').forEach(o=>{if(o!==el)o.classList.add('disabled');});
+  const exp=document.getElementById(qId+'-explain');
+  if(exp)exp.classList.add('show');
+}
+
+function toggleCheck(el){el.classList.toggle('done');}
+</script>
+</body>
+</html>
