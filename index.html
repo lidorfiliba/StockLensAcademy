@@ -19,7 +19,8 @@
   --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-height:1.75;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-height:1.75;}
+.course-outer-wrap{overflow-x:hidden;}
 
 /* DISCLAIMER GATE */
 #disclaimer-gate{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -533,7 +534,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   </div>
 </div>
 
-<div id="main-content" style="display:none">
+<div class="course-outer-wrap"><div id="main-content" style="display:none">
 
 <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
 
@@ -3797,7 +3798,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <a href="https://lidorfiliba.github.io/StockLens/" target="_blank" class="demo-link" style="margin-top:20px">צא לדרך עם StockLens →</a>
   <div class="completion-author" style="margin-top:20px">קורס זה נוצר על ידי <b>Lidor Filiba</b> · StockLens Academy<br>אינו מהווה ייעוץ השקעות · ביצועי עבר אינם ערובה לעתיד</div>
 </div>
-</div><!-- /main-content -->
+</div><!-- /main-content --></div><!-- /course-outer-wrap -->
 
 <script>
 
