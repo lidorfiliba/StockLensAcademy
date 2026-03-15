@@ -566,6 +566,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <button class="nav-ch" onclick="scrollToId('ch7')">8. אסטרטגיות</button>
     <button class="nav-ch" onclick="scrollToId('ch9')">9. פסיכולוגיה</button>
     <button class="nav-ch" onclick="scrollToId('ch10')">10. ברוקרים</button>
+    <button class="nav-ch" onclick="scrollToId('glossary')">📖 גלוסרי</button>
     <button class="nav-ch" onclick="scrollToId('ch11')">11. דמו</button>
   </div>
 </nav>
@@ -722,6 +723,28 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     </div>
     <div class="quiz-explain" id="q1-explain">✅ נכון! (160−200) ÷ 200 × 100 = −20%. הפסד של $40 על $200 = 20% הפסד.</div>
   </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק 1</div>
+      1. פתח <strong>finance.yahoo.com</strong> וחפש מניה שאתה מכיר (AAPL, TSLA, AMZN)<br>
+      2. מצא את מחיר הנוכחי ומחיר לפני שנה<br>
+      3. חשב: מה הייתה התשואה אם היית קונה לפני שנה?<br>
+      4. בדוק: האם המניה בשוק שורי או דובי עכשיו?<br><br>
+      <strong>זמן: 10 דקות. זה הניתוח הראשון שלך.</strong>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 שאלה נוספת — פרק 1</div>
+    <div class="quiz-q">מניה עלתה 50% בשבוע אחד בלי שינוי בפונדמנטלס. מה הגישה הנכונה?</div>
+    <div class="quiz-options" id="q1b">
+      <div class="quiz-option" onclick="answer('q1b','wrong',this)"><span class="quiz-opt-letter">א</span>לקנות מיד — המניה חזקה</div>
+      <div class="quiz-option" onclick="answer('q1b','correct',this)"><span class="quiz-opt-letter">ב</span>לנתח בזהירות — עלייה חדה ללא סיבה = סיכון FOMO</div>
+      <div class="quiz-option" onclick="answer('q1b','wrong',this)"><span class="quiz-opt-letter">ג</span>למכור בשורט — בטוח תרד</div>
+    </div>
+    <div class="quiz-explain" id="q1b-explain">✅ נכון! עלייה חדה ללא שינוי פונדמנטלי היא לרוב Momentum ספקולטיבי. זה הזמן לנתח — לא לקפוץ.</div>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════ CH2 ══════════════════════════════════ -->
@@ -810,6 +833,28 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="quiz-option" onclick="answer('q2','wrong',this)"><span class="quiz-opt-letter">ג</span>תשואה שנתית ממוצעת</div>
     </div>
     <div class="quiz-explain" id="q2-explain">✅ נכון! VIX גבוה = שוק לא יציב ופחדן. הוא לא אומר לאן ילך השוק — רק שהתנודתיות גבוהה.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק 2</div>
+      1. פתח <strong>tradingview.com</strong> וחפש SPY (S&P 500 ETF)<br>
+      2. שנה לגרף שנתי (1W) — האם אנחנו ב-Bull או Bear Market?<br>
+      3. חפש QQQ ו-IWM — איזה מדד ביצע טוב יותר ב-12 חודשים האחרונים?<br>
+      4. בדוק את VIX — מה הרמה היום ומה זה אומר?<br><br>
+      <strong>זמן: 15 דקות. עכשיו אתה קורא שוק.</strong>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 שאלה נוספת — פרק 2</div>
+    <div class="quiz-q">ETF עם Expense Ratio של 0.03% vs קרן נאמנות עם 1.5%. על $100,000 לאורך 30 שנה — מה ההפרש המשוער?</div>
+    <div class="quiz-options" id="q2b">
+      <div class="quiz-option" onclick="answer('q2b','wrong',this)"><span class="quiz-opt-letter">א</span>כמה מאות שקל — לא משמעותי</div>
+      <div class="quiz-option" onclick="answer('q2b','correct',this)"><span class="quiz-opt-letter">ב</span>עשרות-מאות אלפי שקל — דמי ניהול מצטברים דרמטית</div>
+      <div class="quiz-option" onclick="answer('q2b','wrong',this)"><span class="quiz-opt-letter">ג</span>זהה — הביצועים מפצים</div>
+    </div>
+    <div class="quiz-explain" id="q2b-explain">✅ נכון! 1.47% הפרש שנתי × 30 שנה × ריבית דריבית = מאות אלפי שקל. דמי ניהול הם "הסוכר שבא עם הקפה" — מרגישים קטן, צורבים הרבה.</div>
   </div>
 </section>
 
@@ -911,6 +956,18 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="quiz-option" onclick="answer('q3','wrong',this)"><span class="quiz-opt-letter">ג</span>Stop Loss</div>
     </div>
     <div class="quiz-explain" id="q3-explain">✅ נכון! Limit Order ב-$150 — ההוראה תשב ותחכה. אם המחיר יגיע ל-$150 — תתבצע הקנייה.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק 3</div>
+      1. פתח חשבון דמו ב-eToro (חינמי, $100K וירטואלי)<br>
+      2. בחר מניה שמעניינת אותך<br>
+      3. שלח <strong>Limit Order</strong> 3% מתחת למחיר הנוכחי<br>
+      4. שלח <strong>Stop Loss</strong> 8% מתחת למחיר הכניסה<br>
+      5. תעד ב-Journal: למה בחרת את המניה? מה הציפייה?<br><br>
+      <strong>זמן: 20 דקות. העסקה הראשונה שלך — בלי כסף אמיתי.</strong>
+    </div>
   </div>
 </section>
 
@@ -1141,8 +1198,63 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     </div>
   </div>
 
-  <h3>ניתוח חברה מהתחלה לסוף — דוגמה מלאה על NVDA</h3>
-  <p>בואו ניקח את כל מה שלמדנו ונעשה ניתוח מלא על חברה אמיתית. זה בדיוק מה שאתה אמור לעשות לפני כל קנייה.</p>
+  <h3>ניתוח חברה מהתחלה לסוף — Case Study מלא על NVDA</h3>
+  <p>זהו הדבר הכי חשוב בקורס. בואו ניקח מניה אמיתית ונעבור על <strong>כל שלב</strong> של תהליך הניתוח — בדיוק כפי שעושים אותו בפועל לפני לחיצה על Buy.</p>
+
+  <div class="callout info">
+    <div class="callout-icon">🗺️</div>
+    <div class="callout-body">
+      <div class="callout-title">תהליך הניתוח המלא — 5 שלבים</div>
+      <strong>שלב 1: מאקרו</strong> — האם הסביבה הכלכלית תומכת בקנייה?<br>
+      <strong>שלב 2: סקטור</strong> — האם הסקטור חזק?<br>
+      <strong>שלב 3: פונדמנטלי</strong> — האם החברה עצמה חזקה?<br>
+      <strong>שלב 4: טכני</strong> — האם הזמן נכון? (Top-Down: חודשי → שבועי → יומי)<br>
+      <strong>שלב 5: החלטה</strong> — קנייה / המתנה / לא רלוונטי
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">Case Study מלא — NVIDIA (NVDA) — לצרכי לימוד בלבד</div>
+    <div class="example-calc" style="line-height:2.4">
+
+      <strong style="color:var(--accent);font-size:.95rem">📍 שלב 1: מאקרו</strong><br>
+      ריבית הפד: מגמת הורדה ריבית = חיובי לצמיחה טכנולוגית.<br>
+      CPI: ירד מ-9% ל-3% — אינפלציה בשליטה = פד פחות אגרסיבי.<br>
+      GDP: צמיחה חיובית — אין מיתון בפתח.<br>
+      <span style="color:var(--accent)">✅ מאקרו תומך — סביבה נוחה לצמיחה.</span><br><br>
+
+      <strong style="color:var(--accent);font-size:.95rem">📍 שלב 2: סקטור</strong><br>
+      סקטור טכנולוגיה (XLK): בשנה האחרונה +28% לעומת S&P +18%.<br>
+      AI ו-Semiconductors: הסקטור החם ביותר — ביקוש לGPU פורץ שיאים.<br>
+      SOX (מדד ציפים): במגמת עלייה חזקה.<br>
+      <span style="color:var(--accent)">✅ סקטור חזק — רוח גבית.</span><br><br>
+
+      <strong style="color:var(--accent);font-size:.95rem">📍 שלב 3: פונדמנטלי</strong><br>
+      P/E: ~55 — גבוה, אבל Revenue גדל +120% YoY. השוק מתמחר AI.<br>
+      EPS: קפץ מ-$0.57 ל-$2.97 (+420% בשנה) — צמיחה חריגה.<br>
+      Gross Margin: 74% — אחד הגבוהים בעולם הטכנולוגיה.<br>
+      FCF: $26B+ חיובי וגדל — כסף אמיתי נכנס לקופה.<br>
+      חוב: נמוך ביחס לנכסים — חברה סולידית.<br>
+      Moat: פלטפורמת CUDA — 10+ שנים של lock-in מפתחים. קשה מאוד להחליף.<br>
+      Insider: מנהלים מוכרים (נורמלי לאחר RSU vesting) — לא מדאיג.<br>
+      <span style="color:var(--accent)">✅ פונדמנטלס יוצאי דופן — הצדקה לפרמיה.</span><br><br>
+
+      <strong style="color:var(--accent);font-size:.95rem">📍 שלב 4: טכני (Top-Down)</strong><br>
+      <strong>גרף חודשי (1M):</strong> מגמת עלייה ברורה. MA200 הרחק מתחת למחיר. RSI חודשי: 72 — חם אבל לא קיצוני לחברת צמיחה.<br>
+      <strong>גרף שבועי (1W):</strong> תיקון של 15% אחרי שיא. נגע ב-EMA21 ומיתאושש. Volume ירד בירידה (ירידה חלשה = מעט מוכרים).<br>
+      <strong>גרף יומי (1D):</strong> יצירת Higher Low. פריצה מעל EMA9. RSI: 58 — יש מקום לעלות. Volume עלה בעלייה — קנייה אמיתית.<br>
+      <span style="color:var(--accent)">✅ תזמון טוב — תיקון בריא, כניסה לאחר אישור מגמה.</span><br><br>
+
+      <strong style="color:var(--gold);font-size:.95rem">📍 שלב 5: החלטה</strong><br>
+      כניסה: $450 (אחרי אישור פריצה)<br>
+      Stop Loss: $405 — מתחת ל-Support השבועי האחרון (10% סיכון)<br>
+      מטרה 1: $510 (+13%) — Resistance ישן<br>
+      מטרה 2: $560 (+24%) — שיא היסטורי<br>
+      R:R: 1:2.4 — הגיוני לקנייה ✅<br>
+      גודל פוזיציה: לפי כלל 1% — אם תיק $100K, מקסימום $1,000 סיכון = ~22 מניות
+    </div>
+    <div class="example-result">⚠️ דוגמה לימודית בלבד. מספרים לצרכי הדגמה — לא המלצת השקעה. תמיד עשה ניתוח עדכני.</div>
+  </div>
 
   <div class="example-box">
     <div class="example-label">ניתוח — NVIDIA (NVDA) — דוגמה לצורכי לימוד בלבד</div>
@@ -1286,6 +1398,29 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     </div>
     <div class="quiz-explain" id="q4-explain">✅ נכון! FCF שלילי אומר שלחברה אין מזומן פנוי למרות הרווח. לפעמים זה בגלל השקעה גדולה (לא נורא) — אבל חשוב להבין למה.</div>
   </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק 4</div>
+      1. פתח <strong>stockanalysis.com</strong> וחפש מניה שמעניינת אותך<br>
+      2. רשום: P/E, EPS Growth, Profit Margin, FCF<br>
+      3. חפש 2 מתחרים ישירים — השווה את אותם מדדים<br>
+      4. שאל: האם החברה שבחרת <em>יותר טובה</em> מהמתחרים? מדוע?<br>
+      5. תן ציון 1-10 לכל חברה על בסיס הניתוח שלך<br><br>
+      <strong>זמן: 30 דקות. זה ניתוח פונדמנטלי אמיתי.</strong>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 שאלה נוספת — פרק 4</div>
+    <div class="quiz-q">חברה מציגה Net Income חיובי אבל Free Cash Flow שלילי. מה זה מרמז?</div>
+    <div class="quiz-options" id="q4b">
+      <div class="quiz-option" onclick="answer('q4b','wrong',this)"><span class="quiz-opt-letter">א</span>הכל תקין — רווח חשבונאי הוא העיקר</div>
+      <div class="quiz-option" onclick="answer('q4b','correct',this)"><span class="quiz-opt-letter">ב</span>יש בעיה — החברה לא מייצרת מזומן אמיתי למרות "הרווח"</div>
+      <div class="quiz-option" onclick="answer('q4b','wrong',this)"><span class="quiz-opt-letter">ג</span>זה נורמלי לכל חברה</div>
+    </div>
+    <div class="quiz-explain" id="q4b-explain">✅ נכון! FCF שלילי עם Net Income חיובי אומר שהחברה "מבשלת" ספרים או שהיא בהשקעה מאסיבית (CapEx). חייבים להבין למה לפני שמשקיעים.</div>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════ CH5 ══════════════════════════════════ -->
@@ -1295,7 +1430,278 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div><div class="chapter-title">איך קוראים גרף מניה</div><div class="chapter-subtitle">נרות יפניים, ממוצעים נעים, אינדיקטורים ו-TradingView</div></div>
   </div>
 
-  <p>גרף מניה נראה מפחיד בהתחלה — אבל אחרי שמבינים אותו הוא הכלי הכי חזק שיש. בפרק הזה נלמד <strong>מאפס</strong> איך לקרוא גרף.</p>
+  <p>גרף מניה נראה מפחיד בהתחלה — אבל אחרי שמבינים אותו הוא הכלי הכי חזק שיש. בפרק הזה נלמד <strong>מאפס</strong> איך לקרוא גרף — כולל גרפים מלאים שיראו לך בדיוק על מה אתה מסתכל.</p>
+
+  <!-- ═══ FULL CHART VISUAL ═══ -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:20px;margin:24px 0;">
+    <div style="font-size:.7rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;text-align:center;font-weight:700">📊 גרף מלא — כל האלמנטים שתראה כשתפתח TradingView</div>
+
+    <svg viewBox="0 0 700 420" style="width:100%;max-width:700px;display:block;margin:0 auto;font-family:monospace" dir="ltr">
+      <!-- Background -->
+      <rect width="700" height="420" fill="#0a0d1a" rx="8"/>
+
+      <!-- Grid lines -->
+      <g stroke="#1a1f35" stroke-width="1">
+        <line x1="60" y1="40" x2="680" y2="40"/>
+        <line x1="60" y1="95" x2="680" y2="95"/>
+        <line x1="60" y1="150" x2="680" y2="150"/>
+        <line x1="60" y1="205" x2="680" y2="205"/>
+        <line x1="60" y1="260" x2="680" y2="260"/>
+        <line x1="60" y1="315" x2="680" y2="315"/>
+        <line x1="120" y1="35" x2="120" y2="340"/>
+        <line x1="210" y1="35" x2="210" y2="340"/>
+        <line x1="300" y1="35" x2="300" y2="340"/>
+        <line x1="390" y1="35" x2="390" y2="340"/>
+        <line x1="480" y1="35" x2="480" y2="340"/>
+        <line x1="570" y1="35" x2="570" y2="340"/>
+      </g>
+
+      <!-- Price axis (Y) -->
+      <g fill="#5a6080" font-size="10" text-anchor="end">
+        <text x="55" y="44">$210</text>
+        <text x="55" y="99">$195</text>
+        <text x="55" y="154">$180</text>
+        <text x="55" y="209">$165</text>
+        <text x="55" y="264">$150</text>
+        <text x="55" y="319">$135</text>
+      </g>
+
+      <!-- Time axis (X) -->
+      <g fill="#5a6080" font-size="9" text-anchor="middle">
+        <text x="120" y="355">Jan</text>
+        <text x="210" y="355">Feb</text>
+        <text x="300" y="355">Mar</text>
+        <text x="390" y="355">Apr</text>
+        <text x="480" y="355">May</text>
+        <text x="570" y="355">Jun</text>
+      </g>
+
+      <!-- MA200 (red) -->
+      <polyline points="60,280 120,272 180,265 240,258 300,252 360,248 420,240 480,232 540,225 570,220 640,215 680,210"
+        fill="none" stroke="#ff5f57" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7"/>
+
+      <!-- MA50 (orange) -->
+      <polyline points="60,255 120,248 180,238 240,228 300,218 360,210 420,198 480,188 540,178 570,172 640,165 680,158"
+        fill="none" stroke="#f7a048" stroke-width="1.8" opacity="0.85"/>
+
+      <!-- EMA20 (blue) -->
+      <polyline points="60,242 90,230 120,222 150,215 180,205 210,195 240,185 270,178 300,170 330,162 360,155 390,148 420,142 450,136 480,130 510,124 540,118 570,112 600,108 640,104 680,100"
+        fill="none" stroke="#5aabff" stroke-width="1.5" opacity="0.8"/>
+
+      <!-- Area fill under price -->
+      <path d="M60,242 90,225 120,218 150,228 180,210 210,195 240,182 270,165 300,158 330,148 360,138 390,128 420,118 450,125 480,108 510,98 540,88 570,78 600,72 640,65 680,58 680,340 60,340Z"
+        fill="url(#areaGrad)" opacity="0.15"/>
+      <defs>
+        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00e5a0" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#00e5a0" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Candles -->
+      <!-- Candle 1 green -->
+      <line x1="75" y1="228" x2="75" y2="248" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="70" y="228" width="10" height="14" fill="#00e5a0" rx="1"/>
+      <line x1="75" y1="242" x2="75" y2="255" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <!-- Candle 2 red -->
+      <line x1="100" y1="215" x2="100" y2="235" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="95" y="218" width="10" height="14" fill="#ff5f57" rx="1"/>
+      <line x1="100" y1="232" x2="100" y2="242" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <!-- Candle 3 green -->
+      <line x1="125" y1="208" x2="125" y2="228" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="120" y="208" width="10" height="16" fill="#00e5a0" rx="1"/>
+      <line x1="125" y1="224" x2="125" y2="238" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <!-- More candles... mid section -->
+      <line x1="150" y1="220" x2="150" y2="235" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="145" y="222" width="10" height="10" fill="#ff5f57" rx="1"/>
+      <line x1="150" y1="232" x2="150" y2="245" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="175" y1="200" x2="175" y2="218" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="170" y="200" width="10" height="15" fill="#00e5a0" rx="1"/>
+      <line x1="175" y1="215" x2="175" y2="228" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="200" y1="188" x2="200" y2="205" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="195" y="188" width="10" height="14" fill="#00e5a0" rx="1"/>
+      <line x1="200" y1="202" x2="200" y2="215" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="225" y1="180" x2="225" y2="196" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="220" y="182" width="10" height="12" fill="#ff5f57" rx="1"/>
+      <line x1="225" y1="194" x2="225" y2="205" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="250" y1="165" x2="250" y2="182" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="245" y="165" width="10" height="16" fill="#00e5a0" rx="1"/>
+      <line x1="250" y1="181" x2="250" y2="195" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="275" y1="155" x2="275" y2="172" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="270" y="155" width="10" height="15" fill="#00e5a0" rx="1"/>
+      <line x1="275" y1="170" x2="275" y2="182" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <!-- Resistance line -->
+      <line x1="60" y1="155" x2="400" y2="155" stroke="#ff5f57" stroke-width="1" stroke-dasharray="6,3" opacity="0.6"/>
+
+      <!-- Support line -->
+      <line x1="60" y1="248" x2="680" y2="248" stroke="#00e5a0" stroke-width="1" stroke-dasharray="6,3" opacity="0.5"/>
+
+      <!-- More candles right side - breakout! -->
+      <line x1="300" y1="145" x2="300" y2="165" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="295" y="145" width="10" height="18" fill="#00e5a0" rx="1"/>
+      <line x1="300" y1="163" x2="300" y2="175" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="325" y1="135" x2="325" y2="152" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="320" y="135" width="10" height="16" fill="#00e5a0" rx="1"/>
+      <line x1="325" y1="151" x2="325" y2="162" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="350" y1="125" x2="350" y2="142" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="345" y="125" width="10" height="16" fill="#00e5a0" rx="1"/>
+      <line x1="350" y1="141" x2="350" y2="152" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="375" y1="115" x2="375" y2="132" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="370" y="115" width="10" height="16" fill="#00e5a0" rx="2"/>
+      <line x1="375" y1="131" x2="375" y2="145" stroke="#00e5a0" stroke-width="2"/>
+
+      <!-- Gap Up -->
+      <line x1="415" y1="108" x2="415" y2="122" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="410" y="108" width="10" height="14" fill="#00e5a0" rx="1"/>
+      <line x1="415" y1="122" x2="415" y2="132" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="440" y1="118" x2="440" y2="130" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="435" y="120" width="10" height="8" fill="#ff5f57" rx="1"/>
+      <line x1="440" y1="128" x2="440" y2="140" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="465" y1="100" x2="465" y2="116" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="460" y="100" width="10" height="15" fill="#00e5a0" rx="1"/>
+      <line x1="465" y1="115" x2="465" y2="128" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="490" y1="90" x2="490" y2="105" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="485" y="90" width="10" height="14" fill="#00e5a0" rx="2"/>
+      <line x1="490" y1="104" x2="490" y2="116" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="515" y1="80" x2="515" y2="96" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="510" y="80" width="10" height="15" fill="#00e5a0" rx="2"/>
+      <line x1="515" y1="95" x2="515" y2="108" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="540" y1="78" x2="540" y2="92" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="535" y="80" width="10" height="10" fill="#ff5f57" rx="1"/>
+      <line x1="540" y1="90" x2="540" y2="102" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="565" y1="68" x2="565" y2="82" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="560" y="68" width="10" height="13" fill="#00e5a0" rx="2"/>
+      <line x1="565" y1="81" x2="565" y2="95" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="590" y1="62" x2="590" y2="76" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="585" y="62" width="10" height="14" fill="#00e5a0" rx="2"/>
+      <line x1="590" y1="76" x2="590" y2="88" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="615" y1="56" x2="615" y2="70" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="610" y="56" width="10" height="14" fill="#00e5a0" rx="2"/>
+      <line x1="615" y1="70" x2="615" y2="82" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="640" y1="58" x2="640" y2="70" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="635" y="60" width="10" height="8" fill="#ff5f57" rx="1"/>
+      <line x1="640" y1="68" x2="640" y2="80" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="665" y1="50" x2="665" y2="65" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="660" y="50" width="10" height="14" fill="#00e5a0" rx="2"/>
+      <line x1="665" y1="64" x2="665" y2="76" stroke="#00e5a0" stroke-width="2"/>
+
+      <!-- Volume bars at bottom -->
+      <g opacity="0.5">
+        <rect x="70" y="326" width="10" height="8" fill="#00e5a0" rx="1"/>
+        <rect x="95" y="322" width="10" height="12" fill="#ff5f57" rx="1"/>
+        <rect x="120" y="320" width="10" height="14" fill="#00e5a0" rx="1"/>
+        <rect x="145" y="325" width="10" height="9" fill="#ff5f57" rx="1"/>
+        <rect x="170" y="318" width="10" height="16" fill="#00e5a0" rx="1"/>
+        <rect x="195" y="316" width="10" height="18" fill="#00e5a0" rx="1"/>
+        <rect x="220" y="324" width="10" height="10" fill="#ff5f57" rx="1"/>
+        <rect x="245" y="312" width="10" height="22" fill="#00e5a0" rx="1"/>
+        <rect x="270" y="314" width="10" height="20" fill="#00e5a0" rx="1"/>
+        <rect x="295" y="304" width="10" height="30" fill="#00e5a0" rx="1"/>
+        <rect x="320" y="306" width="10" height="28" fill="#00e5a0" rx="1"/>
+        <rect x="345" y="300" width="10" height="34" fill="#00e5a0" rx="1"/>
+        <rect x="370" y="298" width="10" height="36" fill="#00e5a0" rx="1"/>
+        <rect x="405" y="292" width="10" height="42" fill="#00e5a0" rx="1"/>
+        <rect x="430" y="318" width="10" height="16" fill="#ff5f57" rx="1"/>
+        <rect x="455" y="308" width="10" height="26" fill="#00e5a0" rx="1"/>
+        <rect x="480" y="302" width="10" height="32" fill="#00e5a0" rx="1"/>
+        <rect x="505" y="300" width="10" height="34" fill="#00e5a0" rx="1"/>
+        <rect x="530" y="320" width="10" height="14" fill="#ff5f57" rx="1"/>
+        <rect x="555" y="298" width="10" height="36" fill="#00e5a0" rx="1"/>
+        <rect x="580" y="296" width="10" height="38" fill="#00e5a0" rx="1"/>
+        <rect x="605" y="294" width="10" height="40" fill="#00e5a0" rx="1"/>
+        <rect x="630" y="322" width="10" height="12" fill="#ff5f57" rx="1"/>
+        <rect x="655" y="292" width="10" height="42" fill="#00e5a0" rx="1"/>
+      </g>
+
+      <!-- Annotations with arrows -->
+      <!-- Support label -->
+      <rect x="62" y="238" width="72" height="16" fill="#003322" rx="3" opacity="0.9"/>
+      <text x="98" y="249" fill="#00e5a0" font-size="9" text-anchor="middle">Support $148</text>
+
+      <!-- Resistance label -->
+      <rect x="62" y="145" width="84" height="16" fill="#330000" rx="3" opacity="0.9"/>
+      <text x="104" y="156" fill="#ff5f57" font-size="9" text-anchor="middle">Resistance $178</text>
+
+      <!-- Breakout arrow -->
+      <line x1="305" y1="148" x2="305" y2="130" stroke="#f7c948" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <rect x="285" y="118" width="72" height="14" fill="#332200" rx="3" opacity="0.9"/>
+      <text x="321" y="128" fill="#f7c948" font-size="9" text-anchor="middle">⬆ Breakout!</text>
+
+      <!-- Gap Up annotation -->
+      <rect x="390" y="88" width="56" height="14" fill="#003322" rx="3" opacity="0.9"/>
+      <text x="418" y="98" fill="#00e5a0" font-size="9" text-anchor="middle">Gap Up ↑</text>
+
+      <!-- EMA20 label -->
+      <rect x="598" y="96" width="50" height="13" fill="#001833" rx="3" opacity="0.9"/>
+      <text x="623" y="106" fill="#5aabff" font-size="8" text-anchor="middle">EMA20</text>
+
+      <!-- MA50 label -->
+      <rect x="598" y="148" width="40" height="13" fill="#221500" rx="3" opacity="0.9"/>
+      <text x="618" y="158" fill="#f7a048" font-size="8" text-anchor="middle">MA50</text>
+
+      <!-- MA200 label -->
+      <rect x="598" y="200" width="46" height="13" fill="#220000" rx="3" opacity="0.9"/>
+      <text x="621" y="210" fill="#ff5f57" font-size="8" text-anchor="middle">MA200</text>
+
+      <!-- Volume label -->
+      <text x="68" y="336" fill="#5a6080" font-size="8">Volume</text>
+
+      <!-- Chart title -->
+      <text x="370" y="20" fill="#f0f0f8" font-size="11" text-anchor="middle" font-weight="bold">AAPL — Daily Chart (1D)</text>
+      <text x="370" y="32" fill="#5a6080" font-size="8" text-anchor="middle">גרף יומי לדוגמה עם כל האלמנטים</text>
+
+      <defs>
+        <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L6,3 z" fill="#f7c948"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <!-- Legend -->
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;justify-content:center;font-size:.7rem">
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:24px;height:3px;background:#5aabff;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">EMA20 — מגמה קצרת טווח</span></span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:24px;height:3px;background:#f7a048;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">MA50 — מגמה בינונית</span></span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:24px;height:3px;background:#ff5f57;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">MA200 — מגמה ארוכת טווח</span></span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:14px;background:#00e5a0;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">נר ירוק — סגירה מעל פתיחה</span></span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:14px;background:#ff5f57;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">נר אדום — סגירה מתחת פתיחה</span></span>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">👁</div>
+    <div class="callout-body">
+      <div class="callout-title">מה לראות ראשון כשפותחים גרף — הסדר הנכון</div>
+      כשפותחים גרף חדש, רוב המתחילים מסתכלים מיד על הנרות האחרונים. טעות. הנה הסדר הנכון:<br><br>
+      <strong>1. כיוון המגמה הכללי</strong> — האם MA200 עולה או יורד? זה הדבר הראשון.<br>
+      <strong>2. היכן המחיר ביחס ל-MA200?</strong> — מעל = שורי. מתחת = דובי.<br>
+      <strong>3. Support ו-Resistance הקרובים</strong> — איפה "הקירות" שמסביב למחיר?<br>
+      <strong>4. Volume</strong> — האם העלייה/ירידה האחרונה הייתה עם נפח גבוה או נמוך?<br>
+      <strong>5. RSI</strong> — קרוב ל-70 (Overbought) או ל-30 (Oversold)?<br><br>
+      <strong>רק אחרי שענית על 5 השאלות האלה</strong> — תבדוק את הנרות האחרונים לתזמון כניסה.
+    </div>
+  </div>
 
   <h3>ציר X וציר Y — הבסיס</h3>
   <p><strong>ציר X (אופקי)</strong> = זמן — ימים, שבועות, חודשים.<br>
@@ -1637,6 +2043,43 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <p><strong>Support (תמיכה)</strong> = רמת מחיר שממנה המניה "קפצה" חזרה מספר פעמים. כשמגיעים לשם — לרוב יש קנייה חזקה כי אנשים זוכרים שבעבר זה היה "מחיר טוב".</p>
   <p><strong>Resistance (התנגדות)</strong> = רמת מחיר שממנה המניה "נפלה" מספר פעמים. כשמגיעים לשם — לרוב יש מכירה כי אנשים שקנו בשיא הישן רוצים "לצאת בשווה".</p>
 
+  <!-- Support/Resistance Visual -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
+    <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 Support ו-Resistance בגרף — דוגמה</div>
+    <svg viewBox="0 0 600 200" style="width:100%;max-width:600px;display:block;margin:0 auto" dir="ltr">
+      <rect width="600" height="200" fill="#0a0d1a" rx="6"/>
+      <!-- Grid -->
+      <g stroke="#1a1f35" stroke-width="1">
+        <line x1="0" y1="50" x2="600" y2="50"/>
+        <line x1="0" y1="100" x2="600" y2="100"/>
+        <line x1="0" y1="150" x2="600" y2="150"/>
+      </g>
+      <!-- Resistance line -->
+      <line x1="0" y1="60" x2="600" y2="60" stroke="#ff5f57" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <!-- Support line -->
+      <line x1="0" y1="148" x2="600" y2="148" stroke="#00e5a0" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <!-- Price path -->
+      <polyline points="0,140 40,130 70,118 90,65 110,75 140,85 160,72 180,65 200,75 230,80 260,90 280,145 310,155 330,148 360,142 390,148 420,138 450,75 480,62 510,72 540,65 570,55 600,48"
+        fill="none" stroke="#5aabff" stroke-width="2"/>
+      <!-- Bounce arrows at support -->
+      <text x="85" y="185" fill="#00e5a0" font-size="9" text-anchor="middle" font-family="monospace">↑ קפיצה</text>
+      <text x="325" y="185" fill="#00e5a0" font-size="9" text-anchor="middle" font-family="monospace">↑ קפיצה</text>
+      <text x="393" y="185" fill="#00e5a0" font-size="9" text-anchor="middle" font-family="monospace">↑ קפיצה</text>
+      <!-- Rejection at resistance -->
+      <text x="180" y="45" fill="#ff5f57" font-size="9" text-anchor="middle" font-family="monospace">↓ נדחה</text>
+      <text x="480" y="45" fill="#ff5f57" font-size="9" text-anchor="middle" font-family="monospace">↓ נדחה</text>
+      <!-- Labels -->
+      <rect x="5" y="50" width="78" height="13" fill="#220000" rx="2" opacity="0.9"/>
+      <text x="44" y="60" fill="#ff5f57" font-size="9" text-anchor="middle" font-family="monospace">Resistance $180</text>
+      <rect x="5" y="138" width="74" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="42" y="148" fill="#00e5a0" font-size="9" text-anchor="middle" font-family="monospace">Support $150</text>
+      <!-- Breakout -->
+      <rect x="430" y="35" width="70" height="13" fill="#332200" rx="2" opacity="0.9"/>
+      <text x="465" y="45" fill="#f7c948" font-size="9" text-anchor="middle" font-family="monospace">⬆ Breakout!</text>
+    </svg>
+    <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:8px">המחיר "קפץ" מה-Support 3 פעמים ו"נדחה" מה-Resistance 2 פעמים — עד שפרץ.</div>
+  </div>
+
   <div class="callout info">
     <div class="callout-icon">🔄</div>
     <div class="callout-body">
@@ -1648,6 +2091,34 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <h3>אינדיקטורים — הכלים שמוסיפים על הגרף</h3>
   <p>אינדיקטורים הם <strong>חישובים מתמטיים על המחיר</strong> שמוצגים כקווים על הגרף או מתחתיו. הם עוזרים לזהות תבניות שקשה לראות בעיניים.</p>
 
+  <!-- RSI Visual -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
+    <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 RSI — כך נראה בגרף</div>
+    <svg viewBox="0 0 600 130" style="width:100%;max-width:600px;display:block;margin:0 auto" dir="ltr">
+      <rect width="600" height="130" fill="#0a0d1a" rx="6"/>
+      <!-- RSI zones -->
+      <rect x="0" y="0" width="600" height="30" fill="rgba(255,95,87,0.08)"/>
+      <rect x="0" y="100" width="600" height="30" fill="rgba(0,229,160,0.08)"/>
+      <!-- Lines -->
+      <line x1="0" y1="30" x2="600" y2="30" stroke="#ff5f57" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+      <line x1="0" y1="65" x2="600" y2="65" stroke="#5a6080" stroke-width="1" stroke-dasharray="4,2" opacity="0.4"/>
+      <line x1="0" y1="100" x2="600" y2="100" stroke="#00e5a0" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+      <!-- RSI line -->
+      <polyline points="0,55 40,48 80,38 110,25 140,35 170,45 200,55 230,62 260,70 290,80 320,90 350,108 380,115 410,102 440,85 470,65 500,48 530,38 560,30 590,22"
+        fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+      <!-- Labels -->
+      <text x="5" y="20" fill="#ff5f57" font-size="9" font-family="monospace">70 — Overbought</text>
+      <text x="5" y="62" fill="#5a6080" font-size="9" font-family="monospace">50 — Neutral</text>
+      <text x="5" y="115" fill="#00e5a0" font-size="9" font-family="monospace">30 — Oversold</text>
+      <!-- Annotations -->
+      <rect x="95" y="2" width="60" height="13" fill="#220000" rx="2" opacity="0.9"/>
+      <text x="125" y="12" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">קנוי יתר!</text>
+      <rect x="340" y="108" width="64" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="372" y="118" fill="#00e5a0" font-size="8" text-anchor="middle" font-family="monospace">מכור יתר!</text>
+    </svg>
+    <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:8px">RSI מעל 70 = אזהרה. RSI מתחת 30 = הזדמנות פוטנציאלית. RSI 50 = ניטרלי.</div>
+  </div>
+
   <div class="indicator-box">
     <div class="indicator-name">RSI — Relative Strength Index</div>
     <div class="indicator-desc">מספר בין 0 ל-100 שמודד האם המניה "נקנתה יתר" או "נמכרה יתר".<br>
@@ -1657,8 +2128,76 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="indicator-use">📍 TradingView: Indicators ← חפש "RSI"</div>
   </div>
 
-  <div class="indicator-box">
-    <div class="indicator-name">MACD — Moving Average Convergence Divergence</div>
+  <!-- MACD Visual -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
+    <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 MACD — כך נראה בגרף</div>
+    <svg viewBox="0 0 600 120" style="width:100%;max-width:600px;display:block;margin:0 auto" dir="ltr">
+      <rect width="600" height="120" fill="#0a0d1a" rx="6"/>
+      <!-- Zero line -->
+      <line x1="0" y1="60" x2="600" y2="60" stroke="#5a6080" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+      <text x="5" y="58" fill="#5a6080" font-size="8" font-family="monospace">0</text>
+      <!-- Histogram bars -->
+      <g>
+        <rect x="10" y="55" width="12" height="5" fill="#00e5a0" opacity="0.6" rx="1"/>
+        <rect x="26" y="52" width="12" height="8" fill="#00e5a0" opacity="0.6" rx="1"/>
+        <rect x="42" y="48" width="12" height="12" fill="#00e5a0" opacity="0.7" rx="1"/>
+        <rect x="58" y="44" width="12" height="16" fill="#00e5a0" opacity="0.8" rx="1"/>
+        <rect x="74" y="40" width="12" height="20" fill="#00e5a0" opacity="0.9" rx="1"/>
+        <rect x="90" y="36" width="12" height="24" fill="#00e5a0" rx="1"/>
+        <rect x="106" y="40" width="12" height="20" fill="#00e5a0" opacity="0.8" rx="1"/>
+        <rect x="122" y="46" width="12" height="14" fill="#00e5a0" opacity="0.7" rx="1"/>
+        <rect x="138" y="52" width="12" height="8" fill="#00e5a0" opacity="0.5" rx="1"/>
+        <rect x="154" y="58" width="12" height="2" fill="#00e5a0" opacity="0.4" rx="1"/>
+        <!-- Crossing zero — histogram turns red -->
+        <rect x="170" y="60" width="12" height="4" fill="#ff5f57" opacity="0.5" rx="1"/>
+        <rect x="186" y="60" width="12" height="10" fill="#ff5f57" opacity="0.6" rx="1"/>
+        <rect x="202" y="60" width="12" height="16" fill="#ff5f57" opacity="0.7" rx="1"/>
+        <rect x="218" y="60" width="12" height="20" fill="#ff5f57" opacity="0.8" rx="1"/>
+        <rect x="234" y="60" width="12" height="24" fill="#ff5f57" opacity="0.9" rx="1"/>
+        <rect x="250" y="60" width="12" height="20" fill="#ff5f57" opacity="0.8" rx="1"/>
+        <rect x="266" y="60" width="12" height="14" fill="#ff5f57" opacity="0.6" rx="1"/>
+        <rect x="282" y="60" width="12" height="8" fill="#ff5f57" opacity="0.5" rx="1"/>
+        <!-- Going positive again -->
+        <rect x="298" y="55" width="12" height="5" fill="#00e5a0" opacity="0.5" rx="1"/>
+        <rect x="314" y="48" width="12" height="12" fill="#00e5a0" opacity="0.7" rx="1"/>
+        <rect x="330" y="42" width="12" height="18" fill="#00e5a0" opacity="0.8" rx="1"/>
+        <rect x="346" y="36" width="12" height="24" fill="#00e5a0" opacity="0.9" rx="1"/>
+        <rect x="362" y="30" width="12" height="30" fill="#00e5a0" rx="1"/>
+        <rect x="378" y="24" width="12" height="36" fill="#00e5a0" rx="1"/>
+        <rect x="394" y="28" width="12" height="32" fill="#00e5a0" opacity="0.9" rx="1"/>
+        <rect x="410" y="34" width="12" height="26" fill="#00e5a0" opacity="0.8" rx="1"/>
+        <rect x="426" y="40" width="12" height="20" fill="#00e5a0" opacity="0.7" rx="1"/>
+        <rect x="442" y="46" width="12" height="14" fill="#00e5a0" opacity="0.6" rx="1"/>
+        <rect x="458" y="50" width="12" height="10" fill="#00e5a0" opacity="0.5" rx="1"/>
+        <rect x="474" y="55" width="12" height="5" fill="#00e5a0" opacity="0.4" rx="1"/>
+        <rect x="490" y="60" width="12" height="6" fill="#ff5f57" opacity="0.4" rx="1"/>
+        <rect x="506" y="60" width="12" height="12" fill="#ff5f57" opacity="0.5" rx="1"/>
+        <rect x="522" y="60" width="12" height="8" fill="#ff5f57" opacity="0.4" rx="1"/>
+        <rect x="538" y="56" width="12" height="4" fill="#00e5a0" opacity="0.4" rx="1"/>
+        <rect x="554" y="50" width="12" height="10" fill="#00e5a0" opacity="0.6" rx="1"/>
+        <rect x="570" y="44" width="12" height="16" fill="#00e5a0" opacity="0.7" rx="1"/>
+      </g>
+      <!-- MACD line -->
+      <polyline points="16,56 32,52 48,46 64,40 80,34 96,30 112,36 128,44 144,54 160,61 176,67 192,72 208,76 224,80 240,82 256,76 272,68 288,60 304,53 320,44 336,36 352,28 368,22 384,18 400,24 416,32 432,40 448,48 464,54 480,61 496,67 512,72 528,67 544,58 560,50 576,44"
+        fill="none" stroke="#00e5a0" stroke-width="2"/>
+      <!-- Signal line -->
+      <polyline points="16,58 32,55 48,50 64,44 80,38 96,34 112,38 128,46 144,55 160,63 176,68 192,74 208,78 224,82 240,84 256,78 272,70 288,62 304,55 320,46 336,38 352,30 368,24 384,20 400,26 416,34 432,42 448,50 464,56 480,62 496,68 512,74 528,70 544,62 560,54 576,48"
+        fill="none" stroke="#ff5f57" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Labels -->
+      <rect x="5" y="25" width="60" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="35" y="35" fill="#00e5a0" font-size="7.5" text-anchor="middle" font-family="monospace">קו MACD</text>
+      <rect x="5" y="42" width="56" height="13" fill="#220000" rx="2" opacity="0.9"/>
+      <text x="33" y="52" fill="#ff5f57" font-size="7.5" text-anchor="middle" font-family="monospace">קו Signal</text>
+      <!-- Crossover annotations -->
+      <rect x="140" y="4" width="64" height="13" fill="#332200" rx="2" opacity="0.9"/>
+      <text x="172" y="14" fill="#f7c948" font-size="8" text-anchor="middle" font-family="monospace">⬇ מכירה</text>
+      <line x1="162" y1="60" x2="162" y2="16" stroke="#f7c948" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+      <rect x="282" y="4" width="60" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="312" y="14" fill="#00e5a0" font-size="8" text-anchor="middle" font-family="monospace">⬆ קנייה</text>
+      <line x1="300" y1="60" x2="300" y2="16" stroke="#00e5a0" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+    </svg>
+    <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:8px">כשקו MACD (ירוק) חוצה מעל קו Signal (אדום) = סיגנל קנייה. להפך = סיגנל מכירה. היסטוגרמה = עוצמת המומנטום.</div>
+  </div>
     <div class="indicator-desc">מראה <strong>האם המומנטום של המחיר עולה או יורד</strong>. מורכב מ-3 אלמנטים:<br>
     <strong>קו MACD</strong> = הפרש בין EMA12 ל-EMA26.<br>
     <strong>קו Signal</strong> = EMA9 של קו ה-MACD.<br>
@@ -1731,6 +2270,62 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   </div>
 
   <h3>TradingView — הכלי המרכזי לגרפים</h3>
+
+  <!-- First time opening a chart guide -->
+  <div style="background:linear-gradient(135deg,rgba(0,229,160,0.06),rgba(90,171,255,0.06));border:1px solid rgba(0,229,160,0.2);border-radius:14px;padding:20px;margin:16px 0">
+    <div style="font-size:.68rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700">🗺️ פתחת גרף לראשונה? הנה מה שאתה רואה — ומה הכל אומר</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px">
+        <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:5px">📌 השורה העליונה</div>
+        <div style="font-size:.72rem;color:var(--text2);line-height:1.8">
+          <strong>AAPL · 1D</strong> = שם המניה וטווח הזמן<br>
+          <strong>O: 185.20</strong> = מחיר פתיחה של הנר הנוכחי<br>
+          <strong>H: 187.50</strong> = שיא הנר<br>
+          <strong>L: 184.10</strong> = שפל הנר<br>
+          <strong>C: 186.90</strong> = מחיר סגירה (הנוכחי)<br>
+          <strong>+1.20 (+0.65%)</strong> = שינוי מאתמול
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px">
+        <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:5px">📊 הגרף הראשי</div>
+        <div style="font-size:.72rem;color:var(--text2);line-height:1.8">
+          <strong>נרות ירוקים</strong> = מחיר עלה באותו יום<br>
+          <strong>נרות אדומים</strong> = מחיר ירד באותו יום<br>
+          <strong>קווים צבעוניים</strong> = ממוצעים נעים (MA/EMA)<br>
+          <strong>קוים מקוקווים</strong> = Support / Resistance שצייר המשתמש<br>
+          <strong>מספרים ציר ימין</strong> = מחיר<br>
+          <strong>תאריכים תחתון</strong> = ציר הזמן
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px">
+        <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:5px">📉 הפאנל התחתון</div>
+        <div style="font-size:.72rem;color:var(--text2);line-height:1.8">
+          <strong>עמודות ירוק/אדום קטנות</strong> = Volume (נפח מסחר)<br>
+          <strong>קו סגול/כחול מתחת</strong> = RSI<br>
+          <strong>קווים ירוק/אדום עם היסטוגרמה</strong> = MACD<br>
+          <strong>קווים שלושה סביב המחיר</strong> = Bollinger Bands<br><br>
+          <em>טיפ: מתחיל? הסתפק ב-RSI + Volume בלבד.</em>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px">
+        <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:5px">⚙️ כפתורים שחשוב להכיר</div>
+        <div style="font-size:.72rem;color:var(--text2);line-height:1.8">
+          <strong>1D / 1W / 1M</strong> = שינוי טווח הזמן<br>
+          <strong>Indicators</strong> = הוספת אינדיקטורים<br>
+          <strong>Compare</strong> = השוואה למדד (SPY)<br>
+          <strong>Alert</strong> = התראה כשמחיר מגיע לרמה<br>
+          <strong>Replay</strong> = חזרה על גרף עבר לתרגול
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="callout tip">
     <div class="callout-icon">📊</div>
     <div class="callout-body">
@@ -1846,6 +2441,19 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="quiz-option" onclick="answer('q5','wrong',this)"><span class="quiz-opt-letter">ג</span>חייב לרדת מיד</div>
     </div>
     <div class="quiz-explain" id="q5-explain">✅ נכון! RSI מעל 70 = אזהרה לקנוי יתר. זה לא אומר שחייב לרדת מיד — אבל כדאי לנהוג בזהירות.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק 5</div>
+      1. פתח TradingView וחפש AAPL<br>
+      2. הוסף: EMA20 (כחול), MA50 (כתום), MA200 (אדום), RSI<br>
+      3. עבור על <strong>3 Timeframes</strong>: חודשי → שבועי → יומי<br>
+      4. זהה: היכן ה-Support הקרוב? היכן ה-Resistance?<br>
+      5. RSI: מה הרמה? Overbought / Oversold / ניטרלי?<br>
+      6. שאל: אם היית קונה היום — איפה היית שם Stop Loss?<br><br>
+      <strong>זמן: 25 דקות. עכשיו אתה קורא גרף.</strong>
+    </div>
   </div>
 </section>
 
@@ -2056,6 +2664,18 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="quiz-option" onclick="answer('q8','wrong',this)"><span class="quiz-opt-letter">ג</span>אנרגיה</div>
     </div>
     <div class="quiz-explain" id="q8-explain">✅ נכון! ריבית גבוהה פוגעת בחברות טכנולוגיה שנסחרות לפי ציפיות עתידיות — ריבית גבוהה "מוזילה" את ערכן.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק מאקרו</div>
+      1. פתח <strong>investing.com/economic-calendar</strong><br>
+      2. סנן לפי "High Impact" — מה הנתונים הגדולים השבוע?<br>
+      3. פתח <strong>fred.stlouisfed.org</strong> → חפש "Fed Funds Rate"<br>
+      4. ראה את גרף הריבית ב-5 שנים האחרונות — מה הכיוון?<br>
+      5. שאל: האם הסביבה הנוכחית נוחה לצמיחה (Growth) או מגוננת (Defensive)?<br><br>
+      <strong>זמן: 20 דקות. עכשיו אתה קורא מאקרו.</strong>
+    </div>
   </div>
 </section>
 
@@ -2289,6 +2909,29 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <strong>כלל מעשי:</strong> שמור תמיד 5-10% מהתיק במזומן. לא כי אתה פוחד — אלא כי הזדמנויות מגיעות ללא הזמנה. מניה שאתה רוצה פתאום יורדת 20% — עם מזומן בתיק אתה יכול לנצל. ללא מזומן — אתה רק מסתכל.
     </div>
   </div>
+  <div class="callout info">
+    <div class="callout-icon">📅</div>
+    <div class="callout-body">
+      <div class="callout-title">ניהול תיק לאורך זמן — מה עושים בכל תרחיש</div>
+      <strong>מניה עלתה 100% — מה עושים?</strong><br>
+      אפשרות 1: מכור 25-50% ונעל רווח — התיק נשאר חשוף לעלייה אבל עם "כסף בכיס".<br>
+      אפשרות 2: העלה Stop Loss ל-Break-Even ותן לרוץ.<br>
+      אפשרות 3: בדוק מחדש פונדמנטלס — אם עדיין חזקים, המשך להחזיק.<br><br>
+      <strong>מניה ירדה 30% — מה עושים?</strong><br>
+      שאל: האם הסיבה לקנייה המקורית עדיין קיימת?<br>
+      אם כן — ירידה היא הזדמנות ("Averaging Down" — רק אם הפונדמנטלס חזקים).<br>
+      אם לא — ה-Stop Loss אמור היה להוציא אותך. צא עכשיו, אל תחכה ל"חזרה".<br><br>
+      <strong>יצאו חדשות רעות — מה עושים?</strong><br>
+      1. נשום. אל תמכור בפאניקה הראשונית.<br>
+      2. קרא את המקור המלא — לא רק כותרת.<br>
+      3. האם זה משנה את התזה הפונדמנטלית לטווח ארוך? אם כן → מכור. אם לא → זה רעש.<br><br>
+      <strong>Bear Market — שוק יורד 20%+ — מה עושים?</strong><br>
+      ETF? — אל תמכור. DCA מהיר יותר. הרווחים הגדולים נוצרים בקנייה בתחתית.<br>
+      מניות בודדות? — בדוק כל אחת בנפרד. חלשות — צא. חזקות — החזק.<br>
+      Bear Market = "Sale" על מניות טובות, לא סיבה לצאת מהשוק.
+    </div>
+  </div>
+
   <p>אחד המושגים שמתחילים שומעים הרבה ולא מבינים לגמרי. <strong>Buyback (רכישה עצמית)</strong> = חברה משתמשת בכסף שלה כדי לקנות בחזרה את המניות שלה מהשוק.</p>
 
   <div class="callout info">
@@ -2357,6 +3000,21 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="quiz-option" onclick="answer('q7','wrong',this)"><span class="quiz-opt-letter">ג</span>50,000₪</div>
     </div>
     <div class="quiz-explain" id="q7-explain">✅ נכון! 5% מ-100,000₪ = 5,000₪. גם אם החברה תקרוס לגמרי — תפסיד רק 5% מהתיק.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק אסטרטגיות</div>
+      כתב את ה-<strong>Trading Plan</strong> שלך — עכשיו, בכתב יד:<br><br>
+      1. מה המטרה שלי? (צמיחה / הכנסה / שניהם)<br>
+      2. כמה שנים אני מתכנן להשקיע?<br>
+      3. כמה % מהתיק ב-ETF? כמה % במניות בודדות?<br>
+      4. מה ה-Stop Loss שלי על כל עסקה? (% מהעסקה)<br>
+      5. מה גורם לי לקנות? (3 קריטריונים לפחות)<br>
+      6. מה גורם לי למכור? (מטרה + Stop + שינוי פונדמנטלי)<br>
+      7. כמה פעמים בשבוע אני בודק את התיק?<br><br>
+      <strong>שמור אותו. קרא אותו לפני כל עסקה.</strong>
+    </div>
   </div>
 </section>
 
@@ -2472,6 +3130,28 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="quiz-option" onclick="answer('q9','wrong',this)"><span class="quiz-opt-letter">ג</span>קונה עוד — "זה זול"</div>
     </div>
     <div class="quiz-explain" id="q9-explain">✅ נכון! Anchoring Bias גורם לנו לחכות שיחזור ל-$100. אבל אם הפונדמנטלס חלשים — טוב יותר לצאת ולהשקיע את הכסף בחברה חזקה.</div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">תרגיל מעשי — פרק פסיכולוגיה</div>
+      1. חשוב על ה<strong>החלטה הרגשית האחרונה</strong> שעשית בכסף — לאו דווקא בשוק<br>
+      2. איזה Bias הניע אותה? (FOMO? Anchoring? Loss Aversion?)<br>
+      3. אם היית מחליט שוב מבלי הרגש — מה היית עושה?<br>
+      4. כתב <strong>3 כללים אישיים</strong> שימנעו ממך לחזור על אותה טעות<br><br>
+      <strong>ה-Bias שאתה מכיר בעצמך — הוא הסכנה הכי קטנה שלך.</strong>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🎯 שאלה נוספת — פרק פסיכולוגיה</div>
+    <div class="quiz-q">קנית מניה ב-$100. ירדה ל-$70. אתה מחזיק כי "לא ריאלי למכור בהפסד". זה איזה Bias?</div>
+    <div class="quiz-options" id="q9b">
+      <div class="quiz-option" onclick="answer('q9b','wrong',this)"><span class="quiz-opt-letter">א</span>FOMO</div>
+      <div class="quiz-option" onclick="answer('q9b','correct',this)"><span class="quiz-opt-letter">ב</span>Anchoring Bias + Sunk Cost Fallacy</div>
+      <div class="quiz-option" onclick="answer('q9b','wrong',this)"><span class="quiz-opt-letter">ג</span>Overconfidence</div>
+    </div>
+    <div class="quiz-explain" id="q9b-explain">✅ נכון! אתה "מעוגן" ל-$100 ומחשיב את ה-$30 שהפסדת כ"עלות שקועה". השוק לא יודע שקנית ב-$100. השאלה האמיתית: האם הייתי קונה את המניה הזו ב-$70 היום מחדש?</div>
   </div>
 </section>
 
@@ -2603,6 +3283,216 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
 </section>
 
 <!-- ══════════════════════════════════ CH11 ══════════════════════════════════ -->
+<!-- ══════════════════════════════════ GLOSSARY ══════════════════════════════════ -->
+<section class="chapter" id="glossary">
+  <div class="chapter-header">
+    <div class="chapter-num" style="background:rgba(90,171,255,0.15);color:var(--blue);border-color:rgba(90,171,255,0.3)">📖</div>
+    <div><div class="chapter-title">גלוסרי — מילון מונחים מלא</div><div class="chapter-subtitle">כל המונחים שפגשת בקורס — עברית–אנגלית</div></div>
+  </div>
+
+  <p>השתמש במילון הזה כעזר מהיר בכל פעם שנתקל במונח לא מוכר. מסודר לפי נושא.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:20px">
+
+    <!-- יסודות -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">📈 יסודות</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>Stock / Share</strong> — מניה<br>
+        <strong>Portfolio</strong> — תיק השקעות<br>
+        <strong>Ticker Symbol</strong> — סימול מניה<br>
+        <strong>Bull Market</strong> — שוק עולה<br>
+        <strong>Bear Market</strong> — שוק יורד<br>
+        <strong>Correction</strong> — תיקון (ירידה 10-20%)<br>
+        <strong>Rally</strong> — עלייה מהירה<br>
+        <strong>IPO</strong> — הנפקה ראשונה לציבור<br>
+        <strong>Market Cap</strong> — שווי שוק<br>
+        <strong>Dividend</strong> — דיבידנד<br>
+        <strong>Bid / Ask</strong> — קנייה / מכירה<br>
+        <strong>Spread</strong> — פער בין Bid ל-Ask<br>
+        <strong>Liquidity</strong> — נזילות<br>
+        <strong>Volatility</strong> — תנודתיות<br>
+        <strong>Leverage</strong> — מינוף<br>
+        <strong>Short Selling</strong> — מכירה בחסר<br>
+        <strong>Short Squeeze</strong> — לחץ שורטיסטים<br>
+        <strong>Gap Up / Down</strong> — פתיחה עם פער<br>
+        <strong>Breakout</strong> — פריצה<br>
+      </div>
+    </div>
+
+    <!-- הוראות מסחר -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">⚡ הוראות מסחר</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>Market Order</strong> — הוראה לפי שוק<br>
+        <strong>Limit Order</strong> — הוראה בגבול מחיר<br>
+        <strong>Stop Loss</strong> — עצור הפסד<br>
+        <strong>Trailing Stop</strong> — סטופ עוקב<br>
+        <strong>Break-Even Stop</strong> — סטופ בנקודת כניסה<br>
+        <strong>Partial Exit</strong> — יציאה חלקית<br>
+        <strong>Time Stop</strong> — סטופ זמן<br>
+        <strong>Order Book</strong> — ספר הוראות<br>
+        <strong>Market Maker</strong> — עושה שוק<br>
+        <strong>Slippage</strong> — החלקה במחיר<br>
+        <strong>Pre-Market</strong> — מסחר לפני פתיחה<br>
+        <strong>After-Hours</strong> — מסחר אחרי סגירה<br>
+        <strong>Fractional Shares</strong> — מניה חלקית<br>
+        <strong>Settlement (T+1)</strong> — סליקת עסקה<br>
+      </div>
+    </div>
+
+    <!-- ניתוח פונדמנטלי -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">💰 ניתוח פונדמנטלי</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>P/E Ratio</strong> — מכפיל רווח<br>
+        <strong>EPS</strong> — רווח למניה<br>
+        <strong>Revenue</strong> — הכנסות<br>
+        <strong>Gross Margin</strong> — מרווח גולמי<br>
+        <strong>Operating Margin</strong> — מרווח תפעולי<br>
+        <strong>Net Margin</strong> — מרווח נקי<br>
+        <strong>FCF (Free Cash Flow)</strong> — תזרים חופשי<br>
+        <strong>ROE</strong> — תשואה על ההון<br>
+        <strong>ROIC</strong> — תשואה על ההון המושקע<br>
+        <strong>P/S (Price-to-Sales)</strong> — מכפיל מכירות<br>
+        <strong>P/B (Price-to-Book)</strong> — מכפיל ספרים<br>
+        <strong>EBITDA</strong> — רווח לפני הכל<br>
+        <strong>Moat</strong> — חפיר הגנתי<br>
+        <strong>Intrinsic Value</strong> — ערך פנימי<br>
+        <strong>Margin of Safety</strong> — מרווח ביטחון<br>
+        <strong>CapEx</strong> — הוצאות הוניות<br>
+        <strong>Buyback</strong> — רכישה עצמית<br>
+        <strong>Stock Split</strong> — פיצול מניות<br>
+        <strong>Payout Ratio</strong> — יחס חלוקה<br>
+        <strong>DRIP</strong> — השקעה מחדש של דיבידנד<br>
+      </div>
+    </div>
+
+    <!-- ניתוח טכני -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">📊 ניתוח טכני</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>Support</strong> — תמיכה<br>
+        <strong>Resistance</strong> — התנגדות<br>
+        <strong>MA (SMA)</strong> — ממוצע נע פשוט<br>
+        <strong>EMA</strong> — ממוצע נע מעריכי<br>
+        <strong>Golden Cross</strong> — חציית MA50 מעל MA200<br>
+        <strong>Death Cross</strong> — חציית MA50 מתחת MA200<br>
+        <strong>RSI</strong> — מדד עוצמה יחסית<br>
+        <strong>MACD</strong> — מדד מומנטום<br>
+        <strong>Bollinger Bands</strong> — רצועות בולינגר<br>
+        <strong>ATR</strong> — טווח אמיתי ממוצע<br>
+        <strong>Stochastic</strong> — מוסציאטור סטוכסטי<br>
+        <strong>Fibonacci</strong> — רמות פיבונאצ'י<br>
+        <strong>Volume</strong> — נפח מסחר<br>
+        <strong>Overbought</strong> — קנוי יתר<br>
+        <strong>Oversold</strong> — מכור יתר<br>
+        <strong>Divergence</strong> — סטייה (מחיר vs אינדיקטור)<br>
+        <strong>Cup & Handle</strong> — ספל וידית<br>
+        <strong>Head & Shoulders</strong> — ראש וכתפיים<br>
+        <strong>Double Top/Bottom</strong> — כפל שיא/שפל<br>
+        <strong>Flag</strong> — דגל<br>
+        <strong>Timeframe</strong> — מסגרת זמן<br>
+        <strong>Top-Down Analysis</strong> — ניתוח מלמעלה למטה<br>
+      </div>
+    </div>
+
+    <!-- מאקרו -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--purple,#a78bfa);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">🌍 מאקרו כלכלי</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>Fed / FOMC</strong> — הבנק המרכזי האמריקאי<br>
+        <strong>Federal Funds Rate</strong> — ריבית הפד<br>
+        <strong>Hawkish</strong> — ניצי (נוטה להעלות ריבית)<br>
+        <strong>Dovish</strong> — יוני (נוטה להוריד ריבית)<br>
+        <strong>CPI</strong> — מדד מחירים לצרכן<br>
+        <strong>Core CPI</strong> — CPI ללא אנרגיה ומזון<br>
+        <strong>PCE</strong> — מדד הוצאות אישיות<br>
+        <strong>GDP</strong> — תוצר מקומי גולמי<br>
+        <strong>NFP</strong> — נתוני תעסוקה<br>
+        <strong>Yield Curve</strong> — עקום תשואות<br>
+        <strong>Inverted Yield Curve</strong> — עקום הפוך<br>
+        <strong>QE</strong> — הרחבה כמותית<br>
+        <strong>QT</strong> — הידוק כמותי<br>
+        <strong>PMI</strong> — מדד מנהלי רכש<br>
+        <strong>Retail Sales</strong> — מכירות קמעונאיות<br>
+        <strong>Consumer Confidence</strong> — אמון הצרכנים<br>
+        <strong>Housing Starts</strong> — התחלות בנייה<br>
+        <strong>Sector Rotation</strong> — רוטציה בין סקטורים<br>
+        <strong>Recession</strong> — מיתון<br>
+        <strong>Stagflation</strong> — סטגפלציה<br>
+      </div>
+    </div>
+
+    <!-- אסטרטגיות -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">⚡ אסטרטגיות</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>Buy & Hold</strong> — קנה והחזק<br>
+        <strong>DCA</strong> — ממוצע עלות דולרית<br>
+        <strong>Value Investing</strong> — השקעת ערך<br>
+        <strong>Growth Investing</strong> — השקעת צמיחה<br>
+        <strong>Dividend Investing</strong> — השקעת דיבידנד<br>
+        <strong>Swing Trading</strong> — מסחר נדנדה<br>
+        <strong>Call Option</strong> — אופציית קנייה<br>
+        <strong>Put Option</strong> — אופציית מכירה<br>
+        <strong>Strike Price</strong> — מחיר המימוש<br>
+        <strong>Premium</strong> — פרמיה (עלות אופציה)<br>
+        <strong>Covered Call</strong> — מכירת קול מכוסה<br>
+        <strong>R:R (Risk/Reward)</strong> — יחס סיכון/תגמול<br>
+        <strong>Position Sizing</strong> — גודל פוזיציה<br>
+        <strong>Rebalancing</strong> — איזון תיק<br>
+        <strong>Passive Investing</strong> — השקעה פסיבית<br>
+        <strong>Tax-Loss Harvesting</strong> — קציר הפסדי מס<br>
+        <strong>Bond Ladder</strong> — סולם אגח<br>
+        <strong>Trading Plan</strong> — תוכנית מסחר<br>
+      </div>
+    </div>
+
+    <!-- פסיכולוגיה -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">🧠 פסיכולוגיה</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>FOMO</strong> — פחד לפספס<br>
+        <strong>Panic Selling</strong> — מכירה בפאניקה<br>
+        <strong>Loss Aversion</strong> — שנאת הפסד<br>
+        <strong>Anchoring Bias</strong> — הטיית עוגן<br>
+        <strong>Confirmation Bias</strong> — הטיית אישור<br>
+        <strong>Recency Bias</strong> — הטיית עדכניות<br>
+        <strong>Herd Mentality</strong> — עדריות<br>
+        <strong>Overconfidence</strong> — ביטחון יתר<br>
+        <strong>Sunk Cost Fallacy</strong> — טעות עלות שקועה<br>
+        <strong>Gambler's Fallacy</strong> — טעות הגמבלר<br>
+        <strong>Pump & Dump</strong> — ניפוח והתרסקות<br>
+        <strong>Trading Journal</strong> — יומן מסחר<br>
+      </div>
+    </div>
+
+    <!-- נכסים ואגח -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px">
+      <div style="font-size:.65rem;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700">🏦 נכסים ואגח</div>
+      <div style="font-size:.75rem;line-height:2.1;color:var(--text2)">
+        <strong>Bond / אגח</strong> — אגרת חוב<br>
+        <strong>Government Bond</strong> — אגח ממשלתי<br>
+        <strong>Corporate Bond</strong> — אגח קונצרני<br>
+        <strong>Coupon</strong> — ריבית האגח<br>
+        <strong>Maturity</strong> — מועד פירעון<br>
+        <strong>Duration</strong> — רגישות לריבית<br>
+        <strong>Credit Rating</strong> — דירוג אשראי<br>
+        <strong>High Yield / Junk</strong> — אגח זבל<br>
+        <strong>ETF</strong> — תעודת סל<br>
+        <strong>Expense Ratio</strong> — יחס הוצאות<br>
+        <strong>REIT</strong> — קרן נדל"ן<br>
+        <strong>Commodity</strong> — סחורה<br>
+        <strong>Forex</strong> — מטבע חוץ<br>
+        <strong>Real Return</strong> — תשואה ריאלית<br>
+        <strong>Bond Ladder</strong> — סולם אגח<br>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section class="chapter" id="ch11">
   <div class="chapter-header">
     <div class="chapter-num red">11</div>
