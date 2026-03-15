@@ -790,23 +790,46 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
 
   <p>שוק ההון הוא הרבה יותר ממניות. כדי להיות משקיע שלם, חשוב להכיר את <strong>כלל נכסי ההשקעה</strong> — גם אם לא תשתמש בכולם.</p>
 
-  <h3>אגרות חוב (Bonds) — ההפך ממניות</h3>
-  <p>כשאתה קונה מניה — אתה קונה <em>בעלות</em> בחברה. כשאתה קונה אג"ח — אתה בעצם <strong>מלווה כסף</strong> לממשלה או לחברה, ומקבל ריבית קבועה בתמורה.</p>
+  <h3>אגרות חוב (Bonds) — מלווה כסף ומקבל ריבית</h3>
+  <p>כשאתה קונה מניה — אתה קונה <em>בעלות</em> בחברה. כשאתה קונה אג"ח — אתה בעצם <strong>מלווה כסף</strong> לממשלה או לחברה, ומקבל ריבית קבועה (Coupon) בתמורה, ובסוף התקופה מקבל בחזרה את הקרן. אג"ח נחשב "בטוח יותר" ממניות כי בפשיטת רגל, בעלי אג"ח מקבלים כסף לפני בעלי המניות.</p>
 
   <div class="def-grid">
-    <div class="def-card"><div class="def-term">Government Bonds (אגח ממשלתי)</div><div class="def-desc">הלוואה לממשלת ארה"ב (Treasury). הכי בטוח שיש — ממשלת ארה"ב לא "פושטת רגל". תשואה נמוכה בתמורה לביטחון.</div></div>
-    <div class="def-card"><div class="def-term">Corporate Bonds (אגח קונצרני)</div><div class="def-desc">הלוואה לחברה. סיכון גבוה יותר מממשלתי (חברה יכולה לפשוט רגל), לכן ריבית גבוהה יותר.</div></div>
-    <div class="def-card"><div class="def-term">Yield (תשואה)</div><div class="def-desc">הריבית השנתית שתקבל על האג"ח. Yield גבוה = סיכון גבוה יותר, או ריבית גבוהה יותר במשק.</div></div>
-    <div class="def-card"><div class="def-term">Duration (מח"מ)</div><div class="def-desc">כמה זמן עד שתקבל חזרה את הקרן? אג"ח ל-2 שנה, 10 שנה, 30 שנה. ככל שארוך יותר — רגיש יותר לשינויי ריבית.</div></div>
+    <div class="def-card"><div class="def-term">Government Bonds (אגח ממשלתי)</div><div class="def-desc">הלוואה לממשלת ארה"ב (Treasury). הכי בטוח שיש בעולם — ארה"ב לא "פושטת רגל". Treasury ל-10 שנה הוא ה-Benchmark הגלובלי. תשואה נמוכה בתמורה לביטחון.</div></div>
+    <div class="def-card"><div class="def-term">Corporate Bonds (אגח קונצרני)</div><div class="def-desc">הלוואה לחברה פרטית. סיכון גבוה יותר = ריבית גבוהה יותר. Apple מנפיקה אגח ב-4.5%. חברה קטנה מסוכנת מנפיקה ב-9%.</div></div>
+    <div class="def-card"><div class="def-term">Coupon (קופון)</div><div class="def-desc">הריבית השנתית שמשלמת האגח. אגח עם Coupon 5% ו-$1,000 קרן = מקבל $50 בשנה, עד שהאגח פוקע.</div></div>
+    <div class="def-card"><div class="def-term">Duration / Maturity</div><div class="def-desc">מתי מקבל חזרה את הקרן. Short-term = עד 2 שנה. Medium = 2-10 שנה. Long-term = 10-30 שנה. ככל שארוך — רגיש יותר לשינויי ריבית.</div></div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">📊</div>
+    <div class="callout-body">
+      <div class="callout-title">Credit Rating — דירוג האגח</div>
+      סוכנויות כמו Moody's, S&P ו-Fitch מדרגות את הסיכון של כל אגח:<br><br>
+      <strong>AAA / AA / A</strong> = Investment Grade — חברות חזקות, סיכון נמוך. Apple, Microsoft, Johnson & Johnson.<br>
+      <strong>BBB</strong> = הגבול התחתון של Investment Grade. עדיין בסדר.<br>
+      <strong>BB / B / CCC</strong> = Junk Bonds (High Yield) — סיכון גבוה, ריבית גבוהה. חברות חלשות או ממונפות מאוד.<br>
+      <strong>D</strong> = Default — החברה כבר לא משלמת.<br><br>
+      <strong>למה זה חשוב למשקיע מניות:</strong> כשחברה מורידה דירוג מ-BBB ל-BB ("Fallen Angel") — קרנות רבות חייבות על פי חוק למכור את האגח שלה, מה שגורם לירידת מחיר האגח — ולרוב גם מחיר המניה.
+    </div>
   </div>
 
   <div class="callout info">
     <div class="callout-icon">🔄</div>
     <div class="callout-body">
-      <div class="callout-title">הקשר ההפוך בין ריבית למחיר אגח</div>
-      זה אחד המושגים שמבלבלים הכי הרבה אנשים: <strong>כשהריבית עולה — מחיר האג"ח יורד.</strong> למה?<br><br>
-      דמיין שיש לך אג"ח ישן שמשלם 2% ריבית. עכשיו הריבית עלתה ל-5% — מי ירצה לקנות ממך את האג"ח הישן שמשלם רק 2%? רק אם תוריד את מחירו עד שהתשואה האפקטיבית תהיה 5%.<br><br>
-      לכן: ריבית גבוהה = ערך האג"חים הישנים יורד. ריבית נמוכה = ערך האג"חים הישנים עולה.
+      <div class="callout-title">הקשר ההפוך בין ריבית למחיר אגח — ההסבר המלא</div>
+      זה אחד המושגים שמבלבלים הכי הרבה אנשים: <strong>כשהריבית עולה — מחיר האג"ח יורד.</strong><br><br>
+      <strong>למה:</strong> קנית אגח ב-$1,000 שמשלם Coupon 3% = $30 בשנה. הריבית במשק עלתה ל-5%. מי ירצה לקנות ממך אגח שמשלם $30, כשיכול לקנות אגח חדש שמשלם $50? רק אם תוריד את מחיר האגח שלך לכ-$600 — שאז התשואה האפקטיבית הופכת ל-5%.<br><br>
+      <strong>Duration — כמה רגיש האגח לריבית:</strong> אגח ל-30 שנה ירד הרבה יותר מאגח ל-2 שנה כשריבית עולה. לכן ב-2022 TLT (ETF של אגח ל-20-30 שנה) ירד כמעט 40% — יותר מהרבה מניות — כשהריבית עלתה מ-0% ל-5%.
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🛡</div>
+    <div class="callout-body">
+      <div class="callout-title">תפקיד האגח בתיק השקעות</div>
+      <strong>גידור (Hedge):</strong> בדרך כלל כשמניות יורדות — אגח עולה (כי הפד מוריד ריבית). לכן תיק 60/40 (60% מניות, 40% אגח) היסטורית היה יציב יותר מ-100% מניות.<br><br>
+      <strong>ב-2022 זה לא עבד:</strong> גם מניות וגם אגח ירדו יחד — כי אינפלציה גבוהה פגעה בשניהם. זה היה חריג היסטורי.<br><br>
+      <strong>ETF מומלצים לאגח:</strong> BND (כלל שוק האגח), TLT (ארוך טווח), SHY (קצר טווח, יציב יותר), HYG (High Yield — מסוכן יותר).
     </div>
   </div>
 
@@ -1038,14 +1061,48 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   </div>
 
   <h3>Earnings Season — ה"דוחות" הרבעוניים</h3>
+  <p>ארבע פעמים בשנה — ינואר, אפריל, יולי ואוקטובר — כל החברות הציבוריות מפרסמות דוחות. זה אחד הזמנים המרגשים והמסוכנים ביותר בשוק. מניות יכולות לזנק 20% או לצנוח 30% ביום אחד.</p>
+
   <div class="callout info">
     <div class="callout-icon">📅</div>
     <div class="callout-body">
-      <div class="callout-title">מה קורה 4 פעמים בשנה</div>
-      כל חברה ציבורית חייבת לפרסם דוח רווחים כל רבעון. זה היום הכי תנודתי למניה.<br><br>
-      <strong>EPS Surprise:</strong> הרוויחה יותר מהצפוי → לרוב עולה. פחות מהצפוי → לרוב יורדת.<br>
-      <strong>Guidance:</strong> מה החברה צופה לרבעון הבא — לפעמים חשוב אף יותר מהתוצאות.
+      <div class="callout-title">מה בדוח ומה לחפש — סדר עדיפויות</div>
+      <strong>1. EPS Actual vs Expected:</strong> הרוויחה יותר מהציפייה → "EPS Surprise" חיובי → לרוב עולה. פחות → יורדת.<br>
+      <strong>2. Revenue Actual vs Expected:</strong> גם ההכנסות חייבות לעמוד בציפייה, לא רק הרווח.<br>
+      <strong>3. Guidance — הכי חשוב מהכל:</strong> מה ההנהלה צופה לרבעון הבא. חברה יכולה לדווח תוצאות מעולות אבל לתת Guidance נמוך — ולרדת 15%. הפוך — תוצאות חלשות עם Guidance חזק — ולעלות.<br>
+      <strong>4. Gross Margin שינוי:</strong> האם הרווחיות משתפרת או מתדרדרת?<br>
+      <strong>5. User/Customer Growth:</strong> לחברות טכנולוגיה — כמה משתמשים חדשים? ARPU (הכנסה ממשתמש)?
     </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">איפה רואים את הציפיות לפני הדוח</div>
+      <strong>Earnings Whisper (earningswhispers.com):</strong> מראה לא רק את "ציפיית הקונסנסוס" אלא גם את "Whisper Number" — הציפייה הלא רשמית של השוק. לפעמים חברה עוברת את הציפייה הרשמית אבל לא את ה-Whisper — ומניה יורדת למרות "הפתעה חיובית".<br><br>
+      <strong>Seeking Alpha / Yahoo Finance Earnings Calendar:</strong> מראה תאריך דוח, ציפיית EPS, ציפיית Revenue.<br><br>
+      <strong>Investing.com Earnings Calendar:</strong> הכי נוח לצפייה מהירה של כל הדוחות השבועיים.
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">📞</div>
+    <div class="callout-body">
+      <div class="callout-title">Earnings Call — השיחה עם ההנהלה</div>
+      אחרי כל דוח, ה-CEO וה-CFO עורכים שיחת טלפון ציבורית עם אנליסטים — נקראת Earnings Call. אפשר להאזין בחינם ב-investor relations של החברה.<br><br>
+      <strong>מה לחפש בשיחה:</strong> טון ה-CEO — נשמע בטוח או מגן על עצמו? האם הם מדברים על אתגרים ספציפיים? האם הם משנים Guidance תוך כדי השיחה?<br><br>
+      <strong>כלל מפורסם:</strong> "Listen for what they don't say." — הנהלה שנמנעת מלדבר על מגמה מסוימת שהייתה חזקה בעבר — כנראה שהמגמה הזו נחלשה.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">דוגמה — Buy the Rumor Sell the News</div>
+    <div class="example-calc">
+      Apple לפני דוח: "כולם יודעים" שהדוח יהיה מצוין. מניה עלתה 8% בשבועיים שלפני.<br>
+      Apple מדווחת: EPS $2.18 — ציפייה הייתה $2.10. "הפתעה" חיובית של 3.8%.<br>
+      תגובת שוק: מניה <strong>ירדה</strong> 2% ביום הדוח.
+    </div>
+    <div class="example-result">הסיבה: השוק כבר "תמחר" את ההפתעה לפני הדוח. "Buy the Rumor, Sell the News" — תופעה נפוצה מאוד שחייבים להכיר.</div>
   </div>
 
   <div class="quiz">
@@ -1690,6 +1747,27 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
 
   <h3>Sector Rotation — מה עובד מתי</h3>
 
+  <p>השוק מחולק ל-<strong>11 סקטורים</strong>. כל סקטור מתנהג אחרת בתנאים כלכליים שונים. הבנת הסקטורים תעזור לך לבנות תיק מאוזן ולהבין למה מניה מסוימת זזה.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>סקטור</th><th>מה כולל</th><th>ETF</th><th>חזק כש</th></tr></thead>
+      <tbody>
+        <tr><td><strong>💻 Technology</strong></td><td>Apple, NVIDIA, Microsoft, Google</td><td>XLK, QQQ</td><td>ריבית נמוכה, צמיחה כלכלית</td></tr>
+        <tr><td><strong>🏥 Healthcare</strong></td><td>J&J, Pfizer, UnitedHealth</td><td>XLV</td><td>תמיד יחסית — "Defensive"</td></tr>
+        <tr><td><strong>💳 Financials</strong></td><td>JPMorgan, Goldman Sachs, Visa</td><td>XLF</td><td>ריבית גבוהה, כלכלה חזקה</td></tr>
+        <tr><td><strong>🛢 Energy</strong></td><td>ExxonMobil, Chevron, ConocoPhillips</td><td>XLE</td><td>נפט יקר, אינפלציה</td></tr>
+        <tr><td><strong>🏭 Industrials</strong></td><td>Boeing, Caterpillar, Honeywell</td><td>XLI</td><td>צמיחה כלכלית, תשתיות</td></tr>
+        <tr><td><strong>🛒 Consumer Discretionary</strong></td><td>Amazon, Tesla, Nike, McDonald's</td><td>XLY</td><td>צרכן חזק, אבטלה נמוכה</td></tr>
+        <tr><td><strong>🧴 Consumer Staples</strong></td><td>Coca-Cola, P&G, Walmart, Costco</td><td>XLP</td><td>מיתון — אנשים קונים בכל מצב</td></tr>
+        <tr><td><strong>🏠 Real Estate (REITs)</strong></td><td>Prologis, Realty Income, Simon</td><td>XLRE</td><td>ריבית נמוכה</td></tr>
+        <tr><td><strong>⚡ Utilities</strong></td><td>NextEra, Duke Energy</td><td>XLU</td><td>מיתון, ריבית יורדת — "Defensive"</td></tr>
+        <tr><td><strong>🔬 Materials</strong></td><td>Freeport-McMoRan, Nucor, Linde</td><td>XLB</td><td>אינפלציה, צמיחה גלובלית</td></tr>
+        <tr><td><strong>📡 Communication</strong></td><td>Meta, Alphabet, Netflix, AT&T</td><td>XLC</td><td>שוק שורי, צמיחה</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout info">
     <div class="callout-icon">🔄</div>
     <div class="callout-body">
@@ -1855,41 +1933,116 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   </div>
 
   <h3>Risk/Reward Ratio — הכלל שמגן על הכסף</h3>
+  <p>לפני כל עסקה, עליך לשאול: "כמה אני מסכן, וכמה אני יכול להרוויח?" זה לא "ניחוש" — זה חישוב מדויק שקובע האם העסקה בכלל שווה להיכנס אליה.</p>
+
   <div class="example-box">
-    <div class="example-label">דוגמה</div>
-    <div class="example-calc">
-      קניתי ב-$100 · Stop Loss ב-$90 → סיכון $10<br>
-      Target ב-$130 → פוטנציאל רווח $30<br>
+    <div class="example-label">חישוב R:R לפני כניסה לעסקה</div>
+    <div class="example-calc" style="line-height:2.2">
+      מניה נסחרת ב-$100. ניתחת ומאמין שתגיע ל-$130.<br>
+      שמת Stop Loss ב-$90 (10% מתחת) — כי אם תגיע לשם, אתה טעית.<br><br>
+      <strong>סיכון:</strong> $100 - $90 = $10 למניה<br>
+      <strong>פוטנציאל רווח:</strong> $130 - $100 = $30 למניה<br>
+      <strong>R:R = 1:3</strong> — על כל $1 שאתה מסכן, אתה יכול להרוויח $3
     </div>
-    <div class="example-result">R:R = 1:3 ✅ — כלל: לעולם אל תכנס לעסקה עם R:R נמוך מ-1:2</div>
+    <div class="example-result">כלל זהב: לעולם אל תכנס לעסקה עם R:R נמוך מ-1:2. אפילו אם אתה צודק רק 40% מהזמן — עם R:R של 1:3 אתה עדיין מרוויח לאורך זמן.</div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">🧮</div>
+    <div class="callout-body">
+      <div class="callout-title">המתמטיקה של R:R — למה זה עובד</div>
+      נניח שאתה נכנס ל-100 עסקאות עם R:R של 1:2:<br><br>
+      <strong>אם אתה צודק 50% מהזמן:</strong> 50 רווחים × $2 = +$100. 50 הפסדים × $1 = -$50. <strong>סה"כ: +$50</strong><br>
+      <strong>אם אתה צודק רק 40% מהזמן:</strong> 40 × $2 = +$80. 60 × $1 = -$60. <strong>סה"כ: +$20</strong><br>
+      <strong>אם אתה צודק רק 34% מהזמן:</strong> 34 × $2 = +$68. 66 × $1 = -$66. <strong>סה"כ: +$2 — עדיין לא מפסיד!</strong><br><br>
+      R:R טוב מאפשר לך להיות לא צודק יותר מכפי שאתה צודק — ועדיין להרוויח.
+    </div>
   </div>
 
   <h3>Position Sizing — כמה לשים בכל מניה</h3>
+  <p>Position Sizing הוא אחד הכלים הכי חסר הבנה בקרב מתחילים. רוב המתחילים שואלים "מה לקנות?" — אבל השאלה החשובה באמת היא "כמה לקנות?"</p>
+
   <div class="example-box">
-    <div class="example-label">כלל 5%</div>
-    <div class="example-calc">תיק של 50,000₪ → מקסימום 5% בחברה אחת = 2,500₪<br>אפילו אם החברה תפשוט רגל לחלוטין → תפסיד רק 5% מהתיק</div>
-    <div class="example-result">פיזור = ביטוח על התיק שלך 🛡</div>
+    <div class="example-label">שיטת ה-1% Risk Per Trade</div>
+    <div class="example-calc" style="line-height:2.2">
+      תיק: 100,000₪. כלל: לא מסכנים יותר מ-1% מהתיק בעסקה אחת = 1,000₪ מקסימום הפסד.<br><br>
+      מניה ב-$100, Stop Loss ב-$90 = סיכון של $10 למניה (10%).<br>
+      כמה מניות לקנות? 1,000₪ ÷ 10$ = <strong>100 מניות</strong> = השקעה של $10,000 (10% מהתיק).<br><br>
+      אם Stop Loss מופעל → מפסיד $1,000 = 1% מהתיק בלבד.
+    </div>
+    <div class="example-result">גם אחרי 10 עסקאות רצופות שהפסדת — הפסדת רק 10% מהתיק. אתה עדיין במשחק. 🛡</div>
   </div>
 
   <div class="callout tip">
     <div class="callout-icon">🌍</div>
     <div class="callout-body">
       <div class="callout-title">תיק מאוזן לדוגמה למתחיל</div>
-      <strong>40%</strong> — ETF של S&P 500 (יציבות)<br>
-      <strong>20%</strong> — ETF של NASDAQ 100 (צמיחה)<br>
-      <strong>25%</strong> — 5 מניות בודדות שניתחת, עד 5% כל אחת<br>
-      <strong>10%</strong> — סקטור שאתה מאמין בו (AI, ביוטק)<br>
-      <strong>5%</strong> — מזומן להזדמנויות
+      <strong>40%</strong> — ETF של S&P 500 (ליבת התיק, יציבות)<br>
+      <strong>20%</strong> — ETF של NASDAQ 100 (חשיפה לטכנולוגיה)<br>
+      <strong>20%</strong> — 4 מניות בודדות שניתחת, 5% כל אחת<br>
+      <strong>10%</strong> — סקטור שאתה מאמין בו (AI, ביוטק, אנרגיה נקייה)<br>
+      <strong>5%</strong> — אגח (יציבות בזמן ירידה)<br>
+      <strong>5%</strong> — מזומן להזדמנויות<br><br>
+      <strong>עיקרון:</strong> ה-ETFs "דואגים לעצמם" — הם מפוזרים בפנים. 5 מניות בודדות × 5% = 25% מהתיק בסיכון ישיר.
+    </div>
+  </div>
+
+  <h3>Stock Buyback — כשחברה קונה את עצמה</h3>
+  <p>אחד המושגים שמתחילים שומעים הרבה ולא מבינים לגמרי. <strong>Buyback (רכישה עצמית)</strong> = חברה משתמשת בכסף שלה כדי לקנות בחזרה את המניות שלה מהשוק.</p>
+
+  <div class="callout info">
+    <div class="callout-icon">🔄</div>
+    <div class="callout-body">
+      <div class="callout-title">למה Buyback טוב לבעלי המניות</div>
+      כשחברה קונה בחזרה מניות — מספר המניות בשוק יורד. כלומר, כל מניה שנשארת "שווה" יותר — כי היא מייצגת חלק גדול יותר מהחברה.<br><br>
+      <strong>דוגמה:</strong> חברה עם 100M מניות ורווח של $100M = EPS $1. אחרי Buyback של 10M מניות — נשארו 90M מניות. אותו רווח $100M ÷ 90M = EPS $1.11. עלייה של 11% ב-EPS ללא שיפור ברווח בפועל!<br><br>
+      <strong>Apple — המלך של Buyback:</strong> מאז 2012, Apple רכשה בחזרה מניות בשווי מעל $600 מיליארד. זה אחד הגורמים לעלייה המאסיבית במחיר המניה שלה.
+    </div>
+  </div>
+
+  <h3>Stock Split — פיצול מניות</h3>
+  <p><strong>Stock Split</strong> = חברה מחלקת כל מניה לכמה מניות. לדוגמה, Split של 4:1 אומר שכל מניה הופכת ל-4 מניות, ומחיר כל מניה יורד לרבע.</p>
+  <div class="callout info">
+    <div class="callout-icon">✂️</div>
+    <div class="callout-body">
+      <div class="callout-title">למה Split קורה ומה המשמעות</div>
+      <strong>הסיבה:</strong> כשמחיר מניה מגיע ל-$1,000+ — זה נראה "יקר" פסיכולוגית ומרחיק משקיעים קטנים. Apple עשתה Split 4:1 ב-2020 (מניה ב-$500 → 4 מניות ב-$125 כל אחת). Tesla עשתה 3:1 ב-2022.<br><br>
+      <strong>האם זה משנה?</strong> מתמטית — לא. אם יש לך 1 מניה ב-$400, אחרי Split 4:1 יש לך 4 מניות ב-$100. אותו שווי. אבל פסיכולוגית — השוק לרוב מגיב חיובית לאנאונסמנט של Split, כי זה "נגיש יותר".<br><br>
+      <strong>Reverse Split:</strong> הפוך — מניות קטנות ממזגות. חברה עם מניה ב-$0.50 עושה Reverse Split 1:10 → מניה ב-$5. לרוב סימן שהחברה בצרות.
+    </div>
+  </div>
+
+  <h3>Stock Screener — כלי לסינון מניות</h3>
+  <p>איך מוצאים מניות שווה לנתח מלמעלה? לא מחפשים ידנית. משתמשים ב-<strong>Stock Screener</strong> — מנוע חיפוש שמסנן מניות לפי קריטריונים שאתה קובע.</p>
+  <div class="callout tip">
+    <div class="callout-icon">🔍</div>
+    <div class="callout-body">
+      <div class="callout-title">Stock Screener מומלצים + קריטריונים לסינון</div>
+      <strong>Finviz.com</strong> — הכי נפוץ ונוח. חינמי.<br>
+      <strong>TradingView Screener</strong> — ממשק נוח, כולל גרפים.<br>
+      <strong>Seeking Alpha Screener</strong> — עם ניתוח פונדמנטלי מובנה.<br><br>
+      <strong>קריטריונים טובים למתחיל:</strong><br>
+      Market Cap מעל $10B (Large Cap — יציב)<br>
+      P/E פחות מ-30 (לא יקר מדי)<br>
+      Revenue Growth מעל 10%<br>
+      Profit Margin מעל 15%<br>
+      EPS גדל ב-5 רבעונים אחרונים<br>
+      RSI בין 40-60 (לא קנוי/מכור יתר)<br><br>
+      רשימה של 10-20 מניות שעוברות — עכשיו אפשר לנתח כל אחת לעומק.
     </div>
   </div>
 
   <div class="callout warn">
     <div class="callout-icon">🏦</div>
     <div class="callout-body">
-      <div class="callout-title">מיסוי בישראל — בקצרה</div>
-      מס רווח הון: <strong>25%</strong> על כל רווח ממניות זרות.<br>
-      ברוקר ישראלי → מס מנוכה אוטומטי.<br>
-      ברוקר זר (eToro, IBKR) → דיווח עצמי לרשות המיסים בסוף שנה.
+      <div class="callout-title">מיסוי בישראל — המדריך המלא</div>
+      <strong>מס רווח הון (Capital Gains Tax):</strong> 25% על כל רווח ממכירת מניות זרות. מחושב מהרווח הנקי = מחיר מכירה מינוס מחיר קנייה.<br><br>
+      <strong>דיבידנד:</strong> גם על דיבידנד משלמים מס — לרוב 25% (לפעמים 15% תלוי בסוג). ברוקר ישראלי מנכה אוטומטית.<br><br>
+      <strong>ברוקר ישראלי (מיטב, אקסלנס, IBKR ישראל):</strong> מנכה מס אוטומטית. קיבלת רווח — שילמת מס. פשוט.<br><br>
+      <strong>ברוקר זר (eToro, IBKR הזר):</strong> חייב לדווח בעצמך לרשות המסים. מגישים "דוח רווחי הון" עם טופס 1399 עד 30 באפריל של השנה שאחרי. בזמן שאנשים שוכחים ומקבלים קנסות.<br><br>
+      <strong>קיזוז הפסדים:</strong> הפסדת $5,000 ממניה אחת? אפשר לקזז כנגד רווח של $5,000 ממניה אחרת — ולא לשלם מס על הרווח הזה. חשוב לתעד הכל.<br><br>
+      <strong>תאריך מסחר vs תאריך סליקה (Settlement):</strong> עסקאות מניות מתסלקות T+1 (יום לאחר המסחר). לצורכי מס — תאריך העסקה הוא הקובע.<br><br>
+      <strong>חשבון IRA / קרן השתלמות:</strong> אם יש לך אפשרות להשקיע דרך קרן השתלמות — זה פטור ממס. אחד ה"כלים" הכי חשובים שאנשים מפספסים.
     </div>
   </div>
 
@@ -2083,14 +2236,14 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     </div>
   </div>
 
-  <h3>תוכנית 60 יום</h3>
+  <h3>תוכנית 60 יום — מפורטת יום אחר יום</h3>
   <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">ימים 1–7: הכרת הפלטפורמה</div><div class="step-desc">קנה 5 מניות שאתה מכיר — רק כדי ללמוד את הממשק.</div></div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">ימים 8–14: ניתוח עם StockLens</div><div class="step-desc">נתח כל מניה שקנית. האם הקנייה מוצדקת פונדמנטלית?</div></div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ימים 15–21: גרפים ב-TradingView</div><div class="step-desc">הוסף MA50, MA200, RSI לכל מניה. תתרגל לקרוא גרף.</div></div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">ימים 22–30: בנה תיק מאוזן</div><div class="step-desc">מכור מניות שלא עמדו בצ'קליסט. בנה ETF 50% + מניות 30% + סקטור 20%.</div></div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">ימים 31–45: Earnings Season</div><div class="step-desc">עקוב אחרי דוחות רבעוניים. ראה כמה המחיר זז ביום הדוח.</div></div></div>
-    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title">ימים 46–60: Trading Journal</div><div class="step-desc">תעד כל עסקה: למה קנית, מה ציפית, מה קרה. זה הלימוד האמיתי.</div></div></div>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">ימים 1–7: הכרת הפלטפורמה</div><div class="step-desc">פתח חשבון דמו ב-eToro. קנה 5 מניות שאתה מכיר — AAPL, MSFT, AMZN, NVDA, GOOG. לא בגלל ניתוח — רק ללמוד את הממשק. תתרגל: שינוי כמות, Market vs Limit Order, ראיית תיק. לא תנסה לרוויח עדיין — רק ללמוד.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">ימים 8–14: ניתוח פונדמנטלי ראשון</div><div class="step-desc">פתח StockLens. נתח כל אחת מ-5 המניות שקנית. בדוק: Health Score, P/E, EPS Growth, FCF, Moat. כתב ב-Trading Journal: "קניתי את AAPL כי... הציפייה שלי: ..." האם הקנייה מוצדקת אחרי הניתוח? אם לא — מכור בדמו ובחר מניה אחרת.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ימים 15–21: גרפים ב-TradingView</div><div class="step-desc">פתח TradingView. הוסף לכל מניה: EMA20, MA50, MA200, RSI. בדוק: האם המניה מעל MA200? מה RSI אומר? האם יש Support/Resistance קרוב? צייר קווים על הגרף. שמור Screenshot ותשווה אחרי שבוע.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">ימים 22–30: בנה תיק מאוזן ומנוהל</div><div class="step-desc">השתמש ב-Stock Screener ב-Finviz — סנן לפי: Market Cap מעל $5B, P/E פחות מ-30, Revenue Growth מעל 10%. בחר 2 מניות חדשות. הוסף ETF: קנה SPY ב-40% מהתיק. הגדר Stop Loss לכל מניה — 8-10% מתחת למחיר הכניסה.</div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">ימים 31–45: Earnings Season בפעולה</div><div class="step-desc">כנס ל-earningswhispers.com. ראה מתי כל מניה בתיק שלך מדווחת. לפני דוח: בדוק ציפיית EPS ו-Revenue. אחרי דוח: קרא Headline Numbers — האם הפתיעה לטובה? מה ה-Guidance? עדכן Trading Journal. שים לב ל-"Buy the Rumor Sell the News".</div></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title">ימים 46–60: Trading Journal + הערכת ביצועים</div><div class="step-desc">בדוק את כל העסקאות שעשית. חשב: כמה הרווחת/הפסדת? מה ה-Win Rate שלך? מה הטעות הכי נפוצה? זיהית Pattern — FOMO? Panic Selling? כתב סיכום: "3 דברים שעשיתי טוב, 3 דברים לשיפור." עכשיו אתה מוכן לכסף אמיתי.</div></div></div>
   </div>
 
   <h3>צ'קליסט — מוכן לכסף אמיתי?</h3>
