@@ -19,8 +19,8 @@
   --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-height:1.75;}
-.course-outer-wrap{overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-height:1.75;overflow-x:hidden;}
+.course-outer-wrap{}
 
 /* DISCLAIMER GATE */
 #disclaimer-gate{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -62,7 +62,7 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-
 .hero-cta:hover{filter:brightness(1.1);transform:translateY(-2px);}
 
 /* NAV */
-.course-nav{position:sticky;top:0;z-index:100;background:rgba(6,8,16,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.course-nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(6,8,16,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
 .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;color:var(--accent);white-space:nowrap;flex-shrink:0;}
 .nav-chapters{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-right:12px;}
 .nav-chapters::-webkit-scrollbar{display:none;}
@@ -71,7 +71,7 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-
 .nav-ch.active{color:#000;background:var(--accent);}
 
 /* MAIN */
-.course-wrap{max-width:840px;margin:0 auto;padding:0 22px 120px;}
+.course-wrap{max-width:840px;margin:0 auto;padding:58px 22px 120px;}
 
 /* CHAPTER */
 .chapter{padding:72px 0 56px;border-bottom:1px solid var(--border);opacity:1;transition:opacity .55s;}
@@ -1437,7 +1437,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:20px;margin:24px 0;">
     <div style="font-size:.7rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;text-align:center;font-weight:700">📊 גרף מלא — כל האלמנטים שתראה כשתפתח TradingView</div>
 
-    <svg viewBox="0 0 720 440" style="width:100%;max-width:720px;display:block;margin:0 auto;font-family:monospace" dir="ltr">
+    <svg viewBox="0 0 720 440" style="width:100%;max-width:900px;display:block;margin:0 auto;font-family:monospace" dir="ltr">
       <!-- Background -->
       <rect width="720" height="440" fill="#0d1117" rx="8"/>
 
@@ -1471,7 +1471,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       </g>
 
       <!-- Date labels X axis -->
-      <g fill="#6e7681" font-size="9" text-anchor="middle" font-family="monospace">
+      <g fill="#6e7681" font-size="11" text-anchor="middle" font-family="monospace">
         <text x="130" y="375">Jan</text>
         <text x="220" y="375">Feb</text>
         <text x="310" y="375">Mar</text>
@@ -1699,45 +1699,45 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <!-- ANNOTATIONS -->
       <!-- Support label -->
       <rect x="72" y="262" width="76" height="15" fill="#003322" rx="3" opacity="0.92"/>
-      <text x="110" y="273" fill="#00e5a0" font-size="9" text-anchor="middle" font-family="monospace">Support $162 ↑</text>
+      <text x="110" y="273" fill="#00e5a0" font-size="11" text-anchor="middle" font-family="monospace">Support $162 ↑</text>
 
       <!-- Resistance label -->
       <rect x="72" y="142" width="88" height="15" fill="#2a0000" rx="3" opacity="0.92"/>
-      <text x="116" y="153" fill="#ff5f57" font-size="9" text-anchor="middle" font-family="monospace">Resistance $186 ↓</text>
+      <text x="116" y="153" fill="#ff5f57" font-size="11" text-anchor="middle" font-family="monospace">Resistance $186 ↓</text>
 
       <!-- Rejection annotation -->
       <rect x="175" y="130" width="68" height="14" fill="#2a0000" rx="2" opacity="0.9"/>
-      <text x="209" y="140" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">↓ נדחה פעמיים</text>
+      <text x="209" y="140" fill="#ff5f57" font-size="10" text-anchor="middle" font-family="monospace">↓ נדחה פעמיים</text>
       <line x1="200" y1="155" x2="200" y2="144" stroke="#ff5f57" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
 
       <!-- Breakout annotation -->
       <rect x="270" y="115" width="72" height="14" fill="#003322" rx="2" opacity="0.9"/>
-      <text x="306" y="125" fill="#00e5a0" font-size="8.5" text-anchor="middle" font-family="monospace">⬆ Breakout!</text>
+      <text x="306" y="125" fill="#00e5a0" font-size="11" text-anchor="middle" font-family="monospace">⬆ Breakout!</text>
       <line x1="286" y1="140" x2="286" y2="129" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
 
       <!-- Gap Up annotation -->
       <rect x="394" y="72" width="56" height="14" fill="#003322" rx="2" opacity="0.9"/>
-      <text x="422" y="82" fill="#00e5a0" font-size="8" text-anchor="middle" font-family="monospace">Gap Up ↑</text>
+      <text x="422" y="82" fill="#00e5a0" font-size="10" text-anchor="middle" font-family="monospace">Gap Up ↑</text>
       <line x1="410" y1="94" x2="410" y2="86" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
 
       <!-- EMA20 label -->
       <rect x="632" y="30" width="48" height="13" fill="#001833" rx="2" opacity="0.92"/>
-      <text x="656" y="40" fill="#5aabff" font-size="8" text-anchor="middle" font-family="monospace">EMA 20</text>
+      <text x="656" y="40" fill="#5aabff" font-size="10" text-anchor="middle" font-family="monospace">EMA 20</text>
 
       <!-- MA50 label -->
       <rect x="632" y="112" width="48" height="13" fill="#231500" rx="2" opacity="0.92"/>
-      <text x="656" y="122" fill="#f0a040" font-size="8" text-anchor="middle" font-family="monospace">MA 50</text>
+      <text x="656" y="122" fill="#f0a040" font-size="10" text-anchor="middle" font-family="monospace">MA 50</text>
 
       <!-- MA200 label -->
       <rect x="632" y="220" width="48" height="13" fill="#220000" rx="2" opacity="0.92"/>
-      <text x="656" y="230" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">MA 200</text>
+      <text x="656" y="230" fill="#ff5f57" font-size="10" text-anchor="middle" font-family="monospace">MA 200</text>
 
       <!-- Volume label -->
       <text x="76" y="345" fill="#6e7681" font-size="8" font-family="monospace">Vol</text>
 
       <!-- Chart title -->
       <text x="385" y="20" fill="#e6edf3" font-size="11" text-anchor="middle" font-weight="bold" font-family="monospace">AAPL — Daily Chart (1D)</text>
-      <text x="385" y="32" fill="#6e7681" font-size="8" text-anchor="middle" font-family="monospace">גרף יומי לדוגמה עם כל האלמנטים — EMA20 · MA50 · MA200 · Support · Resistance · Volume</text>
+      <text x="385" y="32" fill="#6e7681" font-size="10" text-anchor="middle" font-family="monospace">גרף יומי לדוגמה עם כל האלמנטים — EMA20 · MA50 · MA200 · Support · Resistance · Volume</text>
 
       <!-- Separator between chart and volume -->
       <line x1="70" y1="315" x2="700" y2="315" stroke="#1a2030" stroke-width="1"/>
@@ -2119,7 +2119,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <!-- Support/Resistance Visual -->
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
     <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 Support ו-Resistance בגרף — דוגמה</div>
-    <svg viewBox="0 0 600 200" style="width:100%;max-width:600px;display:block;margin:0 auto" dir="ltr">
+    <svg viewBox="0 0 600 200" style="width:100%;max-width:760px;display:block;margin:0 auto" dir="ltr">
       <rect width="600" height="200" fill="#0a0d1a" rx="6"/>
       <!-- Grid -->
       <g stroke="#1a1f35" stroke-width="1">
@@ -2167,7 +2167,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <!-- RSI Visual -->
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
     <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 RSI — כך נראה בגרף</div>
-    <svg viewBox="0 0 600 130" style="width:100%;max-width:600px;display:block;margin:0 auto" dir="ltr">
+    <svg viewBox="0 0 600 130" style="width:100%;max-width:760px;display:block;margin:0 auto" dir="ltr">
       <rect width="600" height="130" fill="#0a0d1a" rx="6"/>
       <!-- RSI zones -->
       <rect x="0" y="0" width="600" height="30" fill="rgba(255,95,87,0.08)"/>
@@ -2204,7 +2204,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <!-- MACD Visual -->
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
     <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 MACD — כך נראה בגרף</div>
-    <svg viewBox="0 0 600 120" style="width:100%;max-width:600px;display:block;margin:0 auto" dir="ltr">
+    <svg viewBox="0 0 600 120" style="width:100%;max-width:760px;display:block;margin:0 auto" dir="ltr">
       <rect width="600" height="120" fill="#0a0d1a" rx="6"/>
       <!-- Zero line -->
       <line x1="0" y1="60" x2="600" y2="60" stroke="#5a6080" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
