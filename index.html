@@ -289,6 +289,7 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
 #login-gate{position:fixed;inset:0;z-index:99998;background:var(--bg);display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
 #login-gate.hidden{display:none;}
 .login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px 32px;max-width:420px;width:100%;text-align:center;position:relative;z-index:1;margin:auto;}
+body.login-open{overflow:hidden;position:fixed;width:100%;}
 .login-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:4px;}
 .login-sub{font-size:.68rem;color:var(--muted);letter-spacing:2px;margin-bottom:28px;}
 .login-tabs{display:flex;gap:4px;background:var(--surface);border-radius:9px;padding:3px;margin-bottom:24px;}
@@ -2414,6 +2415,8 @@ async function sbFetch(path, options = {}) {
   if (session) {
     const user = JSON.parse(session);
     showCourse(user);
+  } else {
+    document.body.classList.add('login-open');
   }
 })();
 
@@ -2472,6 +2475,7 @@ async function doLogin() {
 
 function showCourse(user) {
   document.getElementById('login-gate').classList.add('hidden');
+  document.body.classList.remove('login-open');
   document.getElementById('main-content').style.display = 'block';
   
   // Show user menu
