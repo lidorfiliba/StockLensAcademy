@@ -1436,256 +1436,328 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:20px;margin:24px 0;">
     <div style="font-size:.7rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;text-align:center;font-weight:700">📊 גרף מלא — כל האלמנטים שתראה כשתפתח TradingView</div>
 
-    <svg viewBox="0 0 700 420" style="width:100%;max-width:700px;display:block;margin:0 auto;font-family:monospace" dir="ltr">
+    <svg viewBox="0 0 720 440" style="width:100%;max-width:720px;display:block;margin:0 auto;font-family:monospace" dir="ltr">
       <!-- Background -->
-      <rect width="700" height="420" fill="#0a0d1a" rx="8"/>
+      <rect width="720" height="440" fill="#0d1117" rx="8"/>
 
-      <!-- Grid lines -->
-      <g stroke="#1a1f35" stroke-width="1">
-        <line x1="60" y1="40" x2="680" y2="40"/>
-        <line x1="60" y1="95" x2="680" y2="95"/>
-        <line x1="60" y1="150" x2="680" y2="150"/>
-        <line x1="60" y1="205" x2="680" y2="205"/>
-        <line x1="60" y1="260" x2="680" y2="260"/>
-        <line x1="60" y1="315" x2="680" y2="315"/>
-        <line x1="120" y1="35" x2="120" y2="340"/>
-        <line x1="210" y1="35" x2="210" y2="340"/>
-        <line x1="300" y1="35" x2="300" y2="340"/>
-        <line x1="390" y1="35" x2="390" y2="340"/>
-        <line x1="480" y1="35" x2="480" y2="340"/>
-        <line x1="570" y1="35" x2="570" y2="340"/>
+      <!-- Grid lines horizontal -->
+      <g stroke="#161b22" stroke-width="1">
+        <line x1="70" y1="50" x2="700" y2="50"/>
+        <line x1="70" y1="100" x2="700" y2="100"/>
+        <line x1="70" y1="150" x2="700" y2="150"/>
+        <line x1="70" y1="200" x2="700" y2="200"/>
+        <line x1="70" y1="250" x2="700" y2="250"/>
+        <line x1="70" y1="300" x2="700" y2="300"/>
+      </g>
+      <!-- Grid lines vertical -->
+      <g stroke="#161b22" stroke-width="1">
+        <line x1="130" y1="40" x2="130" y2="360"/>
+        <line x1="220" y1="40" x2="220" y2="360"/>
+        <line x1="310" y1="40" x2="310" y2="360"/>
+        <line x1="400" y1="40" x2="400" y2="360"/>
+        <line x1="490" y1="40" x2="490" y2="360"/>
+        <line x1="580" y1="40" x2="580" y2="360"/>
       </g>
 
-      <!-- Price axis (Y) -->
-      <g fill="#5a6080" font-size="10" text-anchor="end">
-        <text x="55" y="44">$210</text>
-        <text x="55" y="99">$195</text>
-        <text x="55" y="154">$180</text>
-        <text x="55" y="209">$165</text>
-        <text x="55" y="264">$150</text>
-        <text x="55" y="319">$135</text>
+      <!-- Price labels Y axis -->
+      <g fill="#6e7681" font-size="10" text-anchor="end" font-family="monospace">
+        <text x="65" y="54">$210</text>
+        <text x="65" y="104">$198</text>
+        <text x="65" y="154">$186</text>
+        <text x="65" y="204">$174</text>
+        <text x="65" y="254">$162</text>
+        <text x="65" y="304">$150</text>
       </g>
 
-      <!-- Time axis (X) -->
-      <g fill="#5a6080" font-size="9" text-anchor="middle">
-        <text x="120" y="355">Jan</text>
-        <text x="210" y="355">Feb</text>
-        <text x="300" y="355">Mar</text>
-        <text x="390" y="355">Apr</text>
-        <text x="480" y="355">May</text>
-        <text x="570" y="355">Jun</text>
+      <!-- Date labels X axis -->
+      <g fill="#6e7681" font-size="9" text-anchor="middle" font-family="monospace">
+        <text x="130" y="375">Jan</text>
+        <text x="220" y="375">Feb</text>
+        <text x="310" y="375">Mar</text>
+        <text x="400" y="375">Apr</text>
+        <text x="490" y="375">May</text>
+        <text x="580" y="375">Jun</text>
+        <text x="660" y="375">Jul</text>
       </g>
 
-      <!-- MA200 (red) -->
-      <polyline points="60,280 120,272 180,265 240,258 300,252 360,248 420,240 480,232 540,225 570,220 640,215 680,210"
-        fill="none" stroke="#ff5f57" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7"/>
+      <!-- ══ MA200 (RED DASHED — far below, slowly rising) ══ -->
+      <polyline points="70,310 130,305 200,299 270,293 340,287 400,282 460,276 520,270 580,264 640,258 700,252"
+        fill="none" stroke="#ff5f57" stroke-width="2" stroke-dasharray="6,3" opacity="0.9"/>
 
-      <!-- MA50 (orange) -->
-      <polyline points="60,255 120,248 180,238 240,228 300,218 360,210 420,198 480,188 540,178 570,172 640,165 680,158"
-        fill="none" stroke="#f7a048" stroke-width="1.8" opacity="0.85"/>
+      <!-- ══ MA50 (ORANGE SOLID — middle, faster rise) ══ -->
+      <polyline points="70,278 110,270 150,261 200,250 250,238 300,226 350,214 400,202 450,190 500,178 550,168 600,158 650,150 700,143"
+        fill="none" stroke="#f0a040" stroke-width="2.2" opacity="0.95"/>
 
-      <!-- EMA20 (blue) -->
-      <polyline points="60,242 90,230 120,222 150,215 180,205 210,195 240,185 270,178 300,170 330,162 360,155 390,148 420,142 450,136 480,130 510,124 540,118 570,112 600,108 640,104 680,100"
-        fill="none" stroke="#5aabff" stroke-width="1.5" opacity="0.8"/>
+      <!-- ══ EMA20 (BLUE — closest to price, most reactive) ══ -->
+      <polyline points="70,262 90,252 110,244 130,236 155,225 175,215 200,203 220,193 245,183 265,172 285,162 310,152 330,143 355,134 375,124 400,116 420,108 445,118 465,108 490,98 515,88 535,80 555,72 580,65 600,58 625,53 650,48 675,44 700,40"
+        fill="none" stroke="#5aabff" stroke-width="1.8" opacity="0.9"/>
 
-      <!-- Area fill under price -->
-      <path d="M60,242 90,225 120,218 150,228 180,210 210,195 240,182 270,165 300,158 330,148 360,138 390,128 420,118 450,125 480,108 510,98 540,88 570,78 600,72 640,65 680,58 680,340 60,340Z"
-        fill="url(#areaGrad)" opacity="0.15"/>
-      <defs>
-        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#00e5a0" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="#00e5a0" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
+      <!-- ══ RESISTANCE LINE ══ -->
+      <line x1="70" y1="155" x2="420" y2="155" stroke="#ff5f57" stroke-width="1.2" stroke-dasharray="8,4" opacity="0.55"/>
 
-      <!-- Candles -->
-      <!-- Candle 1 green -->
-      <line x1="75" y1="228" x2="75" y2="248" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="70" y="228" width="10" height="14" fill="#00e5a0" rx="1"/>
-      <line x1="75" y1="242" x2="75" y2="255" stroke="#00e5a0" stroke-width="1.5"/>
+      <!-- ══ SUPPORT LINE ══ -->
+      <line x1="70" y1="260" x2="700" y2="260" stroke="#00e5a0" stroke-width="1.2" stroke-dasharray="8,4" opacity="0.45"/>
 
-      <!-- Candle 2 red -->
-      <line x1="100" y1="215" x2="100" y2="235" stroke="#ff5f57" stroke-width="1.5"/>
-      <rect x="95" y="218" width="10" height="14" fill="#ff5f57" rx="1"/>
-      <line x1="100" y1="232" x2="100" y2="242" stroke="#ff5f57" stroke-width="1.5"/>
+      <!-- ══ CANDLESTICKS — realistic price movement ══ -->
+      <!-- Jan: gradual rise from 162 area -->
+      <line x1="80" y1="266" x2="80" y2="278" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="75" y="266" width="10" height="10" fill="#00e5a0" rx="1"/>
+      <line x1="80" y1="276" x2="80" y2="285" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <!-- Candle 3 green -->
-      <line x1="125" y1="208" x2="125" y2="228" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="120" y="208" width="10" height="16" fill="#00e5a0" rx="1"/>
-      <line x1="125" y1="224" x2="125" y2="238" stroke="#00e5a0" stroke-width="1.5"/>
+      <line x1="97" y1="259" x2="97" y2="272" stroke="#ff5f57" stroke-width="1.2"/>
+      <rect x="92" y="261" width="10" height="9" fill="#ff5f57" rx="1"/>
+      <line x1="97" y1="270" x2="97" y2="278" stroke="#ff5f57" stroke-width="1.2"/>
 
-      <!-- More candles... mid section -->
-      <line x1="150" y1="220" x2="150" y2="235" stroke="#ff5f57" stroke-width="1.5"/>
-      <rect x="145" y="222" width="10" height="10" fill="#ff5f57" rx="1"/>
-      <line x1="150" y1="232" x2="150" y2="245" stroke="#ff5f57" stroke-width="1.5"/>
+      <line x1="114" y1="252" x2="114" y2="264" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="109" y="252" width="10" height="11" fill="#00e5a0" rx="1"/>
+      <line x1="114" y1="263" x2="114" y2="272" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <line x1="175" y1="200" x2="175" y2="218" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="170" y="200" width="10" height="15" fill="#00e5a0" rx="1"/>
-      <line x1="175" y1="215" x2="175" y2="228" stroke="#00e5a0" stroke-width="1.5"/>
+      <!-- Near support bounce -->
+      <line x1="131" y1="255" x2="131" y2="264" stroke="#ff5f57" stroke-width="1.2"/>
+      <rect x="126" y="257" width="10" height="6" fill="#ff5f57" rx="1"/>
+      <line x1="131" y1="263" x2="131" y2="270" stroke="#ff5f57" stroke-width="1.2"/>
 
-      <line x1="200" y1="188" x2="200" y2="205" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="195" y="188" width="10" height="14" fill="#00e5a0" rx="1"/>
-      <line x1="200" y1="202" x2="200" y2="215" stroke="#00e5a0" stroke-width="1.5"/>
+      <line x1="148" y1="247" x2="148" y2="259" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="143" y="247" width="10" height="11" fill="#00e5a0" rx="1"/>
+      <line x1="148" y1="258" x2="148" y2="268" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <line x1="225" y1="180" x2="225" y2="196" stroke="#ff5f57" stroke-width="1.5"/>
-      <rect x="220" y="182" width="10" height="12" fill="#ff5f57" rx="1"/>
-      <line x1="225" y1="194" x2="225" y2="205" stroke="#ff5f57" stroke-width="1.5"/>
+      <!-- Feb: approaching resistance 186 -->
+      <line x1="165" y1="237" x2="165" y2="250" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="160" y="237" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="165" y1="249" x2="165" y2="260" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <line x1="250" y1="165" x2="250" y2="182" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="245" y="165" width="10" height="16" fill="#00e5a0" rx="1"/>
-      <line x1="250" y1="181" x2="250" y2="195" stroke="#00e5a0" stroke-width="1.5"/>
+      <line x1="182" y1="226" x2="182" y2="239" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="177" y="226" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="182" y1="238" x2="182" y2="248" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <line x1="275" y1="155" x2="275" y2="172" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="270" y="155" width="10" height="15" fill="#00e5a0" rx="1"/>
-      <line x1="275" y1="170" x2="275" y2="182" stroke="#00e5a0" stroke-width="1.5"/>
+      <!-- Hit resistance, rejected -->
+      <line x1="199" y1="152" x2="199" y2="168" stroke="#ff5f57" stroke-width="1.2"/>
+      <rect x="194" y="154" width="10" height="12" fill="#ff5f57" rx="1"/>
+      <line x1="199" y1="166" x2="199" y2="178" stroke="#ff5f57" stroke-width="1.2"/>
 
-      <!-- Resistance line -->
-      <line x1="60" y1="155" x2="400" y2="155" stroke="#ff5f57" stroke-width="1" stroke-dasharray="6,3" opacity="0.6"/>
+      <line x1="216" y1="160" x2="216" y2="172" stroke="#ff5f57" stroke-width="1.2"/>
+      <rect x="211" y="162" width="10" height="8" fill="#ff5f57" rx="1"/>
+      <line x1="216" y1="170" x2="216" y2="180" stroke="#ff5f57" stroke-width="1.2"/>
 
-      <!-- Support line -->
-      <line x1="60" y1="248" x2="680" y2="248" stroke="#00e5a0" stroke-width="1" stroke-dasharray="6,3" opacity="0.5"/>
+      <line x1="233" y1="170" x2="233" y2="182" stroke="#ff5f57" stroke-width="1.2"/>
+      <rect x="228" y="172" width="10" height="9" fill="#ff5f57" rx="1"/>
+      <line x1="233" y1="181" x2="233" y2="192" stroke="#ff5f57" stroke-width="1.2"/>
 
-      <!-- More candles right side - breakout! -->
-      <line x1="300" y1="145" x2="300" y2="165" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="295" y="145" width="10" height="18" fill="#00e5a0" rx="1"/>
-      <line x1="300" y1="163" x2="300" y2="175" stroke="#00e5a0" stroke-width="1.5"/>
+      <!-- Mar: consolidation then BREAKOUT -->
+      <line x1="250" y1="174" x2="250" y2="185" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="245" y="174" width="10" height="10" fill="#00e5a0" rx="1"/>
+      <line x1="250" y1="184" x2="250" y2="194" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <line x1="325" y1="135" x2="325" y2="152" stroke="#00e5a0" stroke-width="1.5"/>
-      <rect x="320" y="135" width="10" height="16" fill="#00e5a0" rx="1"/>
-      <line x1="325" y1="151" x2="325" y2="162" stroke="#00e5a0" stroke-width="1.5"/>
+      <line x1="267" y1="165" x2="267" y2="176" stroke="#00e5a0" stroke-width="1.2"/>
+      <rect x="262" y="165" width="10" height="10" fill="#00e5a0" rx="1"/>
+      <line x1="267" y1="175" x2="267" y2="185" stroke="#00e5a0" stroke-width="1.2"/>
 
-      <line x1="350" y1="125" x2="350" y2="142" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="345" y="125" width="10" height="16" fill="#00e5a0" rx="1"/>
-      <line x1="350" y1="141" x2="350" y2="152" stroke="#00e5a0" stroke-width="2"/>
+      <!-- BREAKOUT CANDLE — big green with high volume -->
+      <line x1="284" y1="140" x2="284" y2="158" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="278" y="140" width="12" height="17" fill="#00e5a0" rx="1.5"/>
+      <line x1="284" y1="157" x2="284" y2="172" stroke="#00e5a0" stroke-width="2"/>
 
-      <line x1="375" y1="115" x2="375" y2="132" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="370" y="115" width="10" height="16" fill="#00e5a0" rx="2"/>
-      <line x1="375" y1="131" x2="375" y2="145" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="301" y1="128" x2="301" y2="142" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="295" y="128" width="12" height="14" fill="#00e5a0" rx="1.5"/>
+      <line x1="301" y1="142" x2="301" y2="155" stroke="#00e5a0" stroke-width="2"/>
 
-      <!-- Gap Up -->
-      <line x1="415" y1="108" x2="415" y2="122" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="410" y="108" width="10" height="14" fill="#00e5a0" rx="1"/>
-      <line x1="415" y1="122" x2="415" y2="132" stroke="#00e5a0" stroke-width="2"/>
+      <!-- Apr: continued rise, small pullback (healthy) -->
+      <line x1="318" y1="122" x2="318" y2="134" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="313" y="122" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="318" y1="134" x2="318" y2="145" stroke="#00e5a0" stroke-width="1.5"/>
 
-      <line x1="440" y1="118" x2="440" y2="130" stroke="#ff5f57" stroke-width="1.5"/>
-      <rect x="435" y="120" width="10" height="8" fill="#ff5f57" rx="1"/>
-      <line x1="440" y1="128" x2="440" y2="140" stroke="#ff5f57" stroke-width="1.5"/>
+      <line x1="335" y1="130" x2="335" y2="140" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="330" y="132" width="10" height="7" fill="#ff5f57" rx="1"/>
+      <line x1="335" y1="139" x2="335" y2="150" stroke="#ff5f57" stroke-width="1.5"/>
 
-      <line x1="465" y1="100" x2="465" y2="116" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="460" y="100" width="10" height="15" fill="#00e5a0" rx="1"/>
-      <line x1="465" y1="115" x2="465" y2="128" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="352" y1="116" x2="352" y2="128" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="347" y="116" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="352" y1="128" x2="352" y2="140" stroke="#00e5a0" stroke-width="1.5"/>
 
-      <line x1="490" y1="90" x2="490" y2="105" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="485" y="90" width="10" height="14" fill="#00e5a0" rx="2"/>
-      <line x1="490" y1="104" x2="490" y2="116" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="369" y1="118" x2="369" y2="128" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="364" y="120" width="10" height="7" fill="#ff5f57" rx="1"/>
+      <line x1="369" y1="127" x2="369" y2="138" stroke="#ff5f57" stroke-width="1.5"/>
 
-      <line x1="515" y1="80" x2="515" y2="96" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="510" y="80" width="10" height="15" fill="#00e5a0" rx="2"/>
-      <line x1="515" y1="95" x2="515" y2="108" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="386" y1="108" x2="386" y2="120" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="381" y="108" width="10" height="11" fill="#00e5a0" rx="1"/>
+      <line x1="386" y1="119" x2="386" y2="130" stroke="#00e5a0" stroke-width="1.5"/>
 
-      <line x1="540" y1="78" x2="540" y2="92" stroke="#ff5f57" stroke-width="1.5"/>
-      <rect x="535" y="80" width="10" height="10" fill="#ff5f57" rx="1"/>
-      <line x1="540" y1="90" x2="540" y2="102" stroke="#ff5f57" stroke-width="1.5"/>
+      <!-- GAP UP candle -->
+      <line x1="408" y1="94" x2="408" y2="106" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="402" y="94" width="12" height="12" fill="#00e5a0" rx="1.5"/>
+      <line x1="408" y1="106" x2="408" y2="118" stroke="#00e5a0" stroke-width="2"/>
 
-      <line x1="565" y1="68" x2="565" y2="82" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="560" y="68" width="10" height="13" fill="#00e5a0" rx="2"/>
-      <line x1="565" y1="81" x2="565" y2="95" stroke="#00e5a0" stroke-width="2"/>
+      <!-- May: strong uptrend -->
+      <line x1="425" y1="108" x2="425" y2="118" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="420" y="110" width="10" height="7" fill="#ff5f57" rx="1"/>
+      <line x1="425" y1="117" x2="425" y2="126" stroke="#ff5f57" stroke-width="1.5"/>
 
-      <line x1="590" y1="62" x2="590" y2="76" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="585" y="62" width="10" height="14" fill="#00e5a0" rx="2"/>
-      <line x1="590" y1="76" x2="590" y2="88" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="442" y1="98" x2="442" y2="110" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="437" y="98" width="10" height="11" fill="#00e5a0" rx="1"/>
+      <line x1="442" y1="109" x2="442" y2="120" stroke="#00e5a0" stroke-width="1.5"/>
 
-      <line x1="615" y1="56" x2="615" y2="70" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="610" y="56" width="10" height="14" fill="#00e5a0" rx="2"/>
-      <line x1="615" y1="70" x2="615" y2="82" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="459" y1="86" x2="459" y2="98" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="454" y="86" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="459" y1="98" x2="459" y2="110" stroke="#00e5a0" stroke-width="1.5"/>
 
-      <line x1="640" y1="58" x2="640" y2="70" stroke="#ff5f57" stroke-width="1.5"/>
-      <rect x="635" y="60" width="10" height="8" fill="#ff5f57" rx="1"/>
-      <line x1="640" y1="68" x2="640" y2="80" stroke="#ff5f57" stroke-width="1.5"/>
+      <line x1="476" y1="80" x2="476" y2="90" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="471" y="82" width="10" height="7" fill="#ff5f57" rx="1"/>
+      <line x1="476" y1="89" x2="476" y2="100" stroke="#ff5f57" stroke-width="1.5"/>
 
-      <line x1="665" y1="50" x2="665" y2="65" stroke="#00e5a0" stroke-width="2"/>
-      <rect x="660" y="50" width="10" height="14" fill="#00e5a0" rx="2"/>
-      <line x1="665" y1="64" x2="665" y2="76" stroke="#00e5a0" stroke-width="2"/>
+      <line x1="493" y1="70" x2="493" y2="82" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="488" y="70" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="493" y1="82" x2="493" y2="94" stroke="#00e5a0" stroke-width="1.5"/>
 
-      <!-- Volume bars at bottom -->
-      <g opacity="0.5">
-        <rect x="70" y="326" width="10" height="8" fill="#00e5a0" rx="1"/>
-        <rect x="95" y="322" width="10" height="12" fill="#ff5f57" rx="1"/>
-        <rect x="120" y="320" width="10" height="14" fill="#00e5a0" rx="1"/>
-        <rect x="145" y="325" width="10" height="9" fill="#ff5f57" rx="1"/>
-        <rect x="170" y="318" width="10" height="16" fill="#00e5a0" rx="1"/>
-        <rect x="195" y="316" width="10" height="18" fill="#00e5a0" rx="1"/>
-        <rect x="220" y="324" width="10" height="10" fill="#ff5f57" rx="1"/>
-        <rect x="245" y="312" width="10" height="22" fill="#00e5a0" rx="1"/>
-        <rect x="270" y="314" width="10" height="20" fill="#00e5a0" rx="1"/>
-        <rect x="295" y="304" width="10" height="30" fill="#00e5a0" rx="1"/>
-        <rect x="320" y="306" width="10" height="28" fill="#00e5a0" rx="1"/>
-        <rect x="345" y="300" width="10" height="34" fill="#00e5a0" rx="1"/>
-        <rect x="370" y="298" width="10" height="36" fill="#00e5a0" rx="1"/>
-        <rect x="405" y="292" width="10" height="42" fill="#00e5a0" rx="1"/>
-        <rect x="430" y="318" width="10" height="16" fill="#ff5f57" rx="1"/>
-        <rect x="455" y="308" width="10" height="26" fill="#00e5a0" rx="1"/>
-        <rect x="480" y="302" width="10" height="32" fill="#00e5a0" rx="1"/>
-        <rect x="505" y="300" width="10" height="34" fill="#00e5a0" rx="1"/>
-        <rect x="530" y="320" width="10" height="14" fill="#ff5f57" rx="1"/>
-        <rect x="555" y="298" width="10" height="36" fill="#00e5a0" rx="1"/>
-        <rect x="580" y="296" width="10" height="38" fill="#00e5a0" rx="1"/>
-        <rect x="605" y="294" width="10" height="40" fill="#00e5a0" rx="1"/>
-        <rect x="630" y="322" width="10" height="12" fill="#ff5f57" rx="1"/>
-        <rect x="655" y="292" width="10" height="42" fill="#00e5a0" rx="1"/>
+      <!-- Jun-Jul: near highs -->
+      <line x1="510" y1="62" x2="510" y2="74" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="505" y="62" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="510" y1="74" x2="510" y2="86" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="527" y1="66" x2="527" y2="76" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="522" y="68" width="10" height="7" fill="#ff5f57" rx="1"/>
+      <line x1="527" y1="75" x2="527" y2="86" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="544" y1="55" x2="544" y2="67" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="539" y="55" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="544" y1="67" x2="544" y2="79" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="561" y1="50" x2="561" y2="60" stroke="#00e5a0" stroke-width="1.5"/>
+      <rect x="556" y="50" width="10" height="10" fill="#00e5a0" rx="1"/>
+      <line x1="561" y1="60" x2="561" y2="72" stroke="#00e5a0" stroke-width="1.5"/>
+
+      <line x1="578" y1="54" x2="578" y2="62" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="573" y="56" width="10" height="5" fill="#ff5f57" rx="1"/>
+      <line x1="578" y1="61" x2="578" y2="72" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="595" y1="44" x2="595" y2="56" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="590" y="44" width="10" height="12" fill="#00e5a0" rx="1"/>
+      <line x1="595" y1="56" x2="595" y2="68" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="612" y1="40" x2="612" y2="52" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="607" y="40" width="10" height="12" fill="#00e5a0" rx="1.5"/>
+      <line x1="612" y1="52" x2="612" y2="64" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="629" y1="43" x2="629" y2="52" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="624" y="45" width="10" height="6" fill="#ff5f57" rx="1"/>
+      <line x1="629" y1="51" x2="629" y2="62" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <line x1="646" y1="36" x2="646" y2="48" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="641" y="36" width="10" height="12" fill="#00e5a0" rx="1.5"/>
+      <line x1="646" y1="48" x2="646" y2="60" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="663" y1="32" x2="663" y2="44" stroke="#00e5a0" stroke-width="2"/>
+      <rect x="658" y="32" width="10" height="12" fill="#00e5a0" rx="1.5"/>
+      <line x1="663" y1="44" x2="663" y2="56" stroke="#00e5a0" stroke-width="2"/>
+
+      <line x1="680" y1="34" x2="680" y2="44" stroke="#ff5f57" stroke-width="1.5"/>
+      <rect x="675" y="36" width="10" height="7" fill="#ff5f57" rx="1"/>
+      <line x1="680" y1="43" x2="680" y2="55" stroke="#ff5f57" stroke-width="1.5"/>
+
+      <!-- VOLUME BARS -->
+      <g opacity="0.55">
+        <rect x="75" y="322" width="10" height="12" fill="#00e5a0" rx="1"/>
+        <rect x="92" y="326" width="10" height="8" fill="#ff5f57" rx="1"/>
+        <rect x="109" y="320" width="10" height="14" fill="#00e5a0" rx="1"/>
+        <rect x="126" y="324" width="10" height="10" fill="#ff5f57" rx="1"/>
+        <rect x="143" y="318" width="10" height="16" fill="#00e5a0" rx="1"/>
+        <rect x="160" y="316" width="10" height="18" fill="#00e5a0" rx="1"/>
+        <rect x="177" y="314" width="10" height="20" fill="#00e5a0" rx="1"/>
+        <rect x="194" y="320" width="10" height="14" fill="#ff5f57" rx="1"/>
+        <rect x="211" y="324" width="10" height="10" fill="#ff5f57" rx="1"/>
+        <rect x="228" y="322" width="10" height="12" fill="#ff5f57" rx="1"/>
+        <rect x="245" y="316" width="10" height="18" fill="#00e5a0" rx="1"/>
+        <rect x="262" y="314" width="10" height="20" fill="#00e5a0" rx="1"/>
+        <!-- BREAKOUT HIGH VOLUME -->
+        <rect x="279" y="300" width="12" height="34" fill="#00e5a0" rx="1"/>
+        <rect x="296" y="302" width="12" height="32" fill="#00e5a0" rx="1"/>
+        <rect x="313" y="308" width="10" height="26" fill="#00e5a0" rx="1"/>
+        <rect x="330" y="322" width="10" height="12" fill="#ff5f57" rx="1"/>
+        <rect x="347" y="310" width="10" height="24" fill="#00e5a0" rx="1"/>
+        <rect x="364" y="320" width="10" height="14" fill="#ff5f57" rx="1"/>
+        <rect x="381" y="312" width="10" height="22" fill="#00e5a0" rx="1"/>
+        <!-- GAP UP HIGH VOLUME -->
+        <rect x="403" y="298" width="12" height="36" fill="#00e5a0" rx="1"/>
+        <rect x="420" y="320" width="10" height="14" fill="#ff5f57" rx="1"/>
+        <rect x="437" y="310" width="10" height="24" fill="#00e5a0" rx="1"/>
+        <rect x="454" y="306" width="10" height="28" fill="#00e5a0" rx="1"/>
+        <rect x="471" y="318" width="10" height="16" fill="#ff5f57" rx="1"/>
+        <rect x="488" y="304" width="10" height="30" fill="#00e5a0" rx="1"/>
+        <rect x="505" y="302" width="10" height="32" fill="#00e5a0" rx="1"/>
+        <rect x="522" y="316" width="10" height="18" fill="#ff5f57" rx="1"/>
+        <rect x="539" y="300" width="10" height="34" fill="#00e5a0" rx="1"/>
+        <rect x="556" y="298" width="10" height="36" fill="#00e5a0" rx="1"/>
+        <rect x="573" y="318" width="10" height="16" fill="#ff5f57" rx="1"/>
+        <rect x="590" y="296" width="10" height="38" fill="#00e5a0" rx="1"/>
+        <rect x="607" y="294" width="10" height="40" fill="#00e5a0" rx="1"/>
+        <rect x="624" y="316" width="10" height="18" fill="#ff5f57" rx="1"/>
+        <rect x="641" y="292" width="10" height="42" fill="#00e5a0" rx="1"/>
+        <rect x="658" y="290" width="10" height="44" fill="#00e5a0" rx="1"/>
+        <rect x="675" y="314" width="10" height="20" fill="#ff5f57" rx="1"/>
       </g>
 
-      <!-- Annotations with arrows -->
+      <!-- ANNOTATIONS -->
       <!-- Support label -->
-      <rect x="62" y="238" width="72" height="16" fill="#003322" rx="3" opacity="0.9"/>
-      <text x="98" y="249" fill="#00e5a0" font-size="9" text-anchor="middle">Support $148</text>
+      <rect x="72" y="262" width="76" height="15" fill="#003322" rx="3" opacity="0.92"/>
+      <text x="110" y="273" fill="#00e5a0" font-size="9" text-anchor="middle" font-family="monospace">Support $162 ↑</text>
 
       <!-- Resistance label -->
-      <rect x="62" y="145" width="84" height="16" fill="#330000" rx="3" opacity="0.9"/>
-      <text x="104" y="156" fill="#ff5f57" font-size="9" text-anchor="middle">Resistance $178</text>
+      <rect x="72" y="142" width="88" height="15" fill="#2a0000" rx="3" opacity="0.92"/>
+      <text x="116" y="153" fill="#ff5f57" font-size="9" text-anchor="middle" font-family="monospace">Resistance $186 ↓</text>
 
-      <!-- Breakout arrow -->
-      <line x1="305" y1="148" x2="305" y2="130" stroke="#f7c948" stroke-width="1.5" marker-end="url(#arrow)"/>
-      <rect x="285" y="118" width="72" height="14" fill="#332200" rx="3" opacity="0.9"/>
-      <text x="321" y="128" fill="#f7c948" font-size="9" text-anchor="middle">⬆ Breakout!</text>
+      <!-- Rejection annotation -->
+      <rect x="175" y="130" width="68" height="14" fill="#2a0000" rx="2" opacity="0.9"/>
+      <text x="209" y="140" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">↓ נדחה פעמיים</text>
+      <line x1="200" y1="155" x2="200" y2="144" stroke="#ff5f57" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
+
+      <!-- Breakout annotation -->
+      <rect x="270" y="115" width="72" height="14" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="306" y="125" fill="#00e5a0" font-size="8.5" text-anchor="middle" font-family="monospace">⬆ Breakout!</text>
+      <line x1="286" y1="140" x2="286" y2="129" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
 
       <!-- Gap Up annotation -->
-      <rect x="390" y="88" width="56" height="14" fill="#003322" rx="3" opacity="0.9"/>
-      <text x="418" y="98" fill="#00e5a0" font-size="9" text-anchor="middle">Gap Up ↑</text>
+      <rect x="394" y="72" width="56" height="14" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="422" y="82" fill="#00e5a0" font-size="8" text-anchor="middle" font-family="monospace">Gap Up ↑</text>
+      <line x1="410" y1="94" x2="410" y2="86" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
 
       <!-- EMA20 label -->
-      <rect x="598" y="96" width="50" height="13" fill="#001833" rx="3" opacity="0.9"/>
-      <text x="623" y="106" fill="#5aabff" font-size="8" text-anchor="middle">EMA20</text>
+      <rect x="632" y="30" width="48" height="13" fill="#001833" rx="2" opacity="0.92"/>
+      <text x="656" y="40" fill="#5aabff" font-size="8" text-anchor="middle" font-family="monospace">EMA 20</text>
 
       <!-- MA50 label -->
-      <rect x="598" y="148" width="40" height="13" fill="#221500" rx="3" opacity="0.9"/>
-      <text x="618" y="158" fill="#f7a048" font-size="8" text-anchor="middle">MA50</text>
+      <rect x="632" y="112" width="48" height="13" fill="#231500" rx="2" opacity="0.92"/>
+      <text x="656" y="122" fill="#f0a040" font-size="8" text-anchor="middle" font-family="monospace">MA 50</text>
 
       <!-- MA200 label -->
-      <rect x="598" y="200" width="46" height="13" fill="#220000" rx="3" opacity="0.9"/>
-      <text x="621" y="210" fill="#ff5f57" font-size="8" text-anchor="middle">MA200</text>
+      <rect x="632" y="220" width="48" height="13" fill="#220000" rx="2" opacity="0.92"/>
+      <text x="656" y="230" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">MA 200</text>
 
       <!-- Volume label -->
-      <text x="68" y="336" fill="#5a6080" font-size="8">Volume</text>
+      <text x="76" y="345" fill="#6e7681" font-size="8" font-family="monospace">Vol</text>
 
       <!-- Chart title -->
-      <text x="370" y="20" fill="#f0f0f8" font-size="11" text-anchor="middle" font-weight="bold">AAPL — Daily Chart (1D)</text>
-      <text x="370" y="32" fill="#5a6080" font-size="8" text-anchor="middle">גרף יומי לדוגמה עם כל האלמנטים</text>
+      <text x="385" y="20" fill="#e6edf3" font-size="11" text-anchor="middle" font-weight="bold" font-family="monospace">AAPL — Daily Chart (1D)</text>
+      <text x="385" y="32" fill="#6e7681" font-size="8" text-anchor="middle" font-family="monospace">גרף יומי לדוגמה עם כל האלמנטים — EMA20 · MA50 · MA200 · Support · Resistance · Volume</text>
 
-      <defs>
-        <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L6,3 z" fill="#f7c948"/>
-        </marker>
-      </defs>
+      <!-- Separator between chart and volume -->
+      <line x1="70" y1="315" x2="700" y2="315" stroke="#1a2030" stroke-width="1"/>
     </svg>
 
     <!-- Legend -->
-    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;justify-content:center;font-size:.7rem">
-      <span style="display:flex;align-items:center;gap:5px"><span style="width:24px;height:3px;background:#5aabff;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">EMA20 — מגמה קצרת טווח</span></span>
-      <span style="display:flex;align-items:center;gap:5px"><span style="width:24px;height:3px;background:#f7a048;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">MA50 — מגמה בינונית</span></span>
-      <span style="display:flex;align-items:center;gap:5px"><span style="width:24px;height:3px;background:#ff5f57;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">MA200 — מגמה ארוכת טווח</span></span>
-      <span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:14px;background:#00e5a0;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">נר ירוק — סגירה מעל פתיחה</span></span>
-      <span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:14px;background:#ff5f57;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">נר אדום — סגירה מתחת פתיחה</span></span>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;justify-content:center;font-size:.72rem">
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:28px;height:3px;background:#5aabff;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">EMA20 — קצר</span></span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:28px;height:3px;background:#f0a040;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">MA50 — בינוני</span></span>
+      <span style="display:flex;align-items:center;gap:6px">
+        <span style="display:inline-flex;align-items:center;gap:1px">
+          <span style="width:7px;height:2px;background:#ff5f57;display:inline-block"></span>
+          <span style="width:4px;height:2px;background:transparent;display:inline-block"></span>
+          <span style="width:7px;height:2px;background:#ff5f57;display:inline-block"></span>
+          <span style="width:4px;height:2px;background:transparent;display:inline-block"></span>
+          <span style="width:7px;height:2px;background:#ff5f57;display:inline-block"></span>
+        </span>
+        <span style="color:var(--text2)">MA200 — ארוך (מקוקוו)</span>
+      </span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#00e5a0;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">נר ירוק — עלייה</span></span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#ff5f57;display:inline-block;border-radius:2px"></span><span style="color:var(--text2)">נר אדום — ירידה</span></span>
     </div>
   </div>
 
@@ -2255,6 +2327,139 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <em>שימוש בפועל:</em> מניה עלתה מ-$100 ל-$200 ועכשיו "מתקנת". רמת 61.8% = $138. סוחרים רבים מחכים שם לקנות — ולכן רמה זו הופכת ל-Support בגלל שאנשים מאמינים בה.
     </div>
     <div class="indicator-use">📍 TradingView: כלי Fibonacci Retracement בסרגל הצד השמאלי</div>
+  </div>
+
+  <!-- Fibonacci Visual -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
+    <div style="font-size:.65rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;text-align:center;font-weight:700">📐 איך מציירים Fibonacci Retracement — שלב אחר שלב</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:.68rem;color:var(--accent);font-weight:700;margin-bottom:6px">שלב 1 — מצא שפל ושיא</div>
+        <svg viewBox="0 0 200 100" style="width:100%;max-width:200px" dir="ltr">
+          <rect width="200" height="100" fill="#0d1117" rx="4"/>
+          <polyline points="10,80 40,72 60,78 80,65 100,50 120,35 150,20 190,15"
+            fill="none" stroke="#5aabff" stroke-width="2"/>
+          <!-- Low point -->
+          <circle cx="10" cy="80" r="5" fill="#00e5a0" stroke="#00e5a0"/>
+          <text x="15" y="96" fill="#00e5a0" font-size="9" font-family="monospace">שפל $100</text>
+          <!-- High point -->
+          <circle cx="190" cy="15" r="5" fill="#f7c948" stroke="#f7c948"/>
+          <text x="120" y="12" fill="#f7c948" font-size="9" font-family="monospace">שיא $200</text>
+          <!-- Arrow from low to high -->
+          <line x1="10" y1="80" x2="185" y2="17" stroke="#f7c948" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.6"/>
+        </svg>
+        <div style="font-size:.65rem;color:var(--muted);margin-top:4px">גרור את הכלי<br>מהשפל לשיא</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:.68rem;color:var(--accent);font-weight:700;margin-bottom:6px">שלב 2 — הרמות מופיעות אוטומטית</div>
+        <svg viewBox="0 0 200 100" style="width:100%;max-width:200px" dir="ltr">
+          <rect width="200" height="100" fill="#0d1117" rx="4"/>
+          <!-- Fib levels -->
+          <line x1="0" y1="10" x2="200" y2="10" stroke="#f7c948" stroke-width="1" opacity="0.4"/>
+          <line x1="0" y1="26" x2="200" y2="26" stroke="#a78bfa" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="39" x2="200" y2="39" stroke="#5aabff" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="50" x2="200" y2="50" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+          <line x1="0" y1="62" x2="200" y2="62" stroke="#00e5a0" stroke-width="2" opacity="0.8"/>
+          <line x1="0" y1="78" x2="200" y2="78" stroke="#ff5f57" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="90" x2="200" y2="90" stroke="#00e5a0" stroke-width="1" opacity="0.4"/>
+          <!-- Labels -->
+          <text x="2" y="8" fill="#f7c948" font-size="7" font-family="monospace">0% $200</text>
+          <text x="2" y="24" fill="#a78bfa" font-size="7" font-family="monospace">23.6% $176</text>
+          <text x="2" y="37" fill="#5aabff" font-size="7" font-family="monospace">38.2% $162</text>
+          <text x="2" y="48" fill="#ffffff" font-size="7" font-family="monospace">50% $150</text>
+          <text x="2" y="60" fill="#00e5a0" font-size="7.5" font-weight="bold" font-family="monospace">61.8% $138 ★</text>
+          <text x="2" y="76" fill="#ff5f57" font-size="7" font-family="monospace">78.6% $121</text>
+          <text x="2" y="88" fill="#00e5a0" font-size="7" font-family="monospace">100% $100</text>
+          <!-- Price bouncing at 61.8 -->
+          <polyline points="130,10 145,25 155,38 165,50 175,62 180,68 175,62 168,58 162,62 158,60"
+            fill="none" stroke="#5aabff" stroke-width="1.5" opacity="0.8"/>
+          <circle cx="158" cy="62" r="3" fill="#00e5a0"/>
+        </svg>
+        <div style="font-size:.65rem;color:var(--muted);margin-top:4px">הרמות מצוירות אוטומטית<br>61.8% = הכי חזקה</div>
+      </div>
+    </div>
+
+    <!-- Full Fibonacci example -->
+    <div style="font-size:.68rem;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-weight:700;text-align:center">דוגמה מלאה — מניה עלתה מ-$100 ל-$200, עכשיו "מתקנת"</div>
+    <svg viewBox="0 0 620 200" style="width:100%;max-width:620px;display:block;margin:0 auto" dir="ltr">
+      <rect width="620" height="200" fill="#0d1117" rx="6"/>
+
+      <!-- Fib levels - horizontal lines across chart -->
+      <line x1="0" y1="20" x2="620" y2="20" stroke="#f7c948" stroke-width="1" opacity="0.35"/>
+      <line x1="0" y1="52" x2="620" y2="52" stroke="#a78bfa" stroke-width="1" opacity="0.5"/>
+      <line x1="0" y1="78" x2="620" y2="78" stroke="#5aabff" stroke-width="1.2" opacity="0.55"/>
+      <line x1="0" y1="100" x2="620" y2="100" stroke="#ffffff" stroke-width="1" opacity="0.25"/>
+      <line x1="0" y1="122" x2="620" y2="122" stroke="#00e5a0" stroke-width="2" opacity="0.85"/>
+      <line x1="0" y1="156" x2="620" y2="156" stroke="#ff5f57" stroke-width="1" opacity="0.45"/>
+      <line x1="0" y1="182" x2="620" y2="182" stroke="#6e7681" stroke-width="1" opacity="0.4"/>
+
+      <!-- Fib labels LEFT -->
+      <rect x="1" y="12" width="72" height="13" fill="#231a00" rx="2" opacity="0.85"/>
+      <text x="37" y="22" fill="#f7c948" font-size="8" text-anchor="middle" font-family="monospace">0% — $200</text>
+
+      <rect x="1" y="44" width="80" height="13" fill="#1a0033" rx="2" opacity="0.85"/>
+      <text x="41" y="54" fill="#a78bfa" font-size="8" text-anchor="middle" font-family="monospace">23.6% — $176</text>
+
+      <rect x="1" y="70" width="80" height="13" fill="#001833" rx="2" opacity="0.85"/>
+      <text x="41" y="80" fill="#5aabff" font-size="8" text-anchor="middle" font-family="monospace">38.2% — $162</text>
+
+      <rect x="1" y="92" width="76" height="13" fill="#111820" rx="2" opacity="0.85"/>
+      <text x="39" y="102" fill="#ffffff" font-size="8" text-anchor="middle" font-family="monospace">50% — $150</text>
+
+      <rect x="1" y="114" width="80" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="41" y="124" fill="#00e5a0" font-size="8.5" font-weight="bold" text-anchor="middle" font-family="monospace">61.8% — $138★</text>
+
+      <rect x="1" y="148" width="80" height="13" fill="#220000" rx="2" opacity="0.85"/>
+      <text x="41" y="158" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">78.6% — $121</text>
+
+      <rect x="1" y="174" width="80" height="13" fill="#111318" rx="2" opacity="0.85"/>
+      <text x="41" y="184" fill="#6e7681" font-size="8" text-anchor="middle" font-family="monospace">100% — $100</text>
+
+      <!-- PRICE PATH: rises from 182 to 20, then corrects to 61.8 level (122) and bounces -->
+      <!-- Uptrend -->
+      <polyline points="90,182 120,170 145,155 165,138 185,120 205,100 225,80 245,60 265,40 285,22"
+        fill="none" stroke="#00e5a0" stroke-width="2.5" opacity="0.9"/>
+
+      <!-- At top -->
+      <circle cx="285" cy="22" r="5" fill="#f7c948" stroke="#f7c948"/>
+
+      <!-- Correction down -->
+      <polyline points="285,22 310,35 330,52 350,68 370,82 390,100 410,116 430,122"
+        fill="none" stroke="#ff5f57" stroke-width="2" opacity="0.85"/>
+
+      <!-- Bounce at 61.8 level -->
+      <circle cx="430" cy="122" r="6" fill="#00e5a0" stroke="#00e5a0" stroke-width="2"/>
+
+      <!-- Resume uptrend from 61.8 -->
+      <polyline points="430,122 455,110 475,94 495,78 515,60 535,42 555,28 575,18"
+        fill="none" stroke="#00e5a0" stroke-width="2.5" opacity="0.9"/>
+
+      <!-- Annotations -->
+      <!-- Rise arrow -->
+      <rect x="88" y="155" width="60" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="118" y="165" fill="#00e5a0" font-size="8" text-anchor="middle" font-family="monospace">↑ עלייה</text>
+
+      <!-- Correction -->
+      <rect x="340" y="50" width="60" height="13" fill="#220000" rx="2" opacity="0.9"/>
+      <text x="370" y="60" fill="#ff5f57" font-size="8" text-anchor="middle" font-family="monospace">↓ תיקון</text>
+
+      <!-- Bounce annotation -->
+      <rect x="435" y="108" width="82" height="13" fill="#003322" rx="2" opacity="0.9"/>
+      <text x="476" y="118" fill="#00e5a0" font-size="8" text-anchor="middle" font-family="monospace">✅ קפיצה ב-61.8%!</text>
+
+      <!-- Draw tool annotation -->
+      <rect x="88" y="8" width="130" height="13" fill="#231a00" rx="2" opacity="0.9"/>
+      <text x="153" y="18" fill="#f7c948" font-size="8" text-anchor="middle" font-family="monospace">← מציירים משפל לשיא</text>
+
+      <!-- Arrow showing draw direction -->
+      <line x1="90" y1="182" x2="283" y2="23" stroke="#f7c948" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+    </svg>
+
+    <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:10px;line-height:1.7">
+      <strong style="color:var(--gold)">★ 61.8% הוא "Golden Ratio"</strong> — במקרה הזה $138. הסוחרים ממתינים שם לקנות. כשמספיק אנשים חושבים שכולם יקנו ב-61.8% — כולם קונים שם — וזה יוצר Support אמיתי.<br>
+      <strong>איך מציירים ב-TradingView:</strong> כלי "Fib Retracement" בסרגל שמאל → לחץ על השפל → גרור עד השיא → שחרר.
+    </div>
   </div>
 
   <div class="callout tip">
