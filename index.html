@@ -541,6 +541,7 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div class="example-label">כוח ריבית הדריבית — $10,000 בתשואה שנתית של 10%</div>
     <div class="example-calc" style="line-height:2.2">
       <span style="color:var(--muted)">שנה 0:</span> <strong>$10,000</strong><br>
+      <span style="color:var(--muted)">שנה 1:</span> <strong>$11,000</strong> — הרווחת $1,000 (10% על $10,000)<br>
       <span style="color:var(--muted)">שנה 5:</span> <strong>$16,105</strong> — עלה 61%<br>
       <span style="color:var(--muted)">שנה 10:</span> <strong>$25,937</strong> — כמעט פי 2.6<br>
       <span style="color:var(--muted)">שנה 20:</span> <strong>$67,275</strong> — פי 6.7!<br>
@@ -846,63 +847,98 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   </div>
 
   <p>ניתוח פונדמנטלי שואל שאלה אחת: <strong>"האם החברה הזאת שווה את המחיר שנדרש ממני לשלם?"</strong></p>
+  <p>בניגוד לניתוח טכני שמסתכל על גרפים ותבניות, ניתוח פונדמנטלי מסתכל על <strong>הנתונים האמיתיים של העסק</strong> — כמה הוא מרוויח, כמה חוב יש לו, האם הוא גדל. תחשוב על זה כמו לקנות עסק קטן בשכונה שלך — לפני שאתה משלם, אתה רוצה לראות את הספרים שלו.</p>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">P/E Ratio — מכפיל רווח</div><div class="metric-badges"><span class="badge badge-green">&lt;15 זול</span><span class="badge badge-gold">15-25 הוגן</span><span class="badge badge-red">&gt;25 יקר</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> כמה שנים של רווחים תצטרך כדי "להחזיר" את מה ששילמת.<br>
-      P/E של 20 = אתה משלם $20 כדי לקבל $1 בשנה. כמו לקנות דירה ב-20 שנות שכירות.<br><br>
-      <strong>חשוב:</strong> P/E גבוה לא תמיד רע — חברות צמיחה מהירה לרוב נסחרות ב-P/E גבוה כי השוק מתמחר את הצמיחה העתידית.
+      <strong>מה זה בפועל:</strong> P/E אומר כמה שנים של רווחים שווה כל שקל שאתה משלם על המניה.<br>
+      P/E של 20 = אתה משלם $20 כדי לקבל $1 רווח בשנה — כלומר אם הכל נשאר קבוע, "תחזיר" את ההשקעה תוך 20 שנה.<br><br>
+      <strong>הדמיה:</strong> תחשוב על זה כמו קניית דירה להשקעה. P/E 15 = כמו לקנות דירה שמשכירים אותה ב-6.7% תשואה שנתית. P/E 30 = לקנות דירה שמשכירים ב-3.3% — פחות אטרקטיבי אם לא צפויה עליית ערך.<br><br>
+      <strong>P/E גבוה לא תמיד רע:</strong> כשמשקיעים מאמינים שחברה תגדל בחוזקה בשנים הבאות, הם מוכנים לשלם P/E גבוה כי הם מתמחרים את הרווחים <em>העתידיים</em>, לא הנוכחיים. NVIDIA נסחרה ב-P/E מעל 50 לפני שהרווחים שלה באמת פוצצו — מי שקנה בזמן הרוויח עצום.<br><br>
+      <strong>P/E נמוך לא תמיד טוב:</strong> לפעמים P/E נמוך כי הרווחים צפויים לרדת, או כי החברה נמצאת בסקטור שלא מעניין משקיעים. בנקים לרוב נסחרים ב-P/E נמוך — לא בגלל שהם "זולים" אלא בגלל שהגדילה שלהם מוגבלת.<br><br>
+      <strong>השוואה בתוך סקטור:</strong> אל תשווה P/E של חברת טכנולוגיה ל-P/E של חברת מזון. תשווה AAPL ל-MSFT, לא ל-Coca-Cola.
     </div>
     <div class="metric-formula">P/E = מחיר מניה ÷ EPS (רווח למניה)</div>
   </div>
 
+  <div class="example-box">
+    <div class="example-label">דוגמה — שימוש בP/E בפועל</div>
+    <div class="example-calc">
+      AAPL נסחרת ב-$180. EPS שנתי = $6.13.<br>
+      P/E = 180 ÷ 6.13 = <strong>29.4</strong><br><br>
+      MSFT נסחרת ב-$380. EPS שנתי = $11.45.<br>
+      P/E = 380 ÷ 11.45 = <strong>33.2</strong><br><br>
+      שתיהן טכנולוגיה עם P/E דומה — AAPL "זולה" יותר יחסית. אבל שאלה: האם MSFT צומחת יותר מהר? אם כן, P/E גבוה יותר מוצדק.
+    </div>
+    <div class="example-result">P/E לבד לא מספיק — צריך גם לבדוק קצב צמיחה (PEG Ratio = P/E ÷ Growth Rate).</div>
+  </div>
+
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">EPS — רווח למניה</div><div class="metric-badges"><span class="badge badge-green">חיובי וגדל = טוב</span></div></div>
+    <div class="metric-header"><div class="metric-name">EPS — רווח למניה</div><div class="metric-badges"><span class="badge badge-green">חיובי וגדל = מצוין</span><span class="badge badge-red">יורד = אזהרה</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> כמה כסף הרוויחה החברה על כל מניה שיש בה.<br>
-      EPS של $5 = על כל מניה, החברה הרוויחה השנה $5 נטו.<br>
-      EPS שגדל רבעון אחרי רבעון = החברה הולכת וגדלה.
+      <strong>מה זה בפועל:</strong> EPS (Earnings Per Share) = הרווח הנקי של החברה חלקי מספר המניות שיש בה.<br>
+      EPS של $5 = החברה הרוויחה $5 "נקי" על כל מניה שיש בה השנה — אחרי כל המסים וההוצאות.<br><br>
+      <strong>למה EPS גדל חשוב יותר מ-EPS גבוה:</strong> חברה שה-EPS שלה גדל מ-$1 ל-$2 ל-$3 שנה אחר שנה — מראה שהעסק האמיתי צומח. זה עדיף על חברה עם EPS גבוה שנשאר קבוע.<br><br>
+      <strong>EPS Diluted vs Basic:</strong> תמיד הסתכל על Diluted EPS — הוא מחשב גם את כל האופציות והמניות שעלולות להיווצר בעתיד. זה המספר האמיתי יותר.<br><br>
+      <strong>EPS Surprise:</strong> כשחברה מדווחת EPS גבוה מהציפייה של האנליסטים — "EPS Surprise" — המניה לרוב עולה בחדות ביום הדוח. ולהפך.
     </div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">Profit Margin — מרווח רווח</div><div class="metric-badges"><span class="badge badge-green">&gt;20% מצוין</span><span class="badge badge-gold">10-20% טוב</span><span class="badge badge-red">&lt;5% חלש</span></div></div>
+    <div class="metric-header"><div class="metric-name">Revenue Growth — צמיחת הכנסות</div><div class="metric-badges"><span class="badge badge-green">&gt;15% YoY מצוין</span><span class="badge badge-gold">5-15% טוב</span><span class="badge badge-red">&lt;5% חלש</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> על כל ₪100 שהחברה מכרה — כמה נשאר לה כרווח אחרי כל ההוצאות?<br>
-      Profit Margin של 25% = על כל $100 הכנסה, $25 רווח נקי.<br>
-      <strong>שים לב:</strong> חברות טכנולוגיה כמו NVIDIA = 55%+. סופרמרקט = 2-3%. השווה תמיד לסקטור.
+      <strong>מה זה:</strong> כמה גדלו ההכנסות של החברה ביחס לאותו רבעון שנה שעברה (YoY = Year over Year).<br><br>
+      <strong>למה זה קריטי:</strong> חברה יכולה להראות רווח נקי גדול אחרי חסכונות או קיצוצים — אבל אם ההכנסות לא גדלות, העסק עצמו לא גדל. Revenue Growth היא "הפעימה של הלב" של העסק.<br><br>
+      <strong>דוגמה:</strong> חברה שחסכה $50M בפיטורים יכולה להראות רווח גדול השנה — אבל הכנסות יורדות 10%. זה מסוכן לטווח ארוך כי אי אפשר לחסוך לנצח.<br><br>
+      <strong>Accelerating Growth:</strong> חברה שגדלה 10%, אחר כך 15%, אחר כך 22% — "מאיצה". זה סימן מצוין שמשהו עובד ומתרחב. הפוך — Growth מאטה — הוא אות אזהרה.
     </div>
-    <div class="metric-formula">Profit Margin = (רווח נקי ÷ הכנסות סה"כ) × 100%</div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">Free Cash Flow (FCF) — כסף אמיתי</div><div class="metric-badges"><span class="badge badge-green">חיובי = בריא</span><span class="badge badge-red">שלילי = בעיה</span></div></div>
+    <div class="metric-header"><div class="metric-name">Gross Margin vs Operating Margin vs Net Margin</div><div class="metric-badges"><span class="badge badge-blue">שלוש שכבות רווחיות</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> חברה יכולה להראות "רווח" בספרים — אבל בפועל אין לה מזומן.<br>
-      FCF = הכסף שנכנס לחברה מפעילות שוטפת, <strong>מינוס</strong> מה שהיא הוציאה על ציוד ותשתיות (CapEx).<br>
-      זה הכסף ה"אמיתי" שיכול לשלם דיבידנד, לחזור על מניות, או להשקיע בצמיחה.<br>
-      <strong>דוגמה:</strong> חברה הרוויחה $100M — אבל הוציאה $90M על מכונות חדשות. FCF = רק $10M.
+      רוב האנשים מסתכלים רק על Net Margin — אבל יש שלוש שכבות שמספרות סיפור שלם:<br><br>
+      <strong>Gross Margin (מרווח גולמי):</strong> הכנסות פחות עלות המוצר בלבד (לא מחשב שכירות, שכר, שיווק).<br>
+      NVDA Gross Margin = ~74% — על כל $100 של מכירות, $74 רווח גולמי. זה מדהים.<br>
+      סופרמרקט = ~25% — לא כי הוא לא יעיל, אלא כי המוצרים עצמם יקרים לקנות.<br><br>
+      <strong>Operating Margin (מרווח תפעולי):</strong> אחרי ניכוי שכר, שכירות, שיווק, מו"פ. זה מראה כמה יעיל ניהול החברה.<br><br>
+      <strong>Net Margin (מרווח נקי):</strong> אחרי מסים וריבית על חובות. המספר הסופי.<br><br>
+      <strong>הטריק:</strong> אם Gross Margin גבוה אבל Net Margin נמוך — החברה מוציאה הרבה על שיווק/שכר. לפעמים זה בסדר (חברת צמיחה שמשקיעה), ולפעמים זה בעיה ניהולית.
+    </div>
+    <div class="metric-formula">Net Margin = (רווח נקי ÷ הכנסות סה"כ) × 100%</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Free Cash Flow (FCF) — הכסף האמיתי</div><div class="metric-badges"><span class="badge badge-green">חיובי = בריא</span><span class="badge badge-red">שלילי שנים = סכנה</span></div></div>
+    <div class="metric-desc">
+      <strong>למה FCF חשוב יותר מ-Net Income:</strong> חשבונאות מאפשרת "לייפות" את הרווח הנקי בדרכים חוקיות — פחת, הכרה בהכנסות לפני שנגבו, ועוד. FCF קשה יותר לשחק בו כי הוא מודד כסף שבאמת נכנס לבנק.<br><br>
+      <strong>מה FCF עושה בחברה:</strong>
+      FCF חיובי = חברה יכולה לשלם דיבידנד, לקנות בחזרה מניות (Buyback), לשלם חובות, או להשקיע בצמיחה. כל אלה טובים לבעלי המניות.<br>
+      FCF שלילי = החברה שורפת מזומן. לפעמים בסדר לחברת צמיחה מוקדמת (כמו Amazon בשנותיה הראשונות), אבל אם נמשך שנים — סימן שאין בסיס עסקי בריא.<br><br>
+      <strong>דוגמה:</strong> WeWork הראתה "הכנסות" ענקיות — אבל FCF שלה היה שלילי לאורך שנים. בסוף קרסה. Airbnb, לעומת זאת, עברה ל-FCF חיובי — וזה אחד הסימנים שהפכה לעסק אמיתי.
     </div>
     <div class="metric-formula">FCF = תזרים מתפעול − הוצאות הוניות (CapEx)</div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">ROE — תשואה על ההון העצמי</div><div class="metric-badges"><span class="badge badge-green">&gt;15% חזק</span><span class="badge badge-gold">10-15% סביר</span></div></div>
+    <div class="metric-header"><div class="metric-name">ROE ו-ROIC — יעילות ניהול ההון</div><div class="metric-badges"><span class="badge badge-green">ROE &gt;15% חזק</span><span class="badge badge-gold">10-15% סביר</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> כמה רווח הרוויחה החברה על כל $100 שהמשקיעים שמו בה?<br>
-      ROE של 25% = על כל $100 השקעת בעלים, החברה הרוויחה $25.<br>
-      ROE גבוה = הנהלה טובה שמנהלת ביעילות.
+      <strong>ROE (Return on Equity):</strong> כמה רווח מייצרת החברה על כל דולר של הון שהמשקיעים שמו בה.<br>
+      ROE של 25% = על כל $100 שהושקעו בחברה, היא הרוויחה $25 השנה. מצוין.<br><br>
+      <strong>אזהרה על ROE גבוה מאוד:</strong> ROE מעל 50-100% יכול להיות סימן שחברה לוקחת הרבה חוב — כי חוב "מגדיל" ROE מתמטית. תמיד בדוק יחד עם רמת החוב.<br><br>
+      <strong>ROIC (Return on Invested Capital):</strong> מדד מתקדם יותר שמחשב תשואה על כל ההון המושקע, כולל חוב. ROIC מעל עלות ההון = החברה יוצרת ערך. ROIC מתחת לעלות ההון = ההנהלה הורסת ערך גם אם מדווחת על רווח.
     </div>
     <div class="metric-formula">ROE = (רווח נקי ÷ הון עצמי) × 100%</div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">Dividend Yield — תשואת דיבידנד</div><div class="metric-badges"><span class="badge badge-green">&gt;3% גבוה</span><span class="badge badge-gold">1-3% סביר</span></div></div>
+    <div class="metric-header"><div class="metric-name">Dividend Yield — תשואת דיבידנד</div><div class="metric-badges"><span class="badge badge-green">&gt;3% גבוה</span><span class="badge badge-gold">1-3% סביר</span><span class="badge badge-red">&gt;8% חשוד</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> כמה אחוז מהמחיר שלך תקבל חזרה כדיבידנד בשנה?<br>
-      Dividend Yield של 4% = קנית מניה ב-$100, תקבל $4 דיבידנד בשנה — בנוסף לכל עליית ערך.<br>
-      <strong>שים לב:</strong> Yield גבוה מדי (מעל 8–10%) יכול להיות סימן אזהרה — לעיתים אומר שהמניה ירדה חזק, או שהדיבידנד בסכנה לקיצוץ.
+      <strong>מה זה דיבידנד:</strong> חלק מרווחי החברה שמחולק ישירות לבעלי המניות. מגיע לחשבון שלך כמו "שכר" — בלי שמכרת שום דבר.<br><br>
+      <strong>Yield גבוה מדי — הטראפ הנפוץ:</strong> מניה שנסחרת ב-$50 ומחלקת $5 דיבידנד = Yield 10%. נשמע מעולה — אבל לרוב Yield גבוה מאוד (מעל 8%) אומר שהמניה ירדה חזק (כי כשמחיר יורד, Yield עולה מתמטית), או שהשוק חושד שהדיבידנד יקוצץ.<br><br>
+      <strong>Payout Ratio:</strong> כמה אחוז מהרווחים מחולק כדיבידנד. Payout Ratio של 40-60% = בריא. מעל 90% = החברה מחלקת כמעט את כל הרווח — אין הרבה "כרית" אם הרווחים יירדו.<br><br>
+      <strong>Dividend Growth:</strong> חברות כמו Johnson & Johnson, Procter & Gamble, Coca-Cola העלו דיבידנד כל שנה במשך 25+ שנה — נקראות "Dividend Aristocrats". זה אחד הסימנים לעסק יציב ביותר.
     </div>
     <div class="metric-formula">Dividend Yield = (דיבידנד שנתי ÷ מחיר מניה) × 100%</div>
   </div>
@@ -910,21 +946,24 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">P/B Ratio — מחיר לספרים</div><div class="metric-badges"><span class="badge badge-green">&lt;1 זול פוטנציאלי</span><span class="badge badge-gold">1-3 הוגן</span></div></div>
     <div class="metric-desc">
-      <strong>בשפה פשוטה:</strong> כמה אתה משלם ביחס לשווי הנכסים הפיזיים של החברה?<br>
-      P/B של 1 = אתה קונה את החברה בדיוק במחיר הנכסים שלה. P/B של 0.8 = אתה קונה $1 של נכסים ב-$0.80 — נשמע כמו עסקה!<br>
-      <strong>מגבלה:</strong> P/B עובד טוב לחברות פיזיות (בנקים, תעשייה). לחברות טכנולוגיה — פחות רלוונטי כי הנכס העיקרי שלהן הוא קניין רוחני שלא מופיע בספרים.
+      <strong>מה זה:</strong> ערך ספרי = מה שנשאר לחברה אם מוכרת הכל ומשלמת כל חוב. P/B = כמה אתה משלם ביחס לערך הזה.<br>
+      P/B של 0.8 = אתה קונה $1 של נכסים נטו ב-$0.80 — "בזיל". לפעמים הזדמנות, לפעמים מלכודת.<br><br>
+      <strong>מתי P/B שימושי:</strong> בנקים, חברות ביטוח, חברות נדל"ן — שם הנכסים הפיזיים הם לב העסק.<br>
+      <strong>מתי P/B לא רלוונטי:</strong> Google, Microsoft, Apple — הנכס שלהן הוא מותג, קוד, קניין רוחני. כלום מזה לא מופיע ב"ספרים" לפי כללי חשבונאות. P/B שלהן יהיה גבוה תמיד ולא אומר שהן יקרות.
     </div>
     <div class="metric-formula">P/B = מחיר מניה ÷ ערך ספרי למניה</div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">מאזן — נכסים, חובות, והון עצמי</div></div>
+    <div class="metric-header"><div class="metric-name">מאזן — נכסים, חובות, והון עצמי</div><div class="metric-badges"><span class="badge badge-blue">Balance Sheet</span></div></div>
     <div class="metric-desc">
-      <strong>Current Ratio</strong> = נכסים שוטפים ÷ התחייבויות שוטפות.<br>
-      בשפה פשוטה: האם יש לחברה מספיק כסף לשלם את חובותיה ב-12 החודשים הקרובים?<br>
-      מעל 1.5 = בסדר. מתחת ל-1 = יש בעיה נזילות.<br><br>
-      <strong>Long-term Debt</strong> = חוב לטווח ארוך. בדוק: האם החוב גדול בצורה מדאיגה ביחס לרווחים?<br>
-      <strong>Shareholder Equity</strong> = מה שנשאר לבעלי המניות אחרי חיסור כל החובות מהנכסים. חיובי = טוב.
+      המאזן הוא "תמונת רנטגן" של החברה ברגע מסוים — מה יש לה ומה היא חייבת.<br><br>
+      <strong>Current Ratio (יחס שוטף):</strong> נכסים שוטפים ÷ התחייבויות שוטפות.<br>
+      "נכסים שוטפים" = מזומן, לקוחות שחייבים לה, מלאי — כסף שיהיה בתוך שנה.<br>
+      "התחייבויות שוטפות" = ספקים שצריך לשלם, הלוואות לטווח קצר.<br>
+      Current Ratio מעל 1.5 = יש כרית ביטחון. מתחת ל-1 = יתכן שהחברה לא תוכל לשלם חשבונות קרובים.<br><br>
+      <strong>Debt-to-Equity:</strong> כמה חוב יש לחברה ביחס להון העצמי. D/E מעל 2 = הרבה מינוף — סיכון גבוה בזמן משבר.<br><br>
+      <strong>Cash & Short-term Investments:</strong> כמה מזומן יש לחברה. Apple החזיקה בשיאה מעל $200B במזומן — זו רשת ביטחון ענקית ויכולת לרכוש חברות, לשלם דיבידנד ו-Buyback ללא הגבלה.
     </div>
   </div>
 
@@ -1592,54 +1631,60 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   </div>
 
   <p>גם אם בחרת מניה מעולה — אם הסביבה הכלכלית גרועה, היא עלולה לרדת. <strong>המאקרו הוא ה"רוח" שמניעה את הסירה.</strong> משקיע שמתעלם ממאקרו זה כמו שייט שמסתכל רק על המצפן ולא על מזג האוויר.</p>
+  <p>בשנים 2022-2023 מניות טכנולוגיה מצוינות כמו Meta, Alphabet ו-Amazon ירדו 50-70% — לא כי העסקים שלהן התדרדרו, אלא בגלל שהפד העלה ריבית ב-5% בשנה אחת. זה מאקרו בפעולה.</p>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">ריבית הפד (Federal Reserve Rate)</div><div class="metric-badges"><span class="badge badge-red">עולה = שוק לחוץ</span><span class="badge badge-green">יורדת = שוק שמח</span></div></div>
     <div class="metric-desc">
-      הפד (הבנק המרכזי של ארה"ב) קובע את הריבית הבסיסית — זו ריבית "הכסף" עצמו. ריבית גבוהה = הלוואות יקרות = חברות מרוויחות פחות = מניות יורדות. ריבית נמוכה = כסף זול = חברות צומחות = שוק עולה.<br><br>
-      <strong>FOMC Meeting</strong> = ישיבת הפד, 8 פעמים בשנה. יום תנודתי מאוד — לפעמים שוק זז 2-3% ביום אחד בגלל מילה אחת של יו"ר הפד.
+      הפד (Federal Reserve) הוא הבנק המרכזי של ארה"ב. יו"ר הפד — תפקיד שנחשב לאחד החשובים בכלכלה העולמית — קובע את ריבית ה-Fed Funds, שהיא בעצם "מחיר הכסף" עצמו.<br><br>
+      <strong>הלוגיקה המלאה:</strong><br>
+      ריבית עולה → הלוואות יקרות → חברות מוציאות פחות על צמיחה → רווחים נמוכים יותר → שווי חברות יורד.<br>
+      ריבית עולה → אגרות חוב ממשלתיות נותנות תשואה גבוהה ובטוחה → משקיעים מעבירים כסף ממניות לאגח → מניות יורדות.<br>
+      ריבית יורדת → הפוך בכל.<br><br>
+      <strong>FOMC Meeting:</strong> ישיבת הפד מתקיימת 8 פעמים בשנה. לפני הישיבה — שוק מנסה "לנחש" את ההחלטה. אחרי — לפעמים תגובה דרמטית. ביולי 2022 הפד העלה ריבית ב-0.75% — שוק ירד 3% באותו יום.<br><br>
+      <strong>Hawkish vs Dovish:</strong> שתי מילות סיסמה שתשמע הרבה.<br>
+      "Hawkish" = נשר — הפד רוצה להעלות ריבית לבלום אינפלציה. רע לשוק.<br>
+      "Dovish" = יונה — הפד רוצה להוריד ריבית לעודד צמיחה. טוב לשוק.
     </div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-label">דוגמה מספרית — איך ריבית משפיעה על שווי חברה</div>
-    <div class="example-calc" style="line-height:2.1">
-      חברה מרוויחה $10 למניה בשנה. כשריבית = 0%, משקיעים מוכנים לשלם P/E של 30 = <strong>$300 למניה</strong>.<br>
-      הפד מעלה ריבית ל-5% — עכשיו אפשר לקבל 5% בלי סיכון (באגח ממשלתי).<br>
-      משקיעים דורשים תשואה גבוהה יותר ממניות, ומוכנים לשלם רק P/E של 18 = <strong>$180 למניה</strong>.<br><br>
-      <strong>הרווח של החברה לא השתנה</strong> — $10 למניה. אבל שווי המניה ירד מ-$300 ל-$180 בגלל הריבית בלבד.
-    </div>
-    <div class="example-result">ריבית לא משפיעה רק על "עלות הלוואות" — היא מוזילה את שווי כל המניות בשוק.</div>
   </div>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">אינפלציה — CPI ו-PCE</div><div class="metric-badges"><span class="badge badge-gold">יעד הפד: ~2%</span><span class="badge badge-red">&gt;4% מדאיג</span></div></div>
     <div class="metric-desc">
-      <strong>CPI (Consumer Price Index)</strong> = מדד מחירי הצרכן. מה עולה יותר — לחם, דלק, שכר דירה. כשה-CPI עולה מעבר ל-2-3% — הפד מעלה ריבית כדי לקרר את הכלכלה.<br><br>
-      <strong>PCE (Personal Consumption Expenditures)</strong> = המדד שהפד מסתכל עליו יותר. קצת שונה מ-CPI בחישוב אבל אותו רעיון.<br><br>
-      הקשר: אינפלציה גבוהה → הפד מעלה ריבית → שוק יורד. אינפלציה נמוכה → הפד יכול להוריד ריבית → שוק עולה.
+      <strong>מה זה אינפלציה:</strong> כשמחירים עולים לאורך זמן. $100 ב-2020 קונה פחות מ-$100 ב-2024. האינפלציה "אוכלת" את ערך הכסף שלך.<br><br>
+      <strong>CPI (Consumer Price Index):</strong> מודד שינוי במחירים של "סל קניות" סטנדרטי — לחם, חלב, דלק, שכר דירה, ביגוד. מתפרסם כל חודש. ציפייה בריאה: 2-3%.<br><br>
+      <strong>Core CPI:</strong> CPI בלי אנרגיה ומזון — כי אלה תנודתיים מאוד. הפד מסתכל על Core CPI יותר כי הוא מראה אינפלציה "מבנית".<br><br>
+      <strong>PCE (Personal Consumption Expenditures):</strong> המדד שהפד מסתכל עליו הכי הרבה לקביעת מדיניות. מחושב אחרת מ-CPI ולרוב נמוך ממנו קצת.<br><br>
+      <strong>הקשר לשוק:</strong> אינפלציה גבוהה → הפד מעלה ריבית → שוק יורד. אינפלציה יורדת לכיוון 2% → הפד יכול להוריד ריבית → שוק עולה. לכן יום פרסום CPI הוא לרוב יום תנודתי.
     </div>
   </div>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">GDP — צמיחה כלכלית</div><div class="metric-badges"><span class="badge badge-green">חיובי = טוב</span><span class="badge badge-red">2 רבעונים שלילי = מיתון</span></div></div>
-    <div class="metric-desc">כמה הכלכלה גדלה ברבעון. שני רבעונים רצופים שליליים = מיתון רשמי. מיתון לרוב = Bear Market — אבל לא תמיד, והשוק לפעמים מקדים את המיתון ב-6 חודשים.</div>
+    <div class="metric-desc">
+      <strong>מה זה GDP:</strong> Gross Domestic Product — הערך הכולל של כל הסחורות והשירותים שנוצרו במדינה בפרק זמן. זה ה"גודל" של הכלכלה.<br><br>
+      <strong>מיתון רשמי:</strong> שני רבעונים רצופים עם GDP שלילי. זה לא "תחושת בטן" — יש הגדרה מדויקת.<br><br>
+      <strong>השוק תמיד מקדים את ה-GDP:</strong> עד שמכריזים רשמית על מיתון, השוק כבר ירד חדות. ועד שמכריזים על סיום המיתון, השוק כבר עלה. לכן לנסות לתזמן כניסה/יציאה לפי GDP — לרוב מאוחר מדי.
+    </div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">שוק העבודה — Unemployment Rate & Non-Farm Payrolls</div><div class="metric-badges"><span class="badge badge-green">&lt;4% חזק</span><span class="badge badge-red">&gt;6% חלש</span></div></div>
+    <div class="metric-header"><div class="metric-name">שוק העבודה — Unemployment & Non-Farm Payrolls</div><div class="metric-badges"><span class="badge badge-green">&lt;4% חזק</span><span class="badge badge-red">&gt;6% חלש</span></div></div>
     <div class="metric-desc">
-      <strong>Unemployment Rate</strong> = אחוז מובטלים. שוק עבודה חזק = אנשים מרוויחים = מוציאים כסף = חברות מרוויחות = מניות עולות.<br><br>
-      <strong>Non-Farm Payrolls (NFP)</strong> = כמה משרות נוצרו בחודש האחרון (מחוץ לחקלאות). מתפרסם ביום שישי הראשון של כל חודש — יום תנודתי מאוד. ציפייה: 150,000+. מתחת לציפייה = שוק תגובה שלילית.
+      <strong>Unemployment Rate:</strong> אחוז האנשים שמחפשים עבודה ולא מוצאים. שוק עבודה חזק = אנשים מרוויחים = קונים יותר = חברות מרוויחות = מניות עולות.<br><br>
+      <strong>Non-Farm Payrolls (NFP):</strong> כמה משרות נוצרו בחודש האחרון. מתפרסם ביום שישי הראשון של כל חודש — תמיד יום תנודתי.<br>
+      ציפייה חיובית: 150,000-250,000 משרות. מעל הציפייה = כלכלה חזקה = מניות עולות. מתחת = חשש האטה = מניות יורדות.<br><br>
+      <strong>הפרדוקס של שוק עבודה חזק:</strong> לפעמים NFP חזק מדי הוא רע לשוק — כי אם יש יותר מדי תעסוקה, הפד חושש לאינפלציה ומעלה ריבית. זו אחת הסיבות שהשוק הוא "אנטי-אינטואיטיבי" לפעמים.
     </div>
   </div>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">עקום התשואות (Yield Curve)</div><div class="metric-badges"><span class="badge badge-green">נורמלי = עולה</span><span class="badge badge-red">הפוך = אזהרת מיתון</span></div></div>
     <div class="metric-desc">
-      עקום התשואות מציג את הריבית על אגרות חוב ממשלתיות לפי זמן — אג"ח ל-2 שנה, 10 שנה, 30 שנה.<br><br>
-      <strong>נורמלי:</strong> ריבית לטווח ארוך גבוהה מלטווח קצר (הגיוני — סיכון גדול יותר לטווח ארוך).<br>
-      <strong>Inverted Yield Curve (הפוך):</strong> ריבית ל-2 שנה גבוהה מריבית ל-10 שנה. זה <strong>אחד ממנבאי המיתון האמינים ביותר</strong> — בכל מיתון מ-1970 ועד היום, עקום הפוך הקדים אותו.
+      <strong>מה זה:</strong> עקום שמציג את ריבית אגרות החוב הממשלתיות לפי משך הזמן — מ-3 חודשים עד 30 שנה.<br><br>
+      <strong>עקום נורמלי:</strong> ריבית עולה ככל שהאגח ארוך יותר. הגיוני — יש יותר אי-ודאות לטווח ארוך, לכן דורשים ריבית גבוהה יותר.<br><br>
+      <strong>Inverted Yield Curve (עקום הפוך):</strong> ריבית ל-2 שנה גבוהה מריבית ל-10 שנה. זה אומר שהשוק מאמין שהריבית בעתיד תרד — כלומר שהכלכלה תיחלש. היפוך עקום קדם לכל מיתון אמריקאי מ-1970 ועד היום.<br><br>
+      <strong>2 vs 10 Year Spread:</strong> ההפרש בין ריבית ה-10 שנה לריבית ה-2 שנה. כשזה שלילי — עקום הפוך. אפשר לראות ב-FRED.
     </div>
   </div>
 
@@ -1867,41 +1912,82 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div><div class="chapter-title">פסיכולוגיה של המשקיע</div><div class="chapter-subtitle">האויב הכי גדול שלך — נמצא בראש שלך</div></div>
   </div>
 
-  <p><strong>90% מהמשקיעים מפסידים לא בגלל ניתוח רע — אלא בגלל החלטות רגשיות.</strong> אתה יכול לדעת את כל הנוסחאות בעולם ועדיין להפסיד כסף אם אתה לא מכיר את הנטיות הפסיכולוגיות שלך.</p>
+  <p><st<p><strong>90% מהמשקיעים מפסידים לא בגלל ניתוח רע — אלא בגלל החלטות רגשיות.</strong> אתה יכול לדעת את כל הנוסחאות בעולם ועדיין להפסיד כסף אם אתה לא מכיר את הנטיות הפסיכולוגיות שלך.</p>
+  <p>Daniel Kahneman, זוכה פרס נובל לכלכלה, הוכיח שאנשים חשים כאב הפסד פי 2 מרגש רווח שווה — כלומר הפסד של $100 מרגיש גרוע פי 2 מרווח של $100. זה מסביר למה אנשים מחזיקים במניות מפסידות "עד שיחזרו" — ומוכרים מניות מרוויחות מוקדם מדי.</p>
 
   <div class="psych-grid">
-    <div class="psych-card"><div class="psych-emoji">😱</div><div class="psych-name">FOMO — פחד לפספס</div><div class="psych-desc">מניה עלתה 50% ואתה קונה כי "היא ממשיכה לעלות". לרוב — נכנס בשיא ומפסיד. זה הביאס הכי קטלני למתחילים.</div><div class="psych-fix">✅ פתרון: נתח לפני שתקנה. פספסת הזדמנות? השוק תמיד יציע הזדמנות הבאה.</div></div>
-    <div class="psych-card"><div class="psych-emoji">😰</div><div class="psych-name">Panic Selling</div><div class="psych-desc">שוק יורד 15% → פחד → מוכר הכל → שוק מתאושש. המפסידים הגדולים ביותר בהיסטוריה מכרו בתחתית.</div><div class="psych-fix">✅ פתרון: הגדר Stop Loss מראש בקור רוח. אל תקבל החלטות כשהאדרנלין גבוה.</div></div>
-    <div class="psych-card"><div class="psych-emoji">🔒</div><div class="psych-name">Anchoring Bias</div><div class="psych-desc">"קניתי ב-$100, לא מוכר מתחת ל-$100." המחיר שקנית לא מעניין את השוק — הוא לא יודע ולא אכפת לו.</div><div class="psych-fix">✅ פתרון: שאל "האם הייתי קונה אותה היום בדיוק עכשיו?" — לא "כמה שילמתי בעבר".</div></div>
-    <div class="psych-card"><div class="psych-emoji">🤑</div><div class="psych-name">Overconfidence</div><div class="psych-desc">אחרי 3 עסקאות מוצלחות — מרגיש שאתה גאון. מגדיל פוזיציות. קונה ללא ניתוח. זה בדרך כלל מסתיים ברע.</div><div class="psych-fix">✅ פתרון: תמיד 5% מקסימום ללא קשר לביטחון. ענווה היא הנכס הכי חשוב.</div></div>
-    <div class="psych-card"><div class="psych-emoji">🐑</div><div class="psych-name">Herd Mentality</div><div class="psych-desc">כולם קונים NVDA? אתה קונה גם בלי לבדוק. כולם מוכרים? אתה מוכר גם בלי לחשוב. השוק טועה הרבה פעמים.</div><div class="psych-fix">✅ פתרון: בצע ניתוח עצמאי תמיד. המחשבה של "כולם עושים את זה" היא אות אזהרה.</div></div>
-    <div class="psych-card"><div class="psych-emoji">📓</div><div class="psych-name">Trading Journal</div><div class="psych-desc">תעד כל עסקה: למה קנית, מה ציפית, מה קרה, מה למדת. משקיעים מקצועיים עושים את זה — ומתחילים לא.</div><div class="psych-fix">✅ כלי: Google Sheets פשוט. 5 דקות לכל עסקה. תוך חודשיים תראה דפוסים בהתנהגות שלך.</div></div>
-    <div class="psych-card"><div class="psych-emoji">🎲</div><div class="psych-name">Gambler's Fallacy</div><div class="psych-desc">"ירדה 5 ימים ברצף — חייבת לעלות מחר." שוק לא פועל כמו קזינו. אין לנר יפני זיכרון.</div><div class="psych-fix">✅ פתרון: בסס החלטות על נתונים — לא על ספירת ימים.</div></div>
-    <div class="psych-card"><div class="psych-emoji">💎</div><div class="psych-name">Sunk Cost Fallacy</div><div class="psych-desc">"כבר הפסדתי $500 — לא שווה למכור עכשיו." הכסף שהפסדת כבר הלך. השאלה היחידה: האם המניה שווה להחזיק היום?</div><div class="psych-fix">✅ פתרון: כסף שהפסדת לא קיים יותר. בחן כל מניה כאילו אתה קונה אותה היום מחדש.</div></div>
+    <div class="psych-card">
+      <div class="psych-emoji">😱</div>
+      <div class="psych-name">FOMO — פחד לפספס</div>
+      <div class="psych-desc">GameStop ב-2021: מניה שהייתה שווה $4 קפצה ל-$483 תוך ימים. מיליוני אנשים קנו ב-$400+ כי "היא ממשיכה לעלות". רובם נשארו תקועים כשירדה חזרה ל-$50. הרגש גבר על הניתוח.</div>
+      <div class="psych-fix">✅ פתרון: הגדר כלל — לעולם לא לקנות מניה שעלתה מעל 30% בשבוע אחד ללא ניתוח מעמיק. "פספסתי" עדיף על "הפסדתי".</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">😰</div>
+      <div class="psych-name">Panic Selling</div>
+      <div class="psych-desc">מרץ 2020: שוק ירד 34% תוך 33 ימים. מיליוני אנשים מכרו בתחתית מפחד. מי שהחזיק — הכפיל את כספו תוך שנה וחצי. מי שמכר בפאניקה — הפסיד ולא נהנה מההתאוששות.</div>
+      <div class="psych-fix">✅ פתרון: לפני כל קנייה שאל "האם אני מוכן לראות מניה זו יורדת 30% ועדיין להחזיק?" אם לא — אל תקנה. הגדר Stop Loss מראש, לא תחת לחץ.</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">🔒</div>
+      <div class="psych-name">Anchoring Bias</div>
+      <div class="psych-desc">"קניתי AAPL ב-$180, עכשיו ב-$140 — לא מוכר עד שיחזור ל-$180." השוק לא יודע ולא אכפת לו שקנית ב-$180. השאלה הנכונה: האם היית קונה AAPL ב-$140 היום? אם לא — שקול למכור.</div>
+      <div class="psych-fix">✅ פתרון: כל שבוע שאל על כל מניה בתיק: "האם הייתי קונה אותה היום מחדש?" אם התשובה לא, שקול למכור.</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">🤑</div>
+      <div class="psych-name">Overconfidence</div>
+      <div class="psych-desc">אחרי Bull Market של שנתיים 2020-2021, אנשים חשבו שהם "גאונים". הגדילו פוזיציות, קנו ספקולטיבי, השתמשו במינוף. ב-2022 Bear Market מחק הרבה מהם. הצלחה בשוק שורי לא מוכיחה יכולת.</div>
+      <div class="psych-fix">✅ פתרון: תמיד 5% מקסימום למניה. הצלחה ב-3 עסקאות לא אומרת שאתה חכם מהשוק.</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">🐑</div>
+      <div class="psych-name">Herd Mentality</div>
+      <div class="psych-desc">בועת הדוט-קום 1999: כולם קנו כל חברת ".com" ללא קשר לפונדמנטלס. חברות ללא הכנסות שוות מיליארדים. NASDAQ ירד 78% ב-2000-2002. "כולם עושים את זה" הוא לרוב הסימן הכי אמין שמשהו עומד להתפוצץ.</div>
+      <div class="psych-fix">✅ פתרון: כשכולם מדברים על מניה מסוימת — זה הזמן לבדוק ביתר קפדנות, לא לקפוץ בלי לחשוב.</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">💎</div>
+      <div class="psych-name">Sunk Cost Fallacy</div>
+      <div class="psych-desc">"כבר השקעתי $10,000 — אם אמכור עכשיו אני מפסיד." הכסף שהפסדת כבר הלך. השאלה היחידה: האם הכסף שנשאר עדיף כאן, או במשהו טוב יותר? WeWork הפסידה משקיעים שהחזיקו "כי כבר הפסדתי".</div>
+      <div class="psych-fix">✅ פתרון: "Pretend you sold everything and got cash. Would you buy back this stock?" אם לא — שנה אותו.</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">📓</div>
+      <div class="psych-name">Trading Journal</div>
+      <div class="psych-desc">ללא תיעוד, אתה חוזר על אותן טעויות שוב ושוב. עם תיעוד, תוך חודשיים תראה דפוסים: "אני קונה תמיד מ-FOMO", "מוכר מהר מדי כשיש רווח". זה שינוי המשחק האמיתי.</div>
+      <div class="psych-fix">✅ לכל עסקה: תאריך, מניה, מחיר כניסה, למה קנית, Stop, מטרה. אחרי מכירה: מה קרה, מה למדת.</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-emoji">🎲</div>
+      <div class="psych-name">Gambler's Fallacy</div>
+      <div class="psych-desc">"NVDA ירדה 5 ימים ברצף — חייבת לעלות מחר." מניות לא זוכרות את העבר. כל יום עצמאי. הסיכוי שתעלה מחר לא תלוי כמה ימים ירדה. ניתוח על בסיס "ספירת ימים" זה אשליה.</div>
+      <div class="psych-fix">✅ פתרון: בסס החלטות על פונדמנטלס ואינדיקטורים — לא על ספירת ימים.</div>
+    </div>
   </div>
 
   <div class="callout info">
     <div class="callout-icon">🧠</div>
     <div class="callout-body">
       <div class="callout-title">ציטוטי זהב מהמשקיעים הגדולים בהיסטוריה</div>
-      <strong>Warren Buffett:</strong> "Be fearful when others are greedy, and greedy when others are fearful." — קנה כשכולם פוחדים, מכור כשכולם נלהבים.<br><br>
-      <strong>Peter Lynch</strong> (מנהל קרן Magellan שהשיג תשואה ממוצעת של 29% ל-13 שנה): "The real key to making money in stocks is not to get scared out of them." — אל תיבהל ותמכור בהפסד.<br><br>
-      <strong>Charlie Munger</strong> (שותפו של באפט): "The big money is not in the buying and the selling, but in the waiting." — הכסף הגדול הוא בסבלנות, לא בפעולה.<br><br>
-      <strong>Benjamin Graham</strong> (מורו של באפט): "Mr. Market is your servant, not your guide." — השוק הוא עבדך, לא מדריכך. הוא לפעמים מציע מחירים משוגעים — ניצל זאת.
+      <strong>Warren Buffett:</strong> "Be fearful when others are greedy, and greedy when others are fearful." — קנה כשכולם פוחדים, מכור כשכולם נלהבים. הוא קנה מניות בנקים ב-2008 כשהעולם חשב שהמערכת קורסת.<br><br>
+      <strong>Peter Lynch</strong> (מנהל קרן Magellan — תשואה ממוצעת 29% ל-13 שנה): "The real key to making money in stocks is not to get scared out of them." — המפסידים הגדולים הם לא אלו שבחרו מניות גרועות, אלא אלו שמכרו בפאניקה.<br><br>
+      <strong>Charlie Munger</strong> (שותפו של באפט): "The big money is not in the buying and the selling, but in the waiting." — Berkshire Hathaway החזיקה Coca-Cola 35+ שנה.<br><br>
+      <strong>Benjamin Graham</strong> (אבי ניתוח פונדמנטלי): "In the short run, the market is a voting machine. In the long run, it's a weighing machine." — לטווח קצר השוק מגיב לרגשות. לטווח ארוך — לעובדות.
     </div>
   </div>
 
   <div class="callout tip">
     <div class="callout-icon">🛡</div>
     <div class="callout-body">
-      <div class="callout-title">3 כללי ברזל שמשקיעים מצליחים לא שוברים</div>
-      <strong>כלל 1 — אל תשקיע כסף שאתה צריך:</strong> רק כסף שאתה מוכן לא לראות ל-5 שנים. אחרת תמכור בתחתית.<br>
-      <strong>כלל 2 — אל תנסה לתזמן את השוק:</strong> גם המשקיעים הטובים בעולם לא יודעים מתי "התחתית". Time in the market beats timing the market.<br>
-      <strong>כלל 3 — פיזור הוא ביטוח חינמי:</strong> לעולם אל תשים יותר מ-5-10% בנכס אחד. אפילו אם אתה בטוח ב-100%.
+      <div class="callout-title">3 כללי ברזל שמשקיעים מצליחים לא שוברים לעולם</div>
+      <strong>כלל 1 — אל תשקיע כסף שאתה צריך:</strong> רק כסף שאתה מוכן לא לגעת בו 5+ שנים. כסף שתצטרך בשנה הקרובה — אל תשים בשוק. אם תצטרך אותו בזמן ירידה, תמכור בהפסד.<br><br>
+      <strong>כלל 2 — אל תנסה לתזמן את השוק:</strong> JP Morgan מצא שמשקיע שפספס 10 הימים הטובים ביותר של S&P 500 ב-20 שנה — הרוויח פחות ממחצית ממי שהחזיק בכל הזמן. הימים הטובים ביותר מגיעים בדרך כלל אחרי הגרועים ביותר.<br><br>
+      <strong>כלל 3 — פיזור הוא ביטוח חינמי:</strong> Harry Markowitz, זוכה נובל, הוכיח מתמטית שפיזור מוריד סיכון ללא פגיעה בתשואה הצפויה. אל תשים יותר מ-5-10% בנכס אחד.
     </div>
   </div>
 
-  <div class="quiz">
+    <div class="quiz">
     <div class="quiz-title">🎯 בדיקת הבנה — פרק 9</div>
     <div class="quiz-q">קנית ב-$100 ועכשיו $70. הפונדמנטלס חלשים. מה עושים?</div>
     <div class="quiz-options" id="q9">
