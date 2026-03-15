@@ -452,7 +452,7 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   <p>המדריך המלא בעברית — ממושגי יסוד ועד מסחר עצמאי. כל מה שצריך לדעת כדי להתחיל להשקיע בצורה חכמה ומחושבת.</p>
   <div class="hero-author">קורס מאת <b>Lidor Filiba</b> · מבית StockLens · אינו מהווה ייעוץ השקעות</div>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num">11</div><div class="hero-stat-label">פרקים</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">12</div><div class="hero-stat-label">פרקים</div></div>
     <div class="hero-stat"><div class="hero-stat-num">0₪</div><div class="hero-stat-label">עלות</div></div>
     <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">פרקטי</div></div>
   </div>
@@ -466,6 +466,7 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <button class="nav-ch" onclick="scrollToId('ch1')">1. יסודות</button>
     <button class="nav-ch" onclick="scrollToId('ch2')">2. מדדים</button>
     <button class="nav-ch" onclick="scrollToId('ch3')">3. ניירות ערך</button>
+    <button class="nav-ch" onclick="scrollToId('ch3b')">3+. נכסים נוספים</button>
     <button class="nav-ch" onclick="scrollToId('ch4')">4. ניתוח</button>
     <button class="nav-ch" onclick="scrollToId('ch5')">5. גרפים</button>
     <button class="nav-ch" onclick="scrollToId('ch6')">6. StockLens</button>
@@ -533,6 +534,26 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div class="example-result">תשואה = (300 ÷ 1,500) × 100 = +20% ✅</div>
   </div>
 
+  <h3>Bull Market ו-Bear Market — שני מצבי השוק</h3>
+  <p>אחד הדברים הבסיסיים ביותר שכל משקיע חייב להכיר הוא <strong>מה מצב השוק שהוא נמצא בו</strong>. יש שני מצבים עיקריים:</p>
+  <div class="def-grid">
+    <div class="def-card"><div class="def-term">🐂 Bull Market (שוק שורי)</div><div class="def-desc">שוק עולה — מחירים עולים 20%+ מהשפל האחרון. אופטימיות, צמיחה, ביטחון. רוב הזמן ההיסטורי — השוק בולי. ממוצע Bull Market נמשך כ-4 שנים.</div></div>
+    <div class="def-card"><div class="def-term">🐻 Bear Market (שוק דובי)</div><div class="def-desc">שוק יורד — מחירים יורדים 20%+ מהשיא האחרון. פחד, מכירות, פסימיות. Bear Market ממוצע נמשך כ-10 חודשים — כואב אך קצר יחסית.</div></div>
+    <div class="def-card"><div class="def-term">📉 Correction (תיקון)</div><div class="def-desc">ירידה של 10–20% מהשיא — לא Bear Market מלא. תיקונים הם נורמליים ומתרחשים כמעט כל שנה. חשוב לא להיבהל.</div></div>
+    <div class="def-card"><div class="def-term">🔄 Rally (ראלי)</div><div class="def-desc">עלייה מהירה ומשמעותית לאחר ירידה. לפעמים מתרחש גם בתוך Bear Market — נקרא "Dead Cat Bounce" וחשוב לא להתבלבל עם סוף הירידה.</div></div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">📊</div>
+    <div class="callout-body">
+      <div class="callout-title">Short Selling — למרוויח גם כשהשוק יורד</div>
+      רוב האנשים מרוויחים כשמניה עולה. אבל יש אסטרטגיה שמאפשרת להרוויח <strong>דווקא כשמניה יורדת</strong> — זה נקרא <strong>Short Selling (שורט)</strong>.<br><br>
+      איך זה עובד: אתה <em>שואל</em> מניות מהברוקר, מוכר אותן עכשיו במחיר גבוה, ממתין לירידה, ואז קונה אותן חזרה בזול — ומחזיר לברוקר. ההפרש = הרווח שלך.<br><br>
+      <strong>דוגמה:</strong> שאלת 10 מניות ב-$100, מכרת ב-$1,000. המניה ירדה ל-$70, קנית חזרה ב-$700. רווח: $300.<br><br>
+      <strong>הסיכון הקריטי:</strong> אם המניה עולה במקום לרדת — ההפסד שלך <em>בלתי מוגבל</em>. מניה יכולה לעלות מ-$100 ל-$500 — ואתה תפסיד $4,000 על כל 10 מניות. <strong>לא מומלץ למתחילים.</strong>
+    </div>
+  </div>
+
   <h3>מושגים שחשוב להכיר</h3>
   <div class="def-grid">
     <div class="def-card"><div class="def-term">מניה (Stock)</div><div class="def-desc">חלק בעלות בחברה. ככל שיש לך יותר מניות — יש לך יותר חלק בחברה.</div></div>
@@ -568,35 +589,65 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
 <section class="chapter" id="ch2">
   <div class="chapter-header">
     <div class="chapter-num gold">02</div>
-    <div><div class="chapter-title">מדדים — ה"בָּרוֹמֶטֶר" של השוק</div><div class="chapter-subtitle">S&P 500, NASDAQ, Dow Jones, VIX ו-ETF</div></div>
+    <div><div class="chapter-title">מדדים — ה"בָּרוֹמֶטֶר" של השוק</div><div class="chapter-subtitle">S&P 500, NASDAQ, Dow Jones, Russell 2000, VIX ו-ETF</div></div>
   </div>
 
-  <p>במקום לעקוב אחרי 500 מניות שונות — <strong>מדד</strong> עושה את זה בשבילך ונותן לך מספר אחד שמייצג את כולן.</p>
+  <p>במקום לעקוב אחרי מאות מניות שונות — <strong>מדד</strong> עושה את זה בשבילך ונותן לך מספר אחד שמייצג את כולן. כמו טמפרטורה שמייצגת את מזג האוויר — מספר אחד, תמונה שלמה.</p>
   <p>חשוב להדגיש: הנתונים ההיסטוריים על תשואות מדדים מתארים <strong>מה שהיה</strong> — לא מה שיהיה. שוק יכול לרדת משמעותית לתקופות ממושכות.</p>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">🏆 S&P 500</div><div class="metric-badges"><span class="badge badge-blue">500 חברות</span></div></div>
-    <div class="metric-desc">500 החברות הגדולות בארה"ב. נחשב <strong>המדד הכי מייצג</strong> של הכלכלה האמריקאית. <strong>היסטורית</strong> (מאז 1928) — ממוצע שנתי של כ-10%, אך בשנים מסוימות ירד גם 30-40%.</div>
+    <div class="metric-header"><div class="metric-name">🏆 S&P 500</div><div class="metric-badges"><span class="badge badge-blue">500 חברות</span><span class="badge badge-green">הכי מייצג</span></div></div>
+    <div class="metric-desc">500 החברות הגדולות בארה"ב — נחשב <strong>המדד הכי מייצג</strong> של הכלכלה האמריקאית. כולל חברות מכל הסקטורים: טכנולוגיה, בריאות, פיננסים, אנרגיה ועוד. <strong>היסטורית</strong> (מאז 1928) — ממוצע שנתי של כ-10%, אך בשנים מסוימות ירד גם 30–40%. ETF עוקב: <strong>SPY, VOO</strong>.</div>
   </div>
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">💻 NASDAQ 100</div><div class="metric-badges"><span class="badge badge-purple">טכנולוגיה</span></div></div>
-    <div class="metric-desc">100 חברות הטכנולוגיה הגדולות. Apple, NVIDIA, Microsoft, Meta, Tesla. <strong>היסטורית</strong> — תשואה גבוהה יותר מ-S&P, אך גם ירידות חדות יותר בזמן משבר.</div>
+    <div class="metric-header"><div class="metric-name">💻 NASDAQ 100</div><div class="metric-badges"><span class="badge badge-purple">טכנולוגיה</span><span class="badge badge-red">תנודתי</span></div></div>
+    <div class="metric-desc">100 חברות הטכנולוגיה הגדולות — Apple, NVIDIA, Microsoft, Meta, Tesla. מדד צמיחה אגרסיבי. <strong>היסטורית</strong> — תשואה גבוהה יותר מ-S&P 500, אך ירידות חדות בהרבה בזמן משבר (למשל ירד כ-80% בפיצוץ בועת הדוט-קום 2000–2002). ETF עוקב: <strong>QQQ</strong>.</div>
   </div>
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">😨 VIX — מדד הפחד</div><div class="metric-badges"><span class="badge badge-red">&gt;30 פאניקה</span><span class="badge badge-green">&lt;15 שקט</span></div></div>
-    <div class="metric-desc">מודד ציפיות לתנודתיות. VIX גבוה = שוק פחדן ותנודתי. VIX נמוך = שקט. <strong>זהו אינדיקטור של פחד — לא תחזית</strong> לאן ילך השוק.</div>
+    <div class="metric-header"><div class="metric-name">📰 Dow Jones Industrial Average (DJIA)</div><div class="metric-badges"><span class="badge badge-gold">30 חברות</span><span class="badge badge-blue">היסטורי</span></div></div>
+    <div class="metric-desc">
+      המדד <strong>הוותיק ביותר בעולם</strong> — קיים מאז 1896. מורכב מ-30 בלבד מהחברות הגדולות והמוכרות ביותר בארה"ב, כמו Apple, Boeing, Goldman Sachs, Johnson &amp; Johnson ו-Coca-Cola.<br><br>
+      <strong>ההבדל הקריטי מ-S&P 500:</strong> הדאו הוא מדד <em>ממוצע משוקלל לפי מחיר מניה</em> — כלומר, מניה שעולה $500 משפיעה יותר ממניה שעולה $50, בלי קשר לגודל החברה. זה הופך אותו לפחות מדויק מ-S&P 500 כמייצג של הכלכלה.<br><br>
+      <strong>למה עדיין חשוב?</strong> כי הוא <strong>המדד שמופיע בחדשות</strong> — כשאנשים אומרים "הבורסה עלתה 200 נקודות" הם לרוב מתכוונים לדאו. הוא גם בארומטר מצוין לביצועי חברות ה"כחול-לבן" — החברות הגדולות והיציבות ביותר. ETF עוקב: <strong>DIA</strong>.
+    </div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">🏭 Russell 2000</div><div class="metric-badges"><span class="badge badge-gold">2000 חברות קטנות</span><span class="badge badge-red">סיכון גבוה</span></div></div>
+    <div class="metric-desc">
+      בעוד ש-S&P 500 עוקב אחרי הענקיות — Russell 2000 עוקב אחרי <strong>2,000 חברות קטנות (Small Cap)</strong> בארה"ב. אלה חברות שמחיר המניה שלהן קטן יחסית, לרוב בשלבי צמיחה מוקדמים.<br><br>
+      <strong>למה הוא חשוב?</strong> Russell 2000 נחשב <em>מד חום לבריאות הכלכלה האמריקאית הפנימית</em> — כי חברות קטנות פחות תלויות בסחר עולמי ויותר תלויות בצרכן האמריקאי המקומי. כשהרסל עולה בחוזקה — סימן שהביטחון הכלכלי הפנימי גבוה.<br><br>
+      <strong>הסיכון:</strong> חברות קטנות יותר רגישות למשברים, לריבית גבוהה, ופחות יציבות — לכן Russell 2000 תנודתי יותר מ-S&P 500. בזמן משבר הוא יורד מהר יותר, אך גם מתאושש מהר יותר. ETF עוקב: <strong>IWM</strong>.
+    </div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">😨 VIX — מדד הפחד</div><div class="metric-badges"><span class="badge badge-red">&gt;30 פאניקה</span><span class="badge badge-gold">20-30 מתח</span><span class="badge badge-green">&lt;15 שקט</span></div></div>
+    <div class="metric-desc">מודד ציפיות לתנודתיות בשוק ב-30 הימים הקרובים. VIX גבוה = שוק פחדן ותנודתי. VIX נמוך = שקט וביטחון. <strong>זהו אינדיקטור של פחד — לא תחזית</strong> לאן ילך השוק. כשה-VIX מזנק מעל 40 — זה לרוב רגע פאניקה קיצונית (כמו מרץ 2020, 2008).</div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🔑</div>
+    <div class="callout-body">
+      <div class="callout-title">איך לזכור את ההבדל בין המדדים</div>
+      <strong>S&P 500</strong> = "כלכלת ארה"ב הגדולה" — הכי מייצג, 500 חברות מכל הסקטורים.<br>
+      <strong>NASDAQ 100</strong> = "עולם הטכנולוגיה" — צמיחה מהירה, תנודתיות גבוהה.<br>
+      <strong>Dow Jones</strong> = "30 ענקיות" — הישן והמוכר, פחות מדויק אך הכי מוזכר בחדשות.<br>
+      <strong>Russell 2000</strong> = "ישראל הקטנה של אמריקה" — חברות קטנות, מד חום לכלכלה הפנימית.<br>
+      <strong>VIX</strong> = "כמה פחד יש בשוק" — לא כיוון, רק עוצמת הפחד.
+    </div>
   </div>
 
   <h3>מה זה ETF?</h3>
-  <p>תעודת סל (ETF) = <strong>קנה את כל המדד כאילו זו מניה אחת</strong>. במקום לקנות 500 מניות בנפרד — קונה ETF אחד שכולל את כולן.</p>
+  <p>תעודת סל (ETF) = <strong>קנה את כל המדד כאילו זו מניה אחת</strong>. במקום לקנות 500 מניות בנפרד — קונה ETF אחד שכולל את כולן. זו הדרך הפשוטה, הזולה והחכמה ביותר למשקיע מתחיל להיחשף לשוק.</p>
   <div class="callout tip">
     <div class="callout-icon">💡</div>
     <div class="callout-body">
       <div class="callout-title">ETF נפוצים שכדאי להכיר</div>
-      <strong>SPY / VOO</strong> — עוקב S&P 500<br>
+      <strong>SPY / VOO</strong> — עוקב S&P 500 (VOO זול יותר מבחינת דמי ניהול)<br>
       <strong>QQQ</strong> — עוקב NASDAQ 100<br>
-      <strong>VTI</strong> — כל שוק המניות האמריקאי<br>
-      <strong>GLD</strong> — זהב | <strong>TLT</strong> — אגרות חוב ממשלתיות
+      <strong>DIA</strong> — עוקב Dow Jones Industrial Average<br>
+      <strong>IWM</strong> — עוקב Russell 2000 (חברות קטנות)<br>
+      <strong>VTI</strong> — כל שוק המניות האמריקאי (4,000+ חברות)<br>
+      <strong>GLD</strong> — זהב | <strong>TLT</strong> — אגרות חוב ממשלתיות ארוכות
     </div>
   </div>
 
@@ -645,6 +696,14 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div class="metric-header"><div class="metric-name">Stop Loss — מכור אוטומטית אם יש הפסד</div><div class="metric-badges"><span class="badge badge-red">הגנה</span></div></div>
     <div class="metric-desc">אומר לברוקר: "קניתי ב-$200. אם המחיר יירד ל-$170 — מכור אוטומטית." מגביל את ההפסד שלך ל-15%. <strong>זה הכלי הכי חשוב לניהול סיכונים.</strong></div>
   </div>
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Trailing Stop Loss — Stop Loss חכם שמתאים את עצמו</div><div class="metric-badges"><span class="badge badge-green">הגנה מתקדמת</span></div></div>
+    <div class="metric-desc">
+      בניגוד ל-Stop Loss רגיל שנשאר במקום — Trailing Stop <strong>עולה יחד עם המחיר</strong>, אבל אף פעם לא יורד.<br><br>
+      <strong>דוגמה:</strong> קנית ב-$100 עם Trailing Stop של 10%. המניה עלתה ל-$150 → ה-Stop עלה ל-$135. אם המניה תרד ל-$135 — נמכר אוטומטית ותנעל רווח של $35.<br><br>
+      <strong>היתרון:</strong> מגן על הרווחים שצברת מבלי שתצטרך לעדכן ידנית כל הזמן.
+    </div>
+  </div>
 
   <div class="quiz">
     <div class="quiz-title">🎯 בדיקת הבנה — פרק 3</div>
@@ -656,6 +715,64 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     </div>
     <div class="quiz-explain" id="q3-explain">✅ נכון! Limit Order ב-$150 — ההוראה תשב ותחכה. אם המחיר יגיע ל-$150 — תתבצע הקנייה.</div>
   </div>
+</section>
+
+<!-- ══════════════════════════════════ CH3B ══════════════════════════════════ -->
+<section class="chapter" id="ch3b">
+  <div class="chapter-header">
+    <div class="chapter-num blue">3+</div>
+    <div><div class="chapter-title">נכסים נוספים — מעבר למניות</div><div class="chapter-subtitle">אגרות חוב, סחורות, מטבע חוץ ונדל"ן</div></div>
+  </div>
+
+  <p>שוק ההון הוא הרבה יותר ממניות. כדי להיות משקיע שלם, חשוב להכיר את <strong>כלל נכסי ההשקעה</strong> — גם אם לא תשתמש בכולם.</p>
+
+  <h3>אגרות חוב (Bonds) — ההפך ממניות</h3>
+  <p>כשאתה קונה מניה — אתה קונה <em>בעלות</em> בחברה. כשאתה קונה אג"ח — אתה בעצם <strong>מלווה כסף</strong> לממשלה או לחברה, ומקבל ריבית קבועה בתמורה.</p>
+
+  <div class="def-grid">
+    <div class="def-card"><div class="def-term">Government Bonds (אגח ממשלתי)</div><div class="def-desc">הלוואה לממשלת ארה"ב (Treasury). הכי בטוח שיש — ממשלת ארה"ב לא "פושטת רגל". תשואה נמוכה בתמורה לביטחון.</div></div>
+    <div class="def-card"><div class="def-term">Corporate Bonds (אגח קונצרני)</div><div class="def-desc">הלוואה לחברה. סיכון גבוה יותר מממשלתי (חברה יכולה לפשוט רגל), לכן ריבית גבוהה יותר.</div></div>
+    <div class="def-card"><div class="def-term">Yield (תשואה)</div><div class="def-desc">הריבית השנתית שתקבל על האג"ח. Yield גבוה = סיכון גבוה יותר, או ריבית גבוהה יותר במשק.</div></div>
+    <div class="def-card"><div class="def-term">Duration (מח"מ)</div><div class="def-desc">כמה זמן עד שתקבל חזרה את הקרן? אג"ח ל-2 שנה, 10 שנה, 30 שנה. ככל שארוך יותר — רגיש יותר לשינויי ריבית.</div></div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">🔄</div>
+    <div class="callout-body">
+      <div class="callout-title">הקשר ההפוך בין ריבית למחיר אגח</div>
+      זה אחד המושגים שמבלבלים הכי הרבה אנשים: <strong>כשהריבית עולה — מחיר האג"ח יורד.</strong> למה?<br><br>
+      דמיין שיש לך אג"ח ישן שמשלם 2% ריבית. עכשיו הריבית עלתה ל-5% — מי ירצה לקנות ממך את האג"ח הישן שמשלם רק 2%? רק אם תוריד את מחירו עד שהתשואה האפקטיבית תהיה 5%.<br><br>
+      לכן: ריבית גבוהה = ערך האג"חים הישנים יורד. ריבית נמוכה = ערך האג"חים הישנים עולה.
+    </div>
+  </div>
+
+  <h3>סחורות (Commodities)</h3>
+  <p>סחורות הן <strong>חומרי גלם פיזיים</strong> שנסחרים בבורסה — זהב, נפט, חיטה, נחושת וכדומה. השקעה בסחורות יכולה לשמש כ<strong>גידור מפני אינפלציה</strong> — כי כשמחירים עולים, ערך הסחורות לרוב עולה גם הוא.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>סחורה</th><th>תפקיד בתיק</th><th>ETF עוקב</th></tr></thead>
+      <tbody>
+        <tr><td><strong>🥇 זהב (Gold)</strong></td><td>מקלט בטוח בזמן משבר, גידור אינפלציה</td><td>GLD, IAU</td></tr>
+        <tr><td><strong>🛢 נפט (Oil)</strong></td><td>קשור לצמיחה כלכלית גלובלית</td><td>USO, XLE</td></tr>
+        <tr><td><strong>⚡ כסף (Silver)</strong></td><td>גם מתכת יקרה וגם שימושי תעשייתי</td><td>SLV</td></tr>
+        <tr><td><strong>🌾 חקלאות</strong></td><td>חיטה, תירס, סויה — מושפעים ממזג אוויר</td><td>DBA</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>מטבע חוץ — Forex</h3>
+  <p>שוק המט"ח (Forex) הוא <strong>שוק המסחר הגדול בעולם</strong> — מחזור יומי של מעל 6 טריליון דולר. בניגוד לבורסה, הוא פועל 24 שעות ביממה 5 ימים בשבוע. כאן נסחרות זוגות מטבעות — כמו EUR/USD, USD/JPY.</p>
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">Forex — למנוסים בלבד</div>
+      מסחר במט"ח כולל לרוב <strong>מינוף גבוה</strong> — כלומר אתה שולט על סכום גדול בהרבה ממה שיש לך בחשבון. מינוף של 1:100 אומר שתנועה של 1% = רווח או הפסד של 100% מההשקעה. רוב המתחילים שמנסים Forex — מפסידים. <strong>לא מומלץ למתחילים.</strong>
+    </div>
+  </div>
+
+  <h3>נדל"ן דרך הבורסה — REITs</h3>
+  <p>לא חייבים לקנות דירה כדי להשקיע בנדל"ן. <strong>REIT (Real Estate Investment Trust)</strong> היא חברה שמחזיקה ומנהלת נכסי נדל"ן (קניונים, מגדלי משרדים, דיור), ונסחרת בבורסה כמו מניה רגילה. לפי חוק, REIT חייבת לחלק לפחות 90% מרווחיה כדיבידנד — לכן הן אטרקטיביות מאוד למשקיעי הכנסה פאסיבית.</p>
 </section>
 
 <!-- ══════════════════════════════════ CH4 ══════════════════════════════════ -->
@@ -718,6 +835,26 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   </div>
 
   <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">Dividend Yield — תשואת דיבידנד</div><div class="metric-badges"><span class="badge badge-green">&gt;3% גבוה</span><span class="badge badge-gold">1-3% סביר</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> כמה אחוז מהמחיר שלך תקבל חזרה כדיבידנד בשנה?<br>
+      Dividend Yield של 4% = קנית מניה ב-$100, תקבל $4 דיבידנד בשנה — בנוסף לכל עליית ערך.<br>
+      <strong>שים לב:</strong> Yield גבוה מדי (מעל 8–10%) יכול להיות סימן אזהרה — לעיתים אומר שהמניה ירדה חזק, או שהדיבידנד בסכנה לקיצוץ.
+    </div>
+    <div class="metric-formula">Dividend Yield = (דיבידנד שנתי ÷ מחיר מניה) × 100%</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">P/B Ratio — מחיר לספרים</div><div class="metric-badges"><span class="badge badge-green">&lt;1 זול פוטנציאלי</span><span class="badge badge-gold">1-3 הוגן</span></div></div>
+    <div class="metric-desc">
+      <strong>בשפה פשוטה:</strong> כמה אתה משלם ביחס לשווי הנכסים הפיזיים של החברה?<br>
+      P/B של 1 = אתה קונה את החברה בדיוק במחיר הנכסים שלה. P/B של 0.8 = אתה קונה $1 של נכסים ב-$0.80 — נשמע כמו עסקה!<br>
+      <strong>מגבלה:</strong> P/B עובד טוב לחברות פיזיות (בנקים, תעשייה). לחברות טכנולוגיה — פחות רלוונטי כי הנכס העיקרי שלהן הוא קניין רוחני שלא מופיע בספרים.
+    </div>
+    <div class="metric-formula">P/B = מחיר מניה ÷ ערך ספרי למניה</div>
+  </div>
+
+  <div class="metric-card">
     <div class="metric-header"><div class="metric-name">מאזן — נכסים, חובות, והון עצמי</div></div>
     <div class="metric-desc">
       <strong>Current Ratio</strong> = נכסים שוטפים ÷ התחייבויות שוטפות.<br>
@@ -725,6 +862,37 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
       מעל 1.5 = בסדר. מתחת ל-1 = יש בעיה נזילות.<br><br>
       <strong>Long-term Debt</strong> = חוב לטווח ארוך. בדוק: האם החוב גדול בצורה מדאיגה ביחס לרווחים?<br>
       <strong>Shareholder Equity</strong> = מה שנשאר לבעלי המניות אחרי חיסור כל החובות מהנכסים. חיובי = טוב.
+    </div>
+  </div>
+
+  <h3>ה-5 שאלות שחייבים לשאול לפני כל קנייה</h3>
+  <div class="callout tip">
+    <div class="callout-icon">🧠</div>
+    <div class="callout-body">
+      <div class="callout-title">צ'קליסט קנייה — לא לדלג על אף שאלה</div>
+      <strong>1. למה אני קונה את המניה הזו עכשיו?</strong> — אם אין לך תשובה ברורה, אל תקנה.<br>
+      <strong>2. מה יגרום לי למכור אותה?</strong> — הגדר מראש: מחיר מטרה ו-Stop Loss.<br>
+      <strong>3. האם הפונדמנטלס תומכים במחיר?</strong> — P/E הגיוני? FCF חיובי? חוב נמוך?<br>
+      <strong>4. מה הסיכון הכי גדול לחברה?</strong> — מתחרה חדש? חקיקה? תלות בלקוח אחד?<br>
+      <strong>5. האם הייתי קונה עוד ממנה ב-20% פחות?</strong> — אם לא — כנראה שאתה לא בטוח מספיק.
+    </div>
+  </div>
+
+  <h3>Moat — החפיר ההגנתי של החברה</h3>
+  <p>ווארן באפט המציא את המושג הזה — <strong>Moat (חפיר)</strong> הוא היתרון התחרותי הייחודי שמונע ממתחרים לגנוב את לקוחות החברה. זה אחד הגורמים הכי חשובים שמחפשים משקיעים מנוסים.</p>
+  <div class="def-grid">
+    <div class="def-card"><div class="def-term">🏷 Brand Power</div><div class="def-desc">מותג כה חזק שאנשים משלמים יותר. Apple, Coca-Cola, Nike. קשה מאוד לקנות נאמנות כזאת.</div></div>
+    <div class="def-card"><div class="def-term">🔄 Switching Costs</div><div class="def-desc">קשה לעזוב את המוצר. Microsoft Office — כולם רגילים אליו. Salesforce — מערכת CRM שמורכב לעבור ממנה.</div></div>
+    <div class="def-card"><div class="def-term">📈 Network Effects</div><div class="def-desc">ככל שיש יותר משתמשים — המוצר שווה יותר. Facebook, Visa, Airbnb. הראשון שמגיע לקריטי מאס — מנצח.</div></div>
+    <div class="def-card"><div class="def-term">💰 Cost Advantage</div><div class="def-desc">מייצר זול יותר מהמתחרים. Amazon — לוגיסטיקה ענקית שאי אפשר לשכפל. Walmart — נפח קנייה שמשיג מחירים שאחרים לא יכולים.</div></div>
+    <div class="def-card"><div class="def-term">📜 Licenses & Patents</div><div class="def-desc">רישיונות ופטנטים שמונעים תחרות. תרופות פטנטיות, חברות תשתית, מונופולים רגולטוריים.</div></div>
+    <div class="def-card"><div class="def-term">❌ No Moat</div><div class="def-desc">חברה ללא יתרון ייחודי — כל מתחרה יכול לחקות אותה. סיכון גבוה לאיבוד נתח שוק.</div></div>
+  </div>
+  <div class="callout info">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <div class="callout-title">איך לזהות Moat בפועל</div>
+      שאל את עצמך: <strong>"אם אני לקוח של החברה הזו — כמה קל לי לעבור למתחרה?"</strong> אם התשובה היא "לא נוח בכלל" — יש Moat. אם התשובה היא "פשוט מאוד" — כנראה שאין.
     </div>
   </div>
 
@@ -1148,12 +1316,82 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   </div>
 
   <div class="strategy-grid">
-    <div class="strategy-card"><div class="strategy-icon">🐢</div><div class="strategy-name">Buy & Hold</div><div class="strategy-desc">קונה מניות איכותיות ומחזיק אותן שנים. פשוט ומוכח. <strong>ו"ורן באפט</strong> — המשקיע הגדול בעולם, שהגדיל הון של $10,000 לכמעט $130 מיליארד — בנה את עושרו על אסטרטגיה זו.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
-    <div class="strategy-card"><div class="strategy-icon">📅</div><div class="strategy-name">Dollar Cost Averaging</div><div class="strategy-desc">משקיע סכום קבוע כל חודש ללא תלות במחיר. מוריד את הסיכון של "כניסה בשיא".</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
-    <div class="strategy-card"><div class="strategy-icon">💰</div><div class="strategy-name">Dividend Investing</div><div class="strategy-desc">מניות שמחלקות תשלום חודשי/רבעוני — הכנסה פאסיבית.</div><span class="strategy-tag badge badge-blue">טווח ארוך</span></div>
-    <div class="strategy-card"><div class="strategy-icon">🚀</div><div class="strategy-name">Growth Investing</div><div class="strategy-desc">חברות שגדלות מהר. סיכון גבוה, פוטנציאל גבוה.</div><span class="strategy-tag badge badge-gold">בינוני</span></div>
-    <div class="strategy-card"><div class="strategy-icon">🔍</div><div class="strategy-name">Value Investing</div><div class="strategy-desc">חברות טובות שנסחרות בזול. P/E נמוך, FCF גבוה.</div><span class="strategy-tag badge badge-gold">מנוסים</span></div>
-    <div class="strategy-card"><div class="strategy-icon">⚡</div><div class="strategy-name">Swing Trading</div><div class="strategy-desc">קנייה ומכירה בתוך ימים-שבועות. דורש ניתוח טכני מעמיק.</div><span class="strategy-tag badge badge-red">מנוסים בלבד</span></div>
+    <div class="strategy-card"><div class="strategy-icon">🐢</div><div class="strategy-name">Buy & Hold</div><div class="strategy-desc">קונה מניות איכותיות ומחזיק אותן שנים. פשוט ומוכח. <strong>ווארן באפט</strong> — המשקיע הגדול בעולם — בנה את עושרו על אסטרטגיה זו. הסוד: ריבית דריבית עושה את העבודה לאורך זמן.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
+    <div class="strategy-card"><div class="strategy-icon">📅</div><div class="strategy-name">Dollar Cost Averaging (DCA)</div><div class="strategy-desc">משקיע סכום קבוע כל חודש ללא תלות במחיר. כשהשוק יורד — קונה יותר יחידות בסכום זהה. מוריד את ממוצע המחיר לאורך זמן. הדרך הפשוטה ביותר להתחיל.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
+    <div class="strategy-card"><div class="strategy-icon">💰</div><div class="strategy-name">Dividend Investing</div><div class="strategy-desc">מניות שמחלקות תשלום חודשי/רבעוני. מטרה: לבנות "שכר פאסיבי" מדיבידנדים. דוגמאות: Johnson & Johnson, Realty Income, Procter & Gamble.</div><span class="strategy-tag badge badge-blue">טווח ארוך</span></div>
+    <div class="strategy-card"><div class="strategy-icon">🚀</div><div class="strategy-name">Growth Investing</div><div class="strategy-desc">חברות שגדלות מהר — Revenue +30%+ בשנה. לרוב אין דיבידנד, משקיעים חזרה ברווחים. דוגמאות: NVIDIA, Shopify, CrowdStrike. סיכון גבוה, פוטנציאל גבוה.</div><span class="strategy-tag badge badge-gold">בינוני</span></div>
+    <div class="strategy-card"><div class="strategy-icon">🔍</div><div class="strategy-name">Value Investing</div><div class="strategy-desc">חברות טובות שנסחרות בזול מסיבה זמנית. P/E נמוך, FCF גבוה, Moat חזק. צריך סבלנות — לפעמים מחכים שנה-שנתיים עד שהשוק "מגלה" את הערך.</div><span class="strategy-tag badge badge-gold">מנוסים</span></div>
+    <div class="strategy-card"><div class="strategy-icon">⚡</div><div class="strategy-name">Swing Trading</div><div class="strategy-desc">קנייה ומכירה בתוך ימים-שבועות. מסתמך על ניתוח טכני, תבניות גרף, וקטליסטים קצרי טווח (דוחות, חדשות). דורש זמן, ידע, ומשמעת ברזל.</div><span class="strategy-tag badge badge-red">מנוסים בלבד</span></div>
+  </div>
+
+  <h3>אופציות — מבוא בטוח למתחילים</h3>
+  <p>אופציות הן אחד הכלים הכי מפחידים למתחילים — ובצדק, כי הן יכולות לגרום להפסדים גדולים. אבל חשוב <strong>להכיר את הבסיס</strong> כי תשמע עליהן הרבה.</p>
+  <div class="callout info">
+    <div class="callout-icon">📋</div>
+    <div class="callout-body">
+      <div class="callout-title">מה זו אופציה — ההסבר הפשוט ביותר</div>
+      אופציה היא <strong>חוזה שנותן לך את הזכות (אבל לא החובה) לקנות או למכור מניה במחיר קבוע עד תאריך מסוים.</strong><br><br>
+      <strong>Call Option</strong> = זכות לקנות מניה במחיר X. אם המניה עולה מעל X — הרווחת.<br>
+      <strong>Put Option</strong> = זכות למכור מניה במחיר X. אם המניה יורדת מתחת ל-X — הרווחת.<br><br>
+      דוגמה: קנית Call Option על AAPL ב-$150 (Strike Price). AAPL עלתה ל-$180 — אתה יכול לקנות ב-$150 ולמכור ב-$180 = רווח של $30 למניה.
+    </div>
+  </div>
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">למה אופציות מסוכנות למתחילים</div>
+      אופציות מתאיינות — אם המניה לא זזה בכיוון שציפית עד התאריך, האופציה פוקעת ואתה מפסיד את כל מה ששילמת עליה (ה-Premium).<br><br>
+      בניגוד למניה שיכולה "להתאושש" עם הזמן — אופציה שפוקעת = 100% הפסד של הסכום ששמת. <strong>לא מומלץ לנגוע לפני שיש לפחות שנה של ניסיון בשוק.</strong>
+    </div>
+  </div>
+
+  <h3>Covered Call — מכירת קולים כהכנסה פאסיבית</h3>
+  <p>בניגוד לקנייה של אופציות שמסוכנת למתחילים, <strong>מכירת Covered Call היא אסטרטגיה שמרנית ומוכחת</strong> שמשמשת משקיעים מקצועיים ליצירת הכנסה חודשית קבועה מתיק שהם כבר מחזיקים. הרעיון: אתה מוכר לאחר את הזכות לקנות ממך מניות — ומקבל תשלום מיידי בתמורה.</p>
+
+  <div class="callout info">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <div class="callout-title">למה דווקא 100 מניות?</div>
+      כל חוזה אופציה סטנדרטי מייצג בדיוק <strong>100 מניות</strong> — זה תקן עולמי קבוע. לכן כדי למכור Covered Call אחד אתה חייב להחזיק לפחות 100 מניות של אותה חברה. ה-"Covered" אומר שאתה "מכוסה" — אם הקונה ירצה לממש, יש לך את המניות לתת לו. בלי המניות זה נקרא Naked Call, שזה מסוכן ביותר.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">דוגמה מספרית — Covered Call על AAPL</div>
+    <div class="example-calc">
+      מחזיק 100 מניות AAPL × $200 = תיק של <strong>$20,000</strong><br>
+      מוכר Call Option עם Strike Price $220, פוקע בעוד חודש<br>
+      מקבל Premium: $3 × 100 מניות = <strong>$300 נכנסים לחשבון מיד</strong>
+    </div>
+    <div class="example-result" style="font-size:.82rem;line-height:1.9">
+      📍 תרחיש 1 — AAPL נשארת מתחת ל-$220: האופציה פוקעת, שומר $300 + עדיין מחזיק 100 מניות. חוזר על זה בחודש הבא.<br>
+      📍 תרחיש 2 — AAPL עולה ל-$230: מוכר ב-$220 (כפי שהתחייב) + $300 פרמיום = $22,300 סה"כ. "פספס" $10 מעל הסטרייק — אבל עדיין הרוויח.<br>
+      📍 תרחיש 3 — AAPL יורדת ל-$180: האופציה פוקעת, שומר $300 שמקטין את ההפסד מ-$2,000 ל-$1,700.
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">הכנסה שנתית פוטנציאלית מ-Covered Calls</div><div class="metric-badges"><span class="badge badge-green">הכנסה פאסיבית</span><span class="badge badge-blue">מינימום 100 מניות</span></div></div>
+    <div class="metric-desc">
+      אם מוכרים Covered Call כל חודש על תיק של 100 מניות AAPL ($200 × 100 = $20,000), ומקבלים פרמיום ממוצע של $300 בחודש — זה <strong>$3,600 בשנה</strong>.<br><br>
+      זו תשואה שנתית של <strong>18%</strong> נוספת מעל כל עליית ערך של המניה עצמה ומעל דיבידנד. הסטטיסטיקה ההיסטורית מראה שכ-<strong>80% מהאופציות פוקעות חסרות ערך</strong> — כלומר רוב הזמן שומרים את הפרמיום בלי למסור מניות.
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">מתי האסטרטגיה הזו מתאימה לך</div>
+      Covered Calls מתאים למי שמחזיק 100+ מניות של חברה שהוא מאמין בה לטווח ארוך, לא מתכנן למכור אותה בקרוב, ורוצה לסחוט ממנה הכנסה חודשית שוטפת בנוסף. חשוב לבחור Strike Price שאתה <em>מרוצה למכור בו</em> אם תחויב — כי אם המניה תזנק מעבר לסטרייק, תמכור אותה ותפספס את העליה מעל.
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">הסיכון העיקרי — מכירת פוטנציאל</div>
+      הסיכון של Covered Call הוא לא הפסד — אלא <strong>הפסד הזדמנות</strong>. אם AAPL תזנק מ-$200 ל-$270, תמכור ב-$220 ו"תפספס" $50 למניה = $5,000 שיכולת להרוויח. לכן בחר Strike Price שמשאיר לך מרווח מספיק מעל המחיר הנוכחי.
+    </div>
   </div>
 
   <h3>Risk/Reward Ratio — הכלל שמגן על הכסף</h3>
@@ -1214,24 +1452,45 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div><div class="chapter-title">מאקרו — הסביבה שמשפיעה על הכל</div><div class="chapter-subtitle">ריבית הפד, אינפלציה, GDP — ואיפה עוקבים</div></div>
   </div>
 
-  <p>גם אם בחרת מניה מעולה — אם הסביבה הכלכלית גרועה, היא עלולה לרדת. <strong>המאקרו הוא ה"רוח" שמניעה את הסירה.</strong></p>
+  <p>גם אם בחרת מניה מעולה — אם הסביבה הכלכלית גרועה, היא עלולה לרדת. <strong>המאקרו הוא ה"רוח" שמניעה את הסירה.</strong> משקיע שמתעלם ממאקרו זה כמו שייט שמסתכל רק על המצפן ולא על מזג האוויר.</p>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">ריבית הפד (Federal Reserve Rate)</div><div class="metric-badges"><span class="badge badge-red">עולה = שוק לחוץ</span><span class="badge badge-green">יורדת = שוק שמח</span></div></div>
     <div class="metric-desc">
-      הפד (הבנק המרכזי של ארה"ב) קובע את הריבית הבסיסית. ריבית גבוהה = הלוואות יקרות = חברות מרוויחות פחות = מניות יורדות.<br><br>
-      <strong>FOMC Meeting</strong> = ישיבת הפד, 8 פעמים בשנה. יום תנודתי מאוד.
+      הפד (הבנק המרכזי של ארה"ב) קובע את הריבית הבסיסית — זו ריבית "הכסף" עצמו. ריבית גבוהה = הלוואות יקרות = חברות מרוויחות פחות = מניות יורדות. ריבית נמוכה = כסף זול = חברות צומחות = שוק עולה.<br><br>
+      <strong>FOMC Meeting</strong> = ישיבת הפד, 8 פעמים בשנה. יום תנודתי מאוד — לפעמים שוק זז 2-3% ביום אחד בגלל מילה אחת של יו"ר הפד.
     </div>
   </div>
 
   <div class="metric-card">
-    <div class="metric-header"><div class="metric-name">אינפלציה — CPI ו-PCE</div><div class="metric-badges"><span class="badge badge-gold">יעד הפד: ~2%</span></div></div>
-    <div class="metric-desc">אינפלציה גבוהה → הפד מעלה ריבית → שוק יורד. אינפלציה נמוכה → הפד יכול להוריד ריבית → שוק עולה.</div>
+    <div class="metric-header"><div class="metric-name">אינפלציה — CPI ו-PCE</div><div class="metric-badges"><span class="badge badge-gold">יעד הפד: ~2%</span><span class="badge badge-red">&gt;4% מדאיג</span></div></div>
+    <div class="metric-desc">
+      <strong>CPI (Consumer Price Index)</strong> = מדד מחירי הצרכן. מה עולה יותר — לחם, דלק, שכר דירה. כשה-CPI עולה מעבר ל-2-3% — הפד מעלה ריבית כדי לקרר את הכלכלה.<br><br>
+      <strong>PCE (Personal Consumption Expenditures)</strong> = המדד שהפד מסתכל עליו יותר. קצת שונה מ-CPI בחישוב אבל אותו רעיון.<br><br>
+      הקשר: אינפלציה גבוהה → הפד מעלה ריבית → שוק יורד. אינפלציה נמוכה → הפד יכול להוריד ריבית → שוק עולה.
+    </div>
   </div>
 
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">GDP — צמיחה כלכלית</div><div class="metric-badges"><span class="badge badge-green">חיובי = טוב</span><span class="badge badge-red">2 רבעונים שלילי = מיתון</span></div></div>
-    <div class="metric-desc">כמה הכלכלה גדלה. שני רבעונים רצופים שליליים = מיתון רשמי. מיתון לרוב = Bear Market.</div>
+    <div class="metric-desc">כמה הכלכלה גדלה ברבעון. שני רבעונים רצופים שליליים = מיתון רשמי. מיתון לרוב = Bear Market — אבל לא תמיד, והשוק לפעמים מקדים את המיתון ב-6 חודשים.</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">שוק העבודה — Unemployment Rate & Non-Farm Payrolls</div><div class="metric-badges"><span class="badge badge-green">&lt;4% חזק</span><span class="badge badge-red">&gt;6% חלש</span></div></div>
+    <div class="metric-desc">
+      <strong>Unemployment Rate</strong> = אחוז מובטלים. שוק עבודה חזק = אנשים מרוויחים = מוציאים כסף = חברות מרוויחות = מניות עולות.<br><br>
+      <strong>Non-Farm Payrolls (NFP)</strong> = כמה משרות נוצרו בחודש האחרון (מחוץ לחקלאות). מתפרסם ביום שישי הראשון של כל חודש — יום תנודתי מאוד. ציפייה: 150,000+. מתחת לציפייה = שוק תגובה שלילית.
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-header"><div class="metric-name">עקום התשואות (Yield Curve)</div><div class="metric-badges"><span class="badge badge-green">נורמלי = עולה</span><span class="badge badge-red">הפוך = אזהרת מיתון</span></div></div>
+    <div class="metric-desc">
+      עקום התשואות מציג את הריבית על אגרות חוב ממשלתיות לפי זמן — אג"ח ל-2 שנה, 10 שנה, 30 שנה.<br><br>
+      <strong>נורמלי:</strong> ריבית לטווח ארוך גבוהה מלטווח קצר (הגיוני — סיכון גדול יותר לטווח ארוך).<br>
+      <strong>Inverted Yield Curve (הפוך):</strong> ריבית ל-2 שנה גבוהה מריבית ל-10 שנה. זה <strong>אחד ממנבאי המיתון האמינים ביותר</strong> — בכל מיתון מ-1970 ועד היום, עקום הפוך הקדים אותו.
+    </div>
   </div>
 
   <h3>Sector Rotation — מה עובד מתי</h3>
@@ -1250,10 +1509,22 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   <div class="callout tip">
     <div class="callout-icon">📱</div>
     <div class="callout-body">
-      <div class="callout-title">איפה עוקבים אחרי נתוני מאקרו</div>
-      <strong>Investing.com</strong> — האפליקציה/אתר הכי מומלץ. יש שם "Economic Calendar" עם כל הנתונים הכלכליים הצפויים, פרסומים בזמן אמת, ריבית הפד, CPI ועוד.<br><br>
-      <strong>FRED (fred.stlouisfed.org)</strong> — אתר הבנק המרכזי. גרפים מלאים על ריבית, אינפלציה, GDP.<br><br>
-      <strong>Bloomberg / Reuters</strong> — חדשות פיננסיות עדכניות.
+      <div class="callout-title">איפה עוקבים אחרי נתוני מאקרו — מדריך מקורות</div>
+      <strong>Investing.com</strong> — "Economic Calendar" עם כל הנתונים הכלכליים הצפויים. חובה להוסיף לאפליקציה.<br>
+      <strong>FRED (fred.stlouisfed.org)</strong> — גרפים מלאים על ריבית, אינפלציה, GDP. אתר הבנק הפדרלי של סנט לואיס — בחינם לחלוטין.<br>
+      <strong>Bloomberg / Reuters</strong> — חדשות פיננסיות עדכניות. גרסאות חינמיות מספיקות למתחילים.<br>
+      <strong>CNBC / MarketWatch</strong> — חדשות שוק ביום מסחר. מועיל אבל זהירות מ"רעש" — לא כל כותרת דרמטית משפיעה על ההשקעות שלך.<br>
+      <strong>Twitter/X — @federalreserve, @SEC_News</strong> — פרסומים רשמיים ישירות ממקור.
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">🚨</div>
+    <div class="callout-body">
+      <div class="callout-title">מקורות מידע שצריך להיזהר מהם</div>
+      <strong>TikTok / YouTube "מומחים":</strong> הרוב מוכרים חלומות. אם מישהו מבטיח 500% בחודש — הוא מוכר לך קורס, לא ידע.<br>
+      <strong>Reddit r/WallStreetBets:</strong> בידורי ומעניין, אבל לא מקור להחלטות השקעה.<br>
+      <strong>WhatsApp/Telegram "קבוצות מניות":</strong> לרוב מדובר בPump & Dump — מישהו קנה מוקדם ומנסה לגרום לאחרים לקנות כדי שהוא יוכל למכור.
     </div>
   </div>
 
@@ -1276,24 +1547,37 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div><div class="chapter-title">פסיכולוגיה של המשקיע</div><div class="chapter-subtitle">האויב הכי גדול שלך — נמצא בראש שלך</div></div>
   </div>
 
-  <p><strong>90% מהמשקיעים מפסידים לא בגלל ניתוח רע — אלא בגלל החלטות רגשיות.</strong></p>
+  <p><strong>90% מהמשקיעים מפסידים לא בגלל ניתוח רע — אלא בגלל החלטות רגשיות.</strong> אתה יכול לדעת את כל הנוסחאות בעולם ועדיין להפסיד כסף אם אתה לא מכיר את הנטיות הפסיכולוגיות שלך.</p>
 
   <div class="psych-grid">
-    <div class="psych-card"><div class="psych-emoji">😱</div><div class="psych-name">FOMO</div><div class="psych-desc">מניה עלתה 50% ואתה קונה כי "היא ממשיכה לעלות". לרוב — נכנס בשיא ומפסיד.</div><div class="psych-fix">✅ פתרון: נתח לפני שתקנה. פספסת? המתן להזדמנות הבאה.</div></div>
-    <div class="psych-card"><div class="psych-emoji">😰</div><div class="psych-name">Panic Selling</div><div class="psych-desc">שוק יורד 15% → פחד → מוכר הכל → שוק מתאושש. המפסידים הגדולים מכרו בתחתית.</div><div class="psych-fix">✅ פתרון: הגדר Stop Loss מראש. אל תחליט תחת לחץ.</div></div>
-    <div class="psych-card"><div class="psych-emoji">🔒</div><div class="psych-name">Anchoring Bias</div><div class="psych-desc">"קניתי ב-$100, לא מוכר מתחת ל-$100." המחיר שקנית לא מעניין את השוק.</div><div class="psych-fix">✅ פתרון: שאל "האם הייתי קונה אותה היום?" — לא "כמה שילמתי".</div></div>
-    <div class="psych-card"><div class="psych-emoji">🤑</div><div class="psych-name">Overconfidence</div><div class="psych-desc">אחרי כמה הצלחות — מרגיש שאתה חכם מהשוק. מסתכן יותר מדי.</div><div class="psych-fix">✅ פתרון: תמיד 5% מקסימום. הצלחה = מזל + ניתוח.</div></div>
-    <div class="psych-card"><div class="psych-emoji">📓</div><div class="psych-name">Trading Journal</div><div class="psych-desc">תעד כל עסקה: למה קנית, מה ציפית, מה קרה. זה הכלי מספר 1 לשיפור.</div><div class="psych-fix">✅ כלי: Google Sheets פשוט. 5 דקות לכל עסקה.</div></div>
-    <div class="psych-card"><div class="psych-emoji">🎲</div><div class="psych-name">Gambler's Fallacy</div><div class="psych-desc">"ירדה 5 ימים — חייבת לעלות מחר." שוק לא פועל כמו קזינו.</div><div class="psych-fix">✅ פתרון: נתח פונדמנטלס — לא ספרי ימים.</div></div>
+    <div class="psych-card"><div class="psych-emoji">😱</div><div class="psych-name">FOMO — פחד לפספס</div><div class="psych-desc">מניה עלתה 50% ואתה קונה כי "היא ממשיכה לעלות". לרוב — נכנס בשיא ומפסיד. זה הביאס הכי קטלני למתחילים.</div><div class="psych-fix">✅ פתרון: נתח לפני שתקנה. פספסת הזדמנות? השוק תמיד יציע הזדמנות הבאה.</div></div>
+    <div class="psych-card"><div class="psych-emoji">😰</div><div class="psych-name">Panic Selling</div><div class="psych-desc">שוק יורד 15% → פחד → מוכר הכל → שוק מתאושש. המפסידים הגדולים ביותר בהיסטוריה מכרו בתחתית.</div><div class="psych-fix">✅ פתרון: הגדר Stop Loss מראש בקור רוח. אל תקבל החלטות כשהאדרנלין גבוה.</div></div>
+    <div class="psych-card"><div class="psych-emoji">🔒</div><div class="psych-name">Anchoring Bias</div><div class="psych-desc">"קניתי ב-$100, לא מוכר מתחת ל-$100." המחיר שקנית לא מעניין את השוק — הוא לא יודע ולא אכפת לו.</div><div class="psych-fix">✅ פתרון: שאל "האם הייתי קונה אותה היום בדיוק עכשיו?" — לא "כמה שילמתי בעבר".</div></div>
+    <div class="psych-card"><div class="psych-emoji">🤑</div><div class="psych-name">Overconfidence</div><div class="psych-desc">אחרי 3 עסקאות מוצלחות — מרגיש שאתה גאון. מגדיל פוזיציות. קונה ללא ניתוח. זה בדרך כלל מסתיים ברע.</div><div class="psych-fix">✅ פתרון: תמיד 5% מקסימום ללא קשר לביטחון. ענווה היא הנכס הכי חשוב.</div></div>
+    <div class="psych-card"><div class="psych-emoji">🐑</div><div class="psych-name">Herd Mentality</div><div class="psych-desc">כולם קונים NVDA? אתה קונה גם בלי לבדוק. כולם מוכרים? אתה מוכר גם בלי לחשוב. השוק טועה הרבה פעמים.</div><div class="psych-fix">✅ פתרון: בצע ניתוח עצמאי תמיד. המחשבה של "כולם עושים את זה" היא אות אזהרה.</div></div>
+    <div class="psych-card"><div class="psych-emoji">📓</div><div class="psych-name">Trading Journal</div><div class="psych-desc">תעד כל עסקה: למה קנית, מה ציפית, מה קרה, מה למדת. משקיעים מקצועיים עושים את זה — ומתחילים לא.</div><div class="psych-fix">✅ כלי: Google Sheets פשוט. 5 דקות לכל עסקה. תוך חודשיים תראה דפוסים בהתנהגות שלך.</div></div>
+    <div class="psych-card"><div class="psych-emoji">🎲</div><div class="psych-name">Gambler's Fallacy</div><div class="psych-desc">"ירדה 5 ימים ברצף — חייבת לעלות מחר." שוק לא פועל כמו קזינו. אין לנר יפני זיכרון.</div><div class="psych-fix">✅ פתרון: בסס החלטות על נתונים — לא על ספירת ימים.</div></div>
+    <div class="psych-card"><div class="psych-emoji">💎</div><div class="psych-name">Sunk Cost Fallacy</div><div class="psych-desc">"כבר הפסדתי $500 — לא שווה למכור עכשיו." הכסף שהפסדת כבר הלך. השאלה היחידה: האם המניה שווה להחזיק היום?</div><div class="psych-fix">✅ פתרון: כסף שהפסדת לא קיים יותר. בחן כל מניה כאילו אתה קונה אותה היום מחדש.</div></div>
   </div>
 
   <div class="callout info">
     <div class="callout-icon">🧠</div>
     <div class="callout-body">
-      <div class="callout-title">מה ו"ורן באפט אמר</div>
-      ו"ורן באפט (Warren Buffett) הוא המשקיע המצליח ביותר בהיסטוריה. הוא בנה הון של מאות מיליארדי דולרים בשיטת Buy &amp; Hold פשוטה.<br><br>
-      <em>"Be fearful when others are greedy, and greedy when others are fearful."</em><br>
-      <strong>קנה כשכולם פוחדים. מכור כשכולם נלהבים.</strong>
+      <div class="callout-title">ציטוטי זהב מהמשקיעים הגדולים בהיסטוריה</div>
+      <strong>Warren Buffett:</strong> "Be fearful when others are greedy, and greedy when others are fearful." — קנה כשכולם פוחדים, מכור כשכולם נלהבים.<br><br>
+      <strong>Peter Lynch</strong> (מנהל קרן Magellan שהשיג תשואה ממוצעת של 29% ל-13 שנה): "The real key to making money in stocks is not to get scared out of them." — אל תיבהל ותמכור בהפסד.<br><br>
+      <strong>Charlie Munger</strong> (שותפו של באפט): "The big money is not in the buying and the selling, but in the waiting." — הכסף הגדול הוא בסבלנות, לא בפעולה.<br><br>
+      <strong>Benjamin Graham</strong> (מורו של באפט): "Mr. Market is your servant, not your guide." — השוק הוא עבדך, לא מדריכך. הוא לפעמים מציע מחירים משוגעים — ניצל זאת.
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">🛡</div>
+    <div class="callout-body">
+      <div class="callout-title">3 כללי ברזל שמשקיעים מצליחים לא שוברים</div>
+      <strong>כלל 1 — אל תשקיע כסף שאתה צריך:</strong> רק כסף שאתה מוכן לא לראות ל-5 שנים. אחרת תמכור בתחתית.<br>
+      <strong>כלל 2 — אל תנסה לתזמן את השוק:</strong> גם המשקיעים הטובים בעולם לא יודעים מתי "התחתית". Time in the market beats timing the market.<br>
+      <strong>כלל 3 — פיזור הוא ביטוח חינמי:</strong> לעולם אל תשים יותר מ-5-10% בנכס אחד. אפילו אם אתה בטוח ב-100%.
     </div>
   </div>
 
@@ -1434,7 +1718,8 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
 <div class="completion-banner">
   <div class="completion-icon">🏆</div>
   <div class="completion-title">כל הכבוד — סיימת את הקורס!</div>
-  <p class="completion-text">11 פרקים, 11 בדיקות הבנה, צ'קליסטים וכלים מעשיים. הדרך להצלחה: <strong>סבלנות, משמעת, ולמידה מתמדת.</strong></p>
+  <p class="completion-text">12 פרקים, 11 בדיקות הבנה, צ'קליסטים וכלים מעשיים. אבל זכור — הלימוד האמיתי מתחיל עכשיו, כשאתה פותח חשבון דמו ומתחיל ליישם.</p>
+  <p class="completion-text" style="margin-top:12px"><strong>3 דברים שכדאי לעשות עכשיו:</strong><br>1. פתח חשבון דמו ב-eToro או TradingView Paper Trading<br>2. נתח 5 חברות ב-StockLens — AAPL, MSFT, NVDA, AMZN, GOOG<br>3. פתח Trading Journal — עסקה ראשונה מהיום ותתחיל לתעד</p>
   <a href="https://lidorfiliba.github.io/StockLens/" target="_blank" class="demo-link">צא לדרך עם StockLens →</a>
   <div class="completion-author">קורס זה נוצר על ידי <b>Lidor Filiba</b> · StockLens Academy<br>אינו מהווה ייעוץ השקעות · ביצועי עבר אינם ערובה לעתיד</div>
 </div>
