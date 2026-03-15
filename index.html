@@ -785,7 +785,8 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <strong>DIA</strong> — עוקב Dow Jones Industrial Average<br>
       <strong>IWM</strong> — עוקב Russell 2000 (חברות קטנות)<br>
       <strong>VTI</strong> — כל שוק המניות האמריקאי (4,000+ חברות)<br>
-      <strong>GLD</strong> — זהב | <strong>TLT</strong> — אגרות חוב ממשלתיות ארוכות
+      <strong>GLD</strong> — זהב<br>
+      <strong>TLT</strong> — אגרות חוב ממשלתיות ארוכות (20-30 שנים)
     </div>
   </div>
 
@@ -892,7 +893,13 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="def-card"><div class="def-term">Government Bonds (אגח ממשלתי)</div><div class="def-desc">הלוואה לממשלת ארה"ב (Treasury). הכי בטוח שיש בעולם — ארה"ב לא "פושטת רגל". Treasury ל-10 שנה הוא ה-Benchmark הגלובלי. תשואה נמוכה בתמורה לביטחון.</div></div>
     <div class="def-card"><div class="def-term">Corporate Bonds (אגח קונצרני)</div><div class="def-desc">הלוואה לחברה פרטית. סיכון גבוה יותר = ריבית גבוהה יותר. Apple מנפיקה אגח ב-4.5%. חברה קטנה מסוכנת מנפיקה ב-9%.</div></div>
     <div class="def-card"><div class="def-term">Coupon (קופון)</div><div class="def-desc">הריבית השנתית שמשלמת האגח. אגח עם Coupon 5% ו-$1,000 קרן = מקבל $50 בשנה, עד שהאגח פוקע.</div></div>
-    <div class="def-card"><div class="def-term">Duration / Maturity</div><div class="def-desc">מתי מקבל חזרה את הקרן. Short-term = עד 2 שנה. Medium = 2-10 שנה. Long-term = 10-30 שנה. ככל שארוך — רגיש יותר לשינויי ריבית.</div></div>
+    <div class="def-card"><div class="def-term">Duration / Maturity</div><div class="def-desc">
+      <strong>Maturity</strong> = מועד הפירעון — מתי תקבל בחזרה את הקרן שהלוות.<br>
+      <strong>Duration</strong> = מדד לרגישות האג"ח לשינויי ריבית — ככל שהוא ארוך יותר, כך המחיר ירד יותר כשהריבית עולה.<br><br>
+      <strong>Short-term</strong> — עד שנתיים. יציב מאוד, מושפע מעט משינויי ריבית. מתאים לכסף שתצטרך בקרוב.<br>
+      <strong>Medium-term</strong> — שנתיים עד 10 שנים. איזון בין תשואה לסיכון.<br>
+      <strong>Long-term</strong> — 10 עד 30 שנים. תשואה גבוהה יותר — אבל רגיש מאוד לריבית. כשהריבית עלתה ב-2022, TLT (אג"ח ל-20-30 שנים) ירד כמעט 40%.
+    </div></div>
   </div>
 
   <div class="callout info">
@@ -914,7 +921,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="callout-title">הקשר ההפוך בין ריבית למחיר אגח — ההסבר המלא</div>
       זה אחד המושגים שמבלבלים הכי הרבה אנשים: <strong>כשהריבית עולה — מחיר האג"ח יורד.</strong><br><br>
       <strong>למה:</strong> קנית אגח ב-$1,000 שמשלם Coupon 3% = $30 בשנה. הריבית במשק עלתה ל-5%. מי ירצה לקנות ממך אגח שמשלם $30, כשיכול לקנות אגח חדש שמשלם $50? רק אם תוריד את מחיר האגח שלך לכ-$600 — שאז התשואה האפקטיבית הופכת ל-5%.<br><br>
-      <strong>Duration — כמה רגיש האגח לריבית:</strong> אגח ל-30 שנה ירד הרבה יותר מאגח ל-2 שנה כשריבית עולה. לכן ב-2022 TLT (ETF של אגח ל-20-30 שנה) ירד כמעט 40% — יותר מהרבה מניות — כשהריבית עלתה מ-0% ל-5%.
+      <strong>Duration — כמה רגיש האגח לריבית:</strong> אגח ל-30 שנה ירד הרבה יותר מאגח לשנתיים כשריבית עולה. לכן ב-2022 TLT (ETF של אגח ל-20-30 שנים) ירד כמעט 40% — יותר מהרבה מניות — כשהריבית עלתה מ-0% ל-5%.
     </div>
   </div>
 
@@ -935,10 +942,10 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <table class="cmp-table">
       <thead><tr><th>סחורה</th><th>תפקיד בתיק</th><th>ETF עוקב</th></tr></thead>
       <tbody>
-        <tr><td><strong>🥇 זהב (Gold)</strong></td><td>מקלט בטוח בזמן משבר, גידור אינפלציה</td><td>GLD, IAU</td></tr>
-        <tr><td><strong>🛢 נפט (Oil)</strong></td><td>קשור לצמיחה כלכלית גלובלית</td><td>USO, XLE</td></tr>
-        <tr><td><strong>⚡ כסף (Silver)</strong></td><td>גם מתכת יקרה וגם שימושי תעשייתי</td><td>SLV</td></tr>
-        <tr><td><strong>🌾 חקלאות</strong></td><td>חיטה, תירס, סויה — מושפעים ממזג אוויר</td><td>DBA</td></tr>
+        <tr><td><strong>🥇 זהב (Gold)</strong></td><td>מקלט בטוח בזמן משבר, גידור אינפלציה. כשהשוק נופל — זהב לרוב עולה. לא מניב תשואה שוטפת אבל משמש כ"ביטוח" בתיק.</td><td>GLD, IAU</td></tr>
+        <tr><td><strong>🛢 נפט (Oil)</strong></td><td>קשור לצמיחה כלכלית גלובלית. כשהכלכלה צומחת — ביקוש לנפט עולה. מושפע גם מהחלטות OPEC. תנודתי מאוד.</td><td>USO, XLE</td></tr>
+        <tr><td><strong>⚡ כסף (Silver)</strong></td><td>גם מתכת יקרה (כמו זהב) וגם שימושי לתעשייה (פאנלים סולאריים, אלקטרוניקה). תנודתי יותר מזהב.</td><td>SLV</td></tr>
+        <tr><td><strong>🌾 חקלאות</strong></td><td>חיטה, תירס, סויה — מושפעים ממזג אוויר, גיאופוליטיקה ומחירי אנרגיה. גידור טוב מפני אינפלציה של מזון.</td><td>DBA</td></tr>
       </tbody>
     </table>
   </div>
@@ -971,7 +978,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="metric-header"><div class="metric-name">P/E Ratio — מכפיל רווח</div><div class="metric-badges"><span class="badge badge-green">&lt;15 זול</span><span class="badge badge-gold">15-25 הוגן</span><span class="badge badge-red">&gt;25 יקר</span></div></div>
     <div class="metric-desc">
       <strong>מה זה בפועל:</strong> P/E אומר כמה שנים של רווחים שווה כל שקל שאתה משלם על המניה.<br>
-      P/E של 20 = אתה משלם $20 כדי לקבל $1 רווח בשנה — כלומר אם הכל נשאר קבוע, "תחזיר" את ההשקעה תוך 20 שנה.<br><br>
+      P/E של 20 = אתה משלם $20 כדי לקבל $1 רווח בשנה — כלומר אם הכל נשאר קבוע, "תחזיר" את ההשקעה תוך 20 שנים.<br><br>
       <strong>הדמיה:</strong> תחשוב על זה כמו קניית דירה להשקעה. P/E 15 = כמו לקנות דירה שמשכירים אותה ב-6.7% תשואה שנתית. P/E 30 = לקנות דירה שמשכירים ב-3.3% — פחות אטרקטיבי אם לא צפויה עליית ערך.<br><br>
       <strong>P/E גבוה לא תמיד רע:</strong> כשמשקיעים מאמינים שחברה תגדל בחוזקה בשנים הבאות, הם מוכנים לשלם P/E גבוה כי הם מתמחרים את הרווחים <em>העתידיים</em>, לא הנוכחיים. NVIDIA נסחרה ב-P/E מעל 50 לפני שהרווחים שלה באמת פוצצו — מי שקנה בזמן הרוויח עצום.<br><br>
       <strong>P/E נמוך לא תמיד טוב:</strong> לפעמים P/E נמוך כי הרווחים צפויים לרדת, או כי החברה נמצאת בסקטור שלא מעניין משקיעים. בנקים לרוב נסחרים ב-P/E נמוך — לא בגלל שהם "זולים" אלא בגלל שהגדילה שלהם מוגבלת.<br><br>
@@ -1728,7 +1735,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     </div>
   </div>
 
-  <h3>איך לקרוא דוח חברה (10-K / 10-Q) — בלי ידע מוקדם</h3>
+  <h3>איך לקרוא דוח חברה (10-K / 10-Q) — המדריך המעשי</h3>
   <p>כל חברה ציבורית חייבת לפרסם דוחות לממשלה. הם נגישים בחינם ומכילים את כל האמת על החברה — אבל רובם מאות עמודים. הנה איפה לחפש ומה לקרוא.</p>
 
   <div class="steps">
@@ -1739,11 +1746,15 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">בדוק את ה-Risk Factors</div><div class="step-desc">ההנהלה חייבת לציין את הסיכונים לעסק. זה לרוב שעמום — אבל לפעמים תוצא שם "מוקש" שאף אחד לא שם לב אליו. קרא לפחות את הכותרות.</div></div></div>
   </div>
 
-  <div class="callout warn">
-    <div class="callout-icon">⚠️</div>
+  <div class="callout tip">
+    <div class="callout-icon">🔭</div>
     <div class="callout-body">
-      <div class="callout-title">חשוב לדעת על ניתוח טכני</div>
-      ניתוח טכני הוא <strong>כלי עזר</strong> — לא נבואה. אף אחד לא יכול לנבא את השוק בוודאות. רוב המשקיעים לטווח ארוך מתמקדים בניתוח פונדמנטלי ומשתמשים בטכני רק לתזמון כניסה.
+      <div class="callout-title">Top-Down Analysis — הסדר הנכון לקריאת גרף</div>
+      הטעות הכי נפוצה של מתחילים היא לפתוח ישירות גרף יומי ולקבל החלטה. הדרך הנכונה היא <strong>מלמעלה למטה</strong> — מהתמונה הגדולה לקטנה:<br><br>
+      <strong>1. גרף חודשי (1M)</strong> — קרא קודם את הכיוון הגדול. האם המניה במגמת עלייה ארוכת טווח? איפה ה-Support וה-Resistance הגדולים ביותר? זה "מסגרת" שכל השאר חייבים להתאים לה.<br><br>
+      <strong>2. גרף שבועי (1W)</strong> — צמצם את הפוקוס. מה הטרנד בחודשים האחרונים? האם יש תבנית מתהווה (כמו Cup & Handle או Consolidation)?<br><br>
+      <strong>3. גרף יומי (1D)</strong> — עכשיו מחפשים נקודת כניסה מדויקת. הממוצעים הנעים, ה-RSI, וה-Volume מצביעים על תזמון הכניסה.<br><br>
+      <strong>הכלל:</strong> אם הגרף החודשי מראה מגמת ירידה — אל תכנס רק כי הגרף היומי נראה טוב. הגדול תמיד מנצח.
     </div>
   </div>
 
@@ -1842,10 +1853,10 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <div class="metric-card">
     <div class="metric-header"><div class="metric-name">עקום התשואות (Yield Curve)</div><div class="metric-badges"><span class="badge badge-green">נורמלי = עולה</span><span class="badge badge-red">הפוך = אזהרת מיתון</span></div></div>
     <div class="metric-desc">
-      <strong>מה זה:</strong> עקום שמציג את ריבית אגרות החוב הממשלתיות לפי משך הזמן — מ-3 חודשים עד 30 שנה.<br><br>
+      <strong>מה זה:</strong> עקום שמציג את ריבית אגרות החוב הממשלתיות לפי משך הזמן — מ-3 חודשים עד 30 שנים.<br><br>
       <strong>עקום נורמלי:</strong> ריבית עולה ככל שהאגח ארוך יותר. הגיוני — יש יותר אי-ודאות לטווח ארוך, לכן דורשים ריבית גבוהה יותר.<br><br>
-      <strong>Inverted Yield Curve (עקום הפוך):</strong> ריבית ל-2 שנה גבוהה מריבית ל-10 שנה. זה אומר שהשוק מאמין שהריבית בעתיד תרד — כלומר שהכלכלה תיחלש. היפוך עקום קדם לכל מיתון אמריקאי מ-1970 ועד היום.<br><br>
-      <strong>2 vs 10 Year Spread:</strong> ההפרש בין ריבית ה-10 שנה לריבית ה-2 שנה. כשזה שלילי — עקום הפוך. אפשר לראות ב-FRED.
+      <strong>Inverted Yield Curve (עקום הפוך):</strong> ריבית לשנתיים גבוהה מריבית ל-10 שנים. זה אומר שהשוק מאמין שהריבית בעתיד תרד — כלומר שהכלכלה תיחלש. היפוך עקום קדם לכל מיתון אמריקאי מ-1970 ועד היום.<br><br>
+      <strong>2 vs 10 Year Spread:</strong> ההפרש בין ריבית ה-10 שנה לריבית ה-שנתיים. כשזה שלילי — עקום הפוך. אפשר לראות ב-FRED.
     </div>
   </div>
 
@@ -1938,7 +1949,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
 
   <div class="strategy-grid">
     <div class="strategy-card"><div class="strategy-icon">🐢</div><div class="strategy-name">Buy & Hold</div><div class="strategy-desc">קונה מניות איכותיות ומחזיק אותן שנים. פשוט ומוכח. <strong>ווארן באפט</strong> — המשקיע הגדול בעולם — בנה את עושרו על אסטרטגיה זו. הסוד: ריבית דריבית עושה את העבודה לאורך זמן.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
-    <div class="strategy-card"><div class="strategy-icon">📅</div><div class="strategy-name">Dollar Cost Averaging (DCA)</div><div class="strategy-desc">משקיע סכום קבוע כל חודש ללא תלות במחיר. כשהשוק יורד — קונה יותר יחידות בסכום זהה. מוריד את ממוצע המחיר לאורך זמן. הדרך הפשוטה ביותר להתחיל.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
+    <div class="strategy-card"><div class="strategy-icon">📅</div><div class="strategy-name">Dollar Cost Averaging (DCA)</div><div class="strategy-desc">משקיע סכום קבוע <strong>כל חודש</strong> ללא תלות במחיר — ממשיכים להפקיד גם כשהשוק יורד. כשהשוק יורד — קונה יותר יחידות באותו סכום. מוריד את ממוצע המחיר לאורך זמן. הדרך הפשוטה ביותר להתחיל.</div><span class="strategy-tag badge badge-green">מתחילים — מומלץ</span></div>
 
   <div class="example-box">
     <div class="example-label">DCA בפועל — השקעה של 1,000₪ בחודש ב-ETF S&P 500</div>
@@ -1954,11 +1965,12 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <div class="example-box">
     <div class="example-label">1,000₪ בחודש ב-S&P 500 — תשואה היסטורית של 10% בשנה</div>
     <div class="example-calc" style="line-height:2.2">
-      <span style="color:var(--muted)">אחרי 10 שנים:</span> הפקדת 120,000₪ → שווי תיק: <strong>~204,000₪</strong><br>
-      <span style="color:var(--muted)">אחרי 20 שנים:</span> הפקדת 240,000₪ → שווי תיק: <strong>~765,000₪</strong><br>
-      <span style="color:var(--muted)">אחרי 30 שנים:</span> הפקדת 360,000₪ → שווי תיק: <strong style="color:var(--accent)">~2,280,000₪</strong>
+      <strong>⚠️ חשוב להבין:</strong> זו הפקדה חוזרת של 1,000₪ <em>כל חודש</em> — לא חד פעמי. כל חודש מפקידים 1,000₪ נוספים, ללא הפסקה.<br><br>
+      <span style="color:var(--muted)">אחרי 10 שנים:</span> הפקדת סה"כ 120,000₪ → שווי תיק: <strong>~204,000₪</strong><br>
+      <span style="color:var(--muted)">אחרי 20 שנים:</span> הפקדת סה"כ 240,000₪ → שווי תיק: <strong>~765,000₪</strong><br>
+      <span style="color:var(--muted)">אחרי 30 שנים:</span> הפקדת סה"כ 360,000₪ → שווי תיק: <strong style="color:var(--accent)">~2,280,000₪</strong>
     </div>
-    <div class="example-result">⚠️ מבוסס על תשואה היסטורית — לא ערובה לעתיד. אבל זה מראה את כוח הזמן + ריבית דריבית.</div>
+    <div class="example-result">⚠️ מבוסס על תשואה היסטורית — לא ערובה לעתיד. אבל זה מראה את כוח הזמן + ריבית דריבית + הפקדה חודשית קבועה.</div>
   </div>
     <div class="strategy-card"><div class="strategy-icon">💰</div><div class="strategy-name">Dividend Investing</div><div class="strategy-desc">מניות שמחלקות תשלום חודשי/רבעוני. מטרה: לבנות "שכר פאסיבי" מדיבידנדים. דוגמאות: Johnson & Johnson, Realty Income, Procter & Gamble.</div><span class="strategy-tag badge badge-blue">טווח ארוך</span></div>
     <div class="strategy-card"><div class="strategy-icon">🚀</div><div class="strategy-name">Growth Investing</div><div class="strategy-desc">חברות שגדלות מהר — Revenue +30%+ בשנה. לרוב אין דיבידנד, משקיעים חזרה ברווחים. דוגמאות: NVIDIA, Shopify, CrowdStrike. סיכון גבוה, פוטנציאל גבוה.</div><span class="strategy-tag badge badge-gold">בינוני</span></div>
@@ -2228,7 +2240,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="callout-body">
       <div class="callout-title">ציטוטי זהב מהמשקיעים הגדולים בהיסטוריה</div>
       <strong>Warren Buffett:</strong> "Be fearful when others are greedy, and greedy when others are fearful." — קנה כשכולם פוחדים, מכור כשכולם נלהבים. הוא קנה מניות בנקים ב-2008 כשהעולם חשב שהמערכת קורסת.<br><br>
-      <strong>Peter Lynch</strong> (מנהל קרן Magellan — תשואה ממוצעת 29% ל-13 שנה): "The real key to making money in stocks is not to get scared out of them." — המפסידים הגדולים הם לא אלו שבחרו מניות גרועות, אלא אלו שמכרו בפאניקה.<br><br>
+      <strong>Peter Lynch</strong> (מנהל קרן Magellan — תשואה ממוצעת 29% ל-13 שנים): "The real key to making money in stocks is not to get scared out of them." — המפסידים הגדולים הם לא אלו שבחרו מניות גרועות, אלא אלו שמכרו בפאניקה.<br><br>
       <strong>Charlie Munger</strong> (שותפו של באפט): "The big money is not in the buying and the selling, but in the waiting." — Berkshire Hathaway החזיקה Coca-Cola 35+ שנה.<br><br>
       <strong>Benjamin Graham</strong> (אבי ניתוח פונדמנטלי): "In the short run, the market is a voting machine. In the long run, it's a weighing machine." — לטווח קצר השוק מגיב לרגשות. לטווח ארוך — לעובדות.
     </div>
@@ -2239,7 +2251,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="callout-body">
       <div class="callout-title">3 כללי ברזל שמשקיעים מצליחים לא שוברים לעולם</div>
       <strong>כלל 1 — אל תשקיע כסף שאתה צריך:</strong> רק כסף שאתה מוכן לא לגעת בו 5+ שנים. כסף שתצטרך בשנה הקרובה — אל תשים בשוק. אם תצטרך אותו בזמן ירידה, תמכור בהפסד.<br><br>
-      <strong>כלל 2 — אל תנסה לתזמן את השוק:</strong> JP Morgan מצא שמשקיע שפספס 10 הימים הטובים ביותר של S&P 500 ב-20 שנה — הרוויח פחות ממחצית ממי שהחזיק בכל הזמן. הימים הטובים ביותר מגיעים בדרך כלל אחרי הגרועים ביותר.<br><br>
+      <strong>כלל 2 — אל תנסה לתזמן את השוק:</strong> JP Morgan מצא שמשקיע שפספס 10 הימים הטובים ביותר של S&P 500 ב-20 שנים — הרוויח פחות ממחצית ממי שהחזיק בכל הזמן. הימים הטובים ביותר מגיעים בדרך כלל אחרי הגרועים ביותר.<br><br>
       <strong>כלל 3 — פיזור הוא ביטוח חינמי:</strong> Harry Markowitz, זוכה נובל, הוכיח מתמטית שפיזור מוריד סיכון ללא פגיעה בתשואה הצפויה. אל תשים יותר מ-5-10% בנכס אחד.
     </div>
   </div>
@@ -2278,7 +2290,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <thead><tr><th>ברוקר</th><th>עמלה לעסקה</th><th>מס אוטומטי</th><th>שפה</th><th>מתאים ל</th></tr></thead>
       <tbody>
         <tr><td><strong>מיטב / אקסלנס</strong></td><td style="color:var(--red)">$10–15</td><td style="color:var(--accent)">✅ כן</td><td>עברית</td><td>שמרנים, מתחילים</td></tr>
-        <tr><td><strong>IBKR ישראל</strong></td><td style="color:var(--accent)">$0.5–1</td><td style="color:var(--accent)">✅ כן</td><td>אנגלית</td><td>פעילים, חוסכים בעמלות</td></tr>
+        <tr><td><strong>IBKR ישראל</strong></td><td style="color:var(--accent)">מינ' $2.5 מניות / $2 אופציה</td><td style="color:var(--accent)">✅ כן</td><td>אנגלית</td><td>פעילים, חוסכים בעמלות</td></tr>
         <tr><td><strong>eToro</strong></td><td style="color:var(--gold)">Spread</td><td style="color:var(--red)">❌ עצמי</td><td>עברית</td><td>מתחילים, דמו</td></tr>
         <tr><td><strong>IBKR (זר)</strong></td><td style="color:var(--accent)">$0.35–1</td><td style="color:var(--red)">❌ עצמי</td><td>אנגלית</td><td>מתקדמים, גישה לכל שוק</td></tr>
       </tbody>
@@ -2296,8 +2308,8 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="broker-icon">📱</div>
     <div class="broker-info">
       <div class="broker-name">Interactive Brokers ישראל</div>
-      <div class="broker-desc">עמלות נמוכות מאוד, מס אוטומטי. פלטפורמה מתקדמת — קצת מורכבת למתחילים.</div>
-      <div class="broker-tags"><span class="badge badge-green">עמלות נמוכות</span><span class="badge badge-green">מס אוטומטי</span><span class="badge badge-gold">ממשק מורכב</span></div>
+      <div class="broker-desc">עמלות נמוכות, מס אוטומטי. עמלת מינימום: <strong>$2.5 לעסקת מניות</strong>, <strong>$2 לאופציה</strong>. פלטפורמה מתקדמת — קצת מורכבת למתחילים אבל שווה ללמוד.</div>
+      <div class="broker-tags"><span class="badge badge-green">מס אוטומטי</span><span class="badge badge-green">עמלות נמוכות</span><span class="badge badge-gold">ממשק מורכב</span></div>
     </div>
   </div>
   <div class="broker-card">
