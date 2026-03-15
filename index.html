@@ -890,9 +890,9 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
     <div class="cp-card">
       <div class="cp-visual" style="gap:2px;flex-direction:row;align-items:flex-end">
         <div style="display:flex;flex-direction:column;align-items:center">
-          <div style="background:#ff5f57;width:2px;height:6px"></div>
-          <div style="background:#ff5f57;width:14px;height:44px;border-radius:2px"></div>
-          <div style="background:#ff5f57;width:2px;height:6px"></div>
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
+          <div style="background:#ff5f57;width:14px;height:40px;border-radius:2px"></div>
+          <div style="background:#ff5f57;width:2px;height:5px"></div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center">
           <div style="background:#f7c948;width:2px;height:5px"></div>
@@ -1467,6 +1467,7 @@ async function sbFetch(path, options = {}) {
       'Authorization': 'Bearer ' + SB_KEY,
       'Content-Type': 'application/json',
       'Prefer': 'return=representation',
+      'x-admin-secret': '764f09aac20df45a644e200da8e8097d3e2d87cf2346399559efc70ab1beb26a',
       ...(options.headers || {})
     }
   });
