@@ -567,6 +567,7 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <button class="nav-ch" onclick="scrollToId('ch7')">8. אסטרטגיות</button>
     <button class="nav-ch" onclick="scrollToId('ch9')">9. פסיכולוגיה</button>
     <button class="nav-ch" onclick="scrollToId('ch10')">10. ברוקרים</button>
+    <button class="nav-ch" onclick="scrollToId('exam')">🏆 מבחן</button>
     <button class="nav-ch" onclick="scrollToId('glossary')">📖 גלוסרי</button>
     <button class="nav-ch" onclick="scrollToId('ch11')">11. דמו</button>
   </div>
@@ -3490,7 +3491,223 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
 
 <!-- ══════════════════════════════════ CH11 ══════════════════════════════════ -->
 <!-- ══════════════════════════════════ GLOSSARY ══════════════════════════════════ -->
-<section class="chapter" id="glossary">
+<!-- ══════════════════════════════════ EXAM ══════════════════════════════════ -->
+<section class="chapter" id="exam">
+  <div class="chapter-header">
+    <div class="chapter-num" style="background:rgba(247,201,72,0.15);color:var(--gold);border-color:rgba(247,201,72,0.3);font-size:1.4rem">🏆</div>
+    <div><div class="chapter-title">מבחן סיום — בדוק את עצמך</div><div class="chapter-subtitle">25 שאלות על כל החומר · ציון עובר: 70%</div></div>
+  </div>
+
+  <p>הגעת לסוף הקורס — עכשיו נבדוק כמה ספגת. <strong>25 שאלות</strong> שמכסות את כל הפרקים. אין לחץ, אפשר לנסות כמה פעמים שרוצים.</p>
+
+  <div id="exam-container">
+    <div id="exam-progress-wrap" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:16px">
+      <div style="flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden">
+        <div id="exam-progress-bar" style="height:100%;width:0%;background:var(--accent);border-radius:4px;transition:width .4s"></div>
+      </div>
+      <div id="exam-progress-text" style="font-size:.8rem;color:var(--muted);white-space:nowrap">שאלה 1 מתוך 25</div>
+    </div>
+
+    <div id="exam-question-card" style="background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:28px;margin-bottom:16px">
+      <div id="exam-category" style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700"></div>
+      <div id="exam-q-num" style="font-size:.75rem;color:var(--muted);margin-bottom:8px"></div>
+      <div id="exam-question" style="font-size:1.05rem;font-weight:600;line-height:1.6;margin-bottom:22px;color:var(--text)"></div>
+      <div id="exam-options" style="display:flex;flex-direction:column;gap:10px"></div>
+      <div id="exam-explanation" style="display:none;margin-top:18px;padding:14px;border-radius:10px;font-size:.85rem;line-height:1.7"></div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button id="exam-next-btn" onclick="examNext()" style="display:none;background:var(--accent);color:#000;border:none;border-radius:10px;padding:12px 28px;font-weight:700;font-size:.9rem;cursor:pointer">הבא ←</button>
+    </div>
+
+    <div id="exam-result" style="display:none;text-align:center;padding:40px 20px">
+      <div id="exam-trophy" style="font-size:4rem;margin-bottom:16px"></div>
+      <div id="exam-score-text" style="font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;margin-bottom:8px"></div>
+      <div id="exam-score-sub" style="font-size:1rem;color:var(--text2);margin-bottom:24px"></div>
+      <div id="exam-score-breakdown" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:24px;text-align:right"></div>
+      <button onclick="examRestart()" style="background:var(--accent);color:#000;border:none;border-radius:10px;padding:14px 32px;font-weight:700;font-size:1rem;cursor:pointer">נסה שוב 🔄</button>
+    </div>
+  </div>
+</section>
+
+<script>
+const examQuestions = [
+  // ── יסודות ──
+  {cat:"📈 יסודות", q:"קנית מניה ב-$200 ומכרת ב-$250. מה התשואה?", opts:["10%","25%","50%","20%"], ans:1, exp:"(250-200)÷200×100 = 25%. תמיד מחשבים: (מחיר מכירה − מחיר קנייה) ÷ מחיר קנייה × 100."},
+  {cat:"📈 יסודות", q:"מה זה Bull Market?", opts:["שוק שיורד 20%+","שוק שעולה 20%+ מהשפל","שוק שקועי","כל שינוי חד במחיר"], ans:1, exp:"Bull Market = שוק עולה 20% ומעלה מהשפל האחרון. ממוצע Bull Market נמשך כ-4 שנים."},
+  {cat:"📈 יסודות", q:"מה זה Short Squeeze?", opts:["ירידה חדה אחרי דוח גרוע","עלייה חדה כשסוחרי שורט נאלצים לקנות","פריצה מעל Resistance","ירידה מתחת ל-MA200"], ans:1, exp:"כשמניה מזנקת — שורטיסטים נאלצים לסגור פוזיציות (לקנות חזרה), מה שמזניק את המחיר עוד יותר. GameStop 2021 = דוגמה קלאסית."},
+  {cat:"📈 יסודות", q:"Volatility גבוה אומר:", opts:["המניה יקרה מדי","המניה זזה הרבה — סיכון וסיכוי גבוהים","Volume נמוך","המניה ב-Bear Market"], ans:1, exp:"Volatility = תנודתיות. גבוה = המניה יכולה לזוז הרבה בכיוון אחד — גם לרעתך. לא קשור למחיר או לכיוון."},
+  // ── מדדים ו-ETF ──
+  {cat:"📊 מדדים", q:"מה ה-VIX מודד?", opts:["מחיר הזהב","ציפיות לתנודתיות בשוק","תשואת האגח ל-10 שנים","מחיר הנפט"], ans:1, exp:"VIX = מדד הפחד. מודד ציפיות לתנודתיות ב-30 יום הקרובים. מעל 30 = פאניקה. מתחת ל-15 = שקט."},
+  {cat:"📊 מדדים", q:"ETF SPY עוקב אחרי:", opts:["NASDAQ 100","Russell 2000","S&P 500","Dow Jones"], ans:2, exp:"SPY (ו-VOO) עוקבים אחרי S&P 500 — 500 החברות הגדולות בארה\"ב."},
+  {cat:"📊 מדדים", q:"Expense Ratio של 1.5% מול 0.03% — אחרי 30 שנה על $100,000:", opts:["הפרש של כמה מאות שקל","הפרש זניח — ביצועים מפצים","הפרש של עשרות-מאות אלפי שקל","זהה לחלוטין"], ans:2, exp:"1.47% הפרש שנתי × ריבית דריבית × 30 שנה = הפרש עצום. זו הסיבה שETF זול עדיף על קרן נאמנות יקרה."},
+  // ── הוראות מסחר ──
+  {cat:"⚡ הוראות מסחר", q:"רוצה לקנות מניה רק אם תרד ל-$180 (עכשיו ב-$200). איזה הוראה?", opts:["Market Order","Stop Loss","Limit Order ב-$180","Trailing Stop"], ans:2, exp:"Limit Order = קנה רק במחיר שקבעתי. ההוראה ממתינה עד שהמחיר מגיע ל-$180."},
+  {cat:"⚡ הוראות מסחר", q:"Trailing Stop של 10% על מניה שעלתה מ-$100 ל-$160 — מה הסטופ עכשיו?", opts:["$90","$100","$144","$150"], ans:2, exp:"$160 × (1-0.10) = $144. ה-Trailing Stop עולה עם המחיר אבל אף פעם לא יורד."},
+  // ── ניתוח פונדמנטלי ──
+  {cat:"💰 פונדמנטלי", q:"חברה מרוויחה $100M אבל FCF שלה שלילי. מה המשמעות?", opts:["כל בסדר — רווח חשבונאי מספיק","יש בעיה — לא מייצרת מזומן אמיתי","FCF שלילי תמיד נורמלי","הכנסות גבוהות מדי"], ans:1, exp:"FCF שלילי = החברה מוציאה יותר ממה שנכנס. לפעמים זה בגלל CapEx (השקעה) — אבל חייבים להבין למה."},
+  {cat:"💰 פונדמנטלי", q:"חברה עם P/E של 8 תמיד:", opts:["זולה — כדאי לקנות","יקרה — לא כדאי","דורשת הקשר — אולי צומחת לאט","בהכרח ב-Bear Market"], ans:2, exp:"P/E של 8 יכול להיות זול (חברה מצוינת שנפלה) או מלכודת (חברה בירידה). תמיד השווה למתחרים ולסקטור."},
+  {cat:"💰 פונדמנטלי", q:"מה זה Moat?", opts:["עמלת המסחר של הברוקר","היתרון התחרותי שמגן על החברה מתחרים","המרווח בין Bid ל-Ask","ירידה של 20% מהשיא"], ans:1, exp:"Moat = חפיר הגנתי. חברה עם Moat חזק (CUDA של NVIDIA, מותג Apple) קשה לשכפל ולתחרות בה."},
+  {cat:"💰 פונדמנטלי", q:"Earnings Guidance חלש — מניה לרוב:", opts:["עולה — ביצועים בסדר","יורדת — גם אם הדוח עצמו טוב","אינה מגיבה לגידנס","עולה בגלל ציפיות נמוכות"], ans:1, exp:"Guidance = מה ההנהלה צופה לרבעון הבא. חברה יכולה לדווח EPS מעולה — אבל Guidance חלש גורם לירידה. ה-Guidance חשוב יותר מהדוח עצמו."},
+  // ── ניתוח טכני ──
+  {cat:"📈 טכני", q:"מניה נסחרת מעל MA200. מה זה מסמן?", opts:["מניה Overbought","מגמה עולה ארוכת טווח","זמן למכור","Volume נמוך"], ans:1, exp:"MA200 מעל = מגמה שורית ארוכת טווח. זה הקו הכי חשוב — מוסדיים גדולים קונים ומוכרים לפיו."},
+  {cat:"📈 טכני", q:"RSI = 78. מה זה אומר?", opts:["Oversold — קנייה","Overbought — זהירות","ניטרלי","Volume גבוה"], ans:1, exp:"RSI מעל 70 = קנוי יתר (Overbought). לא בהכרח 'מכור עכשיו' — אבל סימן לזהירות. יכול להישאר גבוה זמן רב בחברת צמיחה."},
+  {cat:"📈 טכני", q:"Golden Cross = :", opts:["MA50 יורד מתחת ל-MA200","MA50 עולה מעל MA200","מחיר פורץ מעל Resistance","Volume גבוה עם נר ירוק"], ans:1, exp:"Golden Cross = MA50 חוצה מעל MA200. סיגנל שורי חזק. לרוב מסמן תחילת Bull Market. Death Cross הוא ההפך."},
+  {cat:"📈 טכני", q:"פריצת Breakout עם Volume נמוך — מה זה מרמז?", opts:["פריצה אמיתית וחזקה","Fake Breakout — לא אמין","תמיד אמין","Earnings Season"], ans:1, exp:"Volume נמוך = אין ביקוש אמיתי מאחורי הפריצה. לרוב Fake Breakout — המחיר חוזר מתחת לרמה. פריצה אמיתית = Volume גבוה."},
+  {cat:"📈 טכני", q:"רמת 61.8% בפיבונאצ'י נקראת:", opts:["Dead Cat Bounce","Golden Ratio","Death Cross","Stochastic Level"], ans:1, exp:"61.8% = Golden Ratio. הרמה הכי חזקה וחשובה בפיבונאצ'י. כשמניה מתקנת — לרוב מוצאת Support שם."},
+  // ── אסטרטגיות ──
+  {cat:"🚀 אסטרטגיות", q:"DCA אומר:", opts:["קנה הכל בבת אחת בשפל","השקע סכום קבוע כל חודש ללא קשר למחיר","מכור כל חודש חלק מהתיק","השקע רק כשיש ירידה"], ans:1, exp:"DCA = Dollar Cost Averaging. מפקידים סכום קבוע כל חודש. כשהשוק יורד — קונים יותר יחידות. ממוצע עלות יורד לאורך זמן."},
+  {cat:"🚀 אסטרטגיות", q:"R:R של 1:3 ו-50% הצלחה — מה התוצאה אחרי 100 עסקאות?", opts:["הפסד","אפס","רווח של $50 לכל $1 סיכון","הפסד גדול"], ans:2, exp:"50 רווחים × $3 = +$150. 50 הפסדים × $1 = -$50. סה\"כ: +$100 רווח. R:R טוב מאפשר להיות נכון רק חצי מהזמן ועדיין לרוויח."},
+  {cat:"🚀 אסטרטגיות", q:"Covered Call מתאים למי שמחזיק:", opts:["פחות מ-10 מניות","בדיוק 100 מניות ומוכן למכור בסטרייק","ETF בלבד","אופציות Put"], ans:1, exp:"Covered Call = מכירת זכות קנייה על 100 מניות שכבר יש לך. אתה מקבל Premium מיד. אם המניה תעלה מעל הסטרייק — תמכור אבל עדיין הרווחת."},
+  // ── פסיכולוגיה ──
+  {cat:"🧠 פסיכולוגיה", q:"קנית ב-$100. ירדה ל-$70. אתה מחזיק 'עד שיחזור ל-$100'. זה איזה Bias?", opts:["FOMO","Gambler's Fallacy","Anchoring + Sunk Cost","Overconfidence"], ans:2, exp:"אתה 'מעוגן' ל-$100 ומתייחס ל-$30 כ'עלות שקועה'. השוק לא יודע שקנית ב-$100. שאל: 'האם הייתי קונה ב-$70 היום?'"},
+  {cat:"🧠 פסיכולוגיה", q:"אחרי Bull Market של 3 שנים אנשים בטוחים ש'השוק תמיד עולה'. זה:", opts:["Confirmation Bias","Recency Bias","Loss Aversion","Herd Mentality"], ans:1, exp:"Recency Bias = מה שקרה לאחרונה ייקרה שוב. האמת: Bear Markets מגיעים ולא מבקשים רשות."},
+  // ── מאקרו ──
+  {cat:"🌍 מאקרו", q:"הפד מעלה ריבית — מה לרוב קורה לשוק המניות?", opts:["עולה — ריבית גבוהה = כלכלה חזקה","יורד — אשראי מתייקר, צמיחה מואטת","אינו מגיב לריבית","עולה רק ל-30 יום"], ans:1, exp:"ריבית גבוהה = אשראי יקר יותר → חברות משלמות יותר על חוב → רווחים יורדים → מניות יורדות. במיוחד פוגע בחברות צמיחה."},
+  {cat:"🌍 מאקרו", q:"QE (Quantitative Easing) = :", opts:["הפד מוכר אגח ומוציא כסף מהמערכת","הפד קונה אגח ומוסיף כסף למערכת","עליית ריבית","הורדת מס","כולם לא נכון"], ans:1, exp:"QE = הפד 'מדפיס כסף' על ידי קנייה של אגח. מוסיף נזילות לשוק → מוריד ריבית → דוחף מניות. QT הוא ההפך."},
+];
+
+let examCurrent = 0;
+let examScore = 0;
+let examAnswered = false;
+let examResults = [];
+
+function examInit() {
+  examCurrent = 0;
+  examScore = 0;
+  examAnswered = false;
+  examResults = [];
+  document.getElementById('exam-result').style.display = 'none';
+  document.getElementById('exam-question-card').style.display = 'block';
+  document.getElementById('exam-progress-wrap').style.display = 'flex';
+  examShowQuestion();
+}
+
+function examShowQuestion() {
+  const q = examQuestions[examCurrent];
+  const total = examQuestions.length;
+  
+  document.getElementById('exam-category').textContent = q.cat;
+  document.getElementById('exam-q-num').textContent = `שאלה ${examCurrent + 1} מתוך ${total}`;
+  document.getElementById('exam-question').textContent = q.q;
+  document.getElementById('exam-progress-bar').style.width = `${(examCurrent/total)*100}%`;
+  document.getElementById('exam-progress-text').textContent = `שאלה ${examCurrent+1} מתוך ${total}`;
+  document.getElementById('exam-explanation').style.display = 'none';
+  document.getElementById('exam-next-btn').style.display = 'none';
+  examAnswered = false;
+
+  const opts = document.getElementById('exam-options');
+  opts.innerHTML = '';
+  const letters = ['א','ב','ג','ד'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span style="min-width:24px;height:24px;border-radius:50%;background:var(--border2);display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin-left:10px">${letters[i]}</span>${opt}`;
+    btn.style.cssText = 'display:flex;align-items:center;width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;cursor:pointer;font-size:.88rem;text-align:right;color:var(--text);transition:border-color .15s,background .15s;font-family:Heebo,sans-serif';
+    btn.onmouseenter = () => { if(!examAnswered) btn.style.borderColor = 'var(--accent)'; };
+    btn.onmouseleave = () => { if(!examAnswered) btn.style.borderColor = 'var(--border)'; };
+    btn.onclick = () => examAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function examAnswer(idx, btn) {
+  if(examAnswered) return;
+  examAnswered = true;
+  const q = examQuestions[examCurrent];
+  const correct = idx === q.ans;
+  if(correct) examScore++;
+  examResults.push({q: q.q, correct, cat: q.cat});
+
+  // Color all options
+  document.querySelectorAll('#exam-options button').forEach((b,i) => {
+    b.style.cursor = 'default';
+    if(i === q.ans) {
+      b.style.background = 'rgba(0,229,160,0.12)';
+      b.style.borderColor = '#00e5a0';
+      b.style.color = '#00e5a0';
+    } else if(i === idx && !correct) {
+      b.style.background = 'rgba(255,95,87,0.12)';
+      b.style.borderColor = '#ff5f57';
+      b.style.color = '#ff5f57';
+    }
+  });
+
+  // Show explanation
+  const exp = document.getElementById('exam-explanation');
+  exp.style.display = 'block';
+  exp.style.background = correct ? 'rgba(0,229,160,0.08)' : 'rgba(255,95,87,0.08)';
+  exp.style.border = `1px solid ${correct ? '#00e5a0' : '#ff5f57'}33`;
+  exp.innerHTML = `<strong style="color:${correct?'#00e5a0':'#ff5f57'}">${correct ? '✅ נכון!' : '❌ לא נכון'}</strong> ${q.exp}`;
+
+  document.getElementById('exam-next-btn').style.display = 'block';
+  document.getElementById('exam-next-btn').textContent = examCurrent < examQuestions.length-1 ? 'הבא ←' : 'סיים וראה ציון 🏆';
+}
+
+function examNext() {
+  examCurrent++;
+  if(examCurrent >= examQuestions.length) {
+    examShowResult();
+  } else {
+    examShowQuestion();
+    document.getElementById('exam-question-card').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+
+function examShowResult() {
+  document.getElementById('exam-question-card').style.display = 'none';
+  document.getElementById('exam-progress-wrap').style.display = 'none';
+  document.getElementById('exam-next-btn').style.display = 'none';
+
+  const total = examQuestions.length;
+  const pct = Math.round((examScore/total)*100);
+  const pass = pct >= 70;
+
+  const result = document.getElementById('exam-result');
+  result.style.display = 'block';
+
+  document.getElementById('exam-trophy').textContent = pct >= 90 ? '🏆' : pct >= 70 ? '🎓' : '📚';
+  document.getElementById('exam-score-text').innerHTML = `<span style="color:${pass?'var(--accent)':'var(--red)'}">${examScore}/${total}</span> — ${pct}%`;
+  
+  const msgs = {
+    90: 'מעולה! אתה מוכן לשוק האמיתי 🚀',
+    70: 'עברת! חזור על הנושאים שפספסת וצא לדמו',
+    0:  'לא נורא — חזור על הפרקים הרלוונטיים ונסה שוב'
+  };
+  document.getElementById('exam-score-sub').textContent = pct>=90 ? msgs[90] : pct>=70 ? msgs[70] : msgs[0];
+
+  // Breakdown by category
+  const cats = {};
+  examResults.forEach(r => {
+    if(!cats[r.cat]) cats[r.cat] = {correct:0, total:0};
+    cats[r.cat].total++;
+    if(r.correct) cats[r.cat].correct++;
+  });
+  
+  let breakdown = '<div style="font-size:.82rem;font-weight:700;margin-bottom:12px;color:var(--text)">ביצועים לפי נושא:</div>';
+  Object.entries(cats).forEach(([cat, data]) => {
+    const p = Math.round(data.correct/data.total*100);
+    const color = p>=80?'var(--accent)':p>=60?'var(--gold)':'var(--red)';
+    breakdown += `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <div style="font-size:.78rem;width:140px;color:var(--text2)">${cat}</div>
+      <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${p}%;background:${color};border-radius:3px"></div>
+      </div>
+      <div style="font-size:.75rem;color:${color};width:50px;text-align:left">${data.correct}/${data.total} (${p}%)</div>
+    </div>`;
+  });
+  document.getElementById('exam-score-breakdown').innerHTML = breakdown;
+}
+
+function examRestart() {
+  document.getElementById('exam-result').style.display = 'none';
+  document.getElementById('exam-question-card').style.display = 'block';
+  document.getElementById('exam-progress-wrap').style.display = 'flex';
+  examInit();
+}
+
+// Auto-init
+examInit();
+</script>
   <div class="chapter-header">
     <div class="chapter-num" style="background:rgba(90,171,255,0.15);color:var(--blue);border-color:rgba(90,171,255,0.3)">📖</div>
     <div><div class="chapter-title">גלוסרי — מילון מונחים מלא</div><div class="chapter-subtitle">כל המונחים שפגשת בקורס — עברית–אנגלית</div></div>
