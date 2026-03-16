@@ -1828,16 +1828,18 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <text x="306" y="125" fill="#00e5a0" font-size="11" text-anchor="middle" font-family="monospace">⬆ Breakout!</text>
       <line x1="286" y1="140" x2="286" y2="129" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
 
-      <!-- Gap Up annotation -->
-      
-      <text x="422" y="82" fill="#00e5a0" font-size="10" text-anchor="middle" font-family="monospace">Gap Up ↑</text>
-      <line x1="410" y1="94" x2="410" y2="86" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
-
-      <!-- EMA20 label -->
-      
-      <text x="656" y="40" fill="#5aabff" font-size="10" text-anchor="middle" font-family="monospace">EMA 20</text>
-
-      <!-- MA50 label -->
+            <!-- Gap Up annotation — from GREEN high wick y=226 to RED low wick y=178 -->
+      <!-- Bracket on left side showing the gap zone -->
+      <line x1="172" y1="226" x2="178" y2="226" stroke="#00e5a0" stroke-width="2" opacity="0.95"/>
+      <line x1="172" y1="178" x2="178" y2="178" stroke="#00e5a0" stroke-width="2" opacity="0.95"/>
+      <line x1="175" y1="226" x2="175" y2="178" stroke="#00e5a0" stroke-width="1.5" opacity="0.9"/>
+      <!-- Shaded gap zone -->
+      <rect x="178" y="178" width="28" height="48" fill="rgba(0,229,160,0.06)" rx="2"/>
+      <!-- Label to the right -->
+      <rect x="208" y="190" width="84" height="18" fill="#003322" stroke="#00e5a0" stroke-width="1" rx="4"/>
+      <text x="250" y="203" fill="#00e5a0" font-size="11" text-anchor="middle" font-family="monospace" font-weight="bold">Gap Up ↑</text>
+      <!-- Arrow from label to bracket -->
+      <line x1="209" y1="199" x2="180" y2="199" stroke="#00e5a0" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
       
       <text x="656" y="122" fill="#f0a040" font-size="10" text-anchor="middle" font-family="monospace">MA 50</text>
 
