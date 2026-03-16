@@ -91,6 +91,23 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-
 .nav-glossary{background:rgba(90,171,255,0.1);color:var(--blue);border:1px solid rgba(90,171,255,0.2);}
 .nav-glossary:hover{background:rgba(90,171,255,0.18);}
 
+/* Hamburger */
+.nav-hamburger{display:none;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:9px;cursor:pointer;font-size:1.1rem;transition:background .15s;}
+.nav-hamburger:hover{background:rgba(255,255,255,0.12);}
+
+/* Mobile drawer */
+.mobile-drawer{position:fixed;top:58px;left:0;right:0;bottom:0;z-index:499;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);}
+.mobile-drawer-panel{position:absolute;top:0;right:0;width:280px;height:100%;background:rgba(8,10,20,0.99);border-left:1px solid rgba(255,255,255,0.08);padding:16px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;}
+.drawer-section-title{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);font-weight:700;padding:10px 10px 4px;margin-top:4px;}
+.drawer-item{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:9px;border:none;background:transparent;cursor:pointer;font-family:'Heebo',sans-serif;font-size:.82rem;color:var(--text2);text-align:right;transition:all .15s;}
+.drawer-item:hover{background:rgba(255,255,255,0.07);color:var(--text);}
+.drawer-item:active{background:rgba(255,255,255,0.1);}
+.drawer-num{min-width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;flex-shrink:0;}
+.drawer-sep{height:1px;background:rgba(255,255,255,0.06);margin:6px 4px;}
+.drawer-special{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;border-radius:9px;border:none;cursor:pointer;font-family:'Heebo',sans-serif;font-size:.82rem;font-weight:700;margin-top:2px;}
+
 /* MAIN */
 .course-wrap{max-width:840px;margin:0 auto;padding:58px 22px 120px;}
 
@@ -300,6 +317,15 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
   .course-nav{padding:0 10px;}
   .nav-group-btn{font-size:.65rem;padding:5px 8px;}
   .nav-special{font-size:.65rem;padding:5px 8px;}
+
+/* Hamburger for very small screens */
+@media(max-width:480px){
+  .nav-groups{display:none !important;}
+  .nav-hamburger{display:flex !important;}
+}
+@media(min-width:481px){
+  .nav-hamburger{display:none !important;}
+}
   .course-wrap{padding:0 13px 100px;}
   .chapter{padding:56px 0 36px;}
   .def-grid,.strategy-grid,.psych-grid{grid-template-columns:1fr;}
@@ -661,7 +687,43 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <button class="nav-special nav-glossary" onclick="scrollToId('glossary')">📖</button>
 
   </div>
+
+  <!-- Hamburger for small screens -->
+  <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleDrawer()">☰</button>
+
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="mobile-drawer-panel">
+
+    <div class="drawer-section-title">📚 יסודות</div>
+    <button class="drawer-item" onclick="drawerGo('ch1')"><span class="drawer-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">1</span>מה זה שוק ההון?</button>
+    <button class="drawer-item" onclick="drawerGo('ch2')"><span class="drawer-num" style="background:rgba(247,201,72,0.15);color:var(--gold)">2</span>מדדים ו-ETF</button>
+    <button class="drawer-item" onclick="drawerGo('ch3')"><span class="drawer-num" style="background:rgba(90,171,255,0.15);color:var(--blue)">3</span>ניירות ערך</button>
+    <button class="drawer-item" onclick="drawerGo('ch3b')"><span class="drawer-num" style="background:rgba(90,171,255,0.12);color:var(--blue)">3+</span>נכסים נוספים</button>
+
+    <div class="drawer-sep"></div>
+    <div class="drawer-section-title">🔍 ניתוח</div>
+    <button class="drawer-item" onclick="drawerGo('ch4')"><span class="drawer-num" style="background:rgba(167,139,250,0.15);color:#a78bfa">4</span>פונדמנטלי</button>
+    <button class="drawer-item" onclick="drawerGo('ch5')"><span class="drawer-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">5</span>גרפים וטכני</button>
+    <button class="drawer-item" onclick="drawerGo('ch6')"><span class="drawer-num" style="background:rgba(0,229,160,0.12);color:var(--accent)">6</span>StockLens</button>
+
+    <div class="drawer-sep"></div>
+    <div class="drawer-section-title">🚀 מתקדם</div>
+    <button class="drawer-item" onclick="drawerGo('ch8')"><span class="drawer-num" style="background:rgba(90,171,255,0.15);color:var(--blue)">7</span>מאקרו כלכלי</button>
+    <button class="drawer-item" onclick="drawerGo('ch7')"><span class="drawer-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">8</span>אסטרטגיות</button>
+    <button class="drawer-item" onclick="drawerGo('ch9')"><span class="drawer-num" style="background:rgba(255,95,87,0.15);color:var(--red)">9</span>פסיכולוגיה</button>
+    <button class="drawer-item" onclick="drawerGo('ch10')"><span class="drawer-num" style="background:rgba(167,139,250,0.15);color:#a78bfa">10</span>ברוקרים</button>
+    <button class="drawer-item" onclick="drawerGo('ch11')"><span class="drawer-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">11</span>חשבון דמו</button>
+
+    <div class="drawer-sep"></div>
+    <button class="drawer-special" style="background:rgba(247,201,72,0.12);color:var(--gold);border:1px solid rgba(247,201,72,0.25)" onclick="drawerGo('exam')">🏆 מבחן סיום</button>
+    <button class="drawer-special" style="background:rgba(90,171,255,0.1);color:var(--blue);border:1px solid rgba(90,171,255,0.2)" onclick="drawerGo('glossary')">📖 גלוסרי מונחים</button>
+
+  </div>
+</div>
 
 <div class="course-wrap" id="start">
 
@@ -4877,6 +4939,25 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.08});
 document.querySelectorAll('.chapter').forEach(ch=>obs.observe(ch));
 
+function toggleDrawer(){
+  const d=document.getElementById('mobileDrawer');
+  const b=document.getElementById('hamburgerBtn');
+  const isOpen=d.classList.contains('open');
+  d.classList.toggle('open');
+  b.textContent=isOpen?'☰':'✕';
+  document.body.style.overflow=isOpen?'':'hidden';
+}
+function closeDrawer(){
+  const d=document.getElementById('mobileDrawer');
+  const b=document.getElementById('hamburgerBtn');
+  d.classList.remove('open');
+  b.textContent='☰';
+  document.body.style.overflow='';
+}
+function drawerGo(id){
+  closeDrawer();
+  setTimeout(()=>scrollToId(id),200);
+}
 function toggleGroup(id){
   const g=document.getElementById(id);
   const isOpen=g.classList.contains('open');
