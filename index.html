@@ -1504,6 +1504,24 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     </div>
     <div class="example-result">Pre-Announcement הוא לרוב תנועת המחיר הגדולה ביותר — גדולה אפילו מיום הדוח עצמו.</div>
   </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">📋</div>
+    <div class="callout-body">
+      <div class="callout-title">אסטרטגיה לפני Earnings — מה עושים בפועל</div>
+      לפני שדוח יוצא, יש 4 גישות מרכזיות — כל אחת מתאימה למשקיע אחר:<br><br>
+      <strong>🔴 גישה 1 — צמצום לפני הדוח (הכי שמרנית):</strong><br>
+      מכור 30-50% מהפוזיציה לפני הדוח. אם הדוח טוב — חמצת חלק מהעלייה. אם רע — הגנת על עצמך. מתאים למי שמחזיק פוזיציה גדולה ולא מוכן לתנועה חדה של 20%.<br><br>
+      <strong>🟡 גישה 2 — החזקה מלאה (Long-Term):</strong><br>
+      אם אתה משקיע לטווח ארוך ומאמין בחברה פונדמנטלית — פשוט החזק. תנועות Earnings חדות הן "רעש" לטווח ארוך.<br>
+      <strong>כלל:</strong> שאל "האם הייתי קונה עוד היום?" — אם כן, החזק.<br><br>
+      <strong>🟢 גישה 3 — Put Protection:</strong><br>
+      קנה Put Option מתחת למחיר הנוכחי כ"ביטוח". עולה פרמיה, אבל מגן אם הדוח גרוע. מתאים לפוזיציה גדולה שלא רוצה למכור.<br>
+      דוגמה: AAPL ב-$180, קנה Put $160 לחודש = שלמת $1.50 פרמיה, הגנה אם ירד מתחת ל-$160.<br><br>
+      <strong>🔵 גישה 4 — לא להיות בפוזיציה ביום הדוח:</strong><br>
+      "אם לא יודעים — לא נמצאים." מכור לפני הדוח, ראה את התגובה, קנה חזרה אם הכל בסדר. מפספסים עלייה חדה — אבל גם מגנים מירידה חדה.
+    </div>
+  </div>
     <div class="quiz-q">חברה הרוויחה $100M — אבל Free Cash Flow שלה הוא −$20M. מה זה אומר?</div>
     <div class="quiz-options" id="q4">
       <div class="quiz-option" onclick="answer('q4','wrong',this)"><span class="quiz-opt-letter">א</span>החברה מצוינת — הרוויחה $100M</div>
@@ -2231,9 +2249,100 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   <p><strong>Support (תמיכה)</strong> = רמת מחיר שממנה המניה "קפצה" חזרה מספר פעמים. כשמגיעים לשם — לרוב יש קנייה חזקה כי אנשים זוכרים שבעבר זה היה "מחיר טוב".</p>
   <p><strong>Resistance (התנגדות)</strong> = רמת מחיר שממנה המניה "נפלה" מספר פעמים. כשמגיעים לשם — לרוב יש מכירה כי אנשים שקנו בשיא הישן רוצים "לצאת בשווה".</p>
 
+  <!-- Deep explanation -->
+  <div class="callout info">
+    <div class="callout-icon">📐</div>
+    <div class="callout-body">
+      <div class="callout-title">כלל 3 הנגיעות — איך מזהים תמיכה/התנגדות אמיתית</div>
+      לא כל עצירה של מחיר היא תמיכה או התנגדות. הכלל המקצועי:<br><br>
+      <strong>תמיכה תקפה = לפחות 3 פעמים</strong> שהמחיר ירד לאותה רמה, נעצר — וחזר למעלה.<br>
+      <strong>התנגדות תקפה = לפחות 3 פעמים</strong> שהמחיר עלה לאותה רמה, נעצר — וחזר למטה.<br><br>
+      <strong>למה דווקא 3?</strong><br>
+      נגיעה אחת — יכולה להיות מקרית.<br>
+      שתי נגיעות — מתחילה להיות משמעותית.<br>
+      שלוש נגיעות ומעלה — <strong>הרמה הזו "נבחנה" ועמדה בה.</strong> כל שוק רואה אותה כרמה חשובה.<br><br>
+      ככל שיותר נגיעות — התמיכה/התנגדות <strong>חזקה יותר</strong>. רמה שנבחנה 5 פעמים חזקה יותר מרמה שנבחנה 3 פעמים.
+    </div>
+  </div>
+
+  <!-- How to identify - step by step -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:18px;margin:16px 0">
+    <div style="font-size:.68rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700">🔍 איך מזהים תמיכה והתנגדות בגרף — בפועל</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0;margin-top:2px">1</div>
+        <div style="font-size:.83rem;color:var(--text2);line-height:1.65">
+          <strong style="color:var(--text)">פתח גרף שבועי (1W) ראשון</strong> — הרמות החשובות ביותר נראות בגרף שבועי. חפש אזורים שבהם המחיר "נעצר" שוב ושוב.
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0;margin-top:2px">2</div>
+        <div style="font-size:.83rem;color:var(--text2);line-height:1.65">
+          <strong style="color:var(--text)">מנה נגיעות — לפחות 3</strong> — ספור כמה פעמים המחיר הגיע לאותה רמה ונעצר. גם פתיל (Wick) שנגע ברמה נחשב נגיעה — לא רק גוף הנר.
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0;margin-top:2px">3</div>
+        <div style="font-size:.83rem;color:var(--text2);line-height:1.65">
+          <strong style="color:var(--text)">בדוק זמן בין נגיעות</strong> — נגיעות שמרוחקות בזמן (שבועות/חודשים) חשובות יותר מנגיעות שקרו ב-3 ימים רצופים.
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0;margin-top:2px">4</div>
+        <div style="font-size:.83rem;color:var(--text2);line-height:1.65">
+          <strong style="color:var(--text)">בדוק Volume בכל נגיעה</strong> — אם בכל פעם שהמחיר ירד לתמיכה ה-Volume עלה — זה אומר שיש קונים אמיתיים שמגנים על הרמה הזו. תמיכה חזקה מאוד.
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(247,201,72,0.15);border:1px solid rgba(247,201,72,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--gold);flex-shrink:0;margin-top:2px">5</div>
+        <div style="font-size:.83rem;color:var(--text2);line-height:1.65">
+          <strong style="color:var(--text)">ציר על הגרף ב-TradingView</strong> — משתמשים בכלי "Horizontal Line" בסרגל שמאל, ומושכים קו לאורך רמת המחיר. עושים זאת לכל תמיכה/התנגדות שמצאת.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Example box -->
+  <div class="example-box">
+    <div class="example-label">דוגמה מספרית — זיהוי תמיכה על AAPL</div>
+    <div class="example-calc" style="line-height:2.2">
+      AAPL נסחרת בין $150 ל-$200. בגרף שבועי אתה רואה:<br><br>
+      <span style="color:var(--muted)">ינואר:</span> ירדה ל-<strong>$152</strong> → עלתה חזרה<br>
+      <span style="color:var(--muted)">מרץ:</span> ירדה ל-<strong>$149</strong> → עלתה חזרה<br>
+      <span style="color:var(--muted)">יוני:</span> ירדה ל-<strong>$151</strong> → עלתה חזרה<br><br>
+      3 פעמים שהמחיר הגיע לאזור <strong>$149–$152</strong> ועלה בחזרה = <span style="color:var(--accent)">תמיכה חזקה באזור $150</span>.<br><br>
+      כשהמחיר יחזור ל-$150 בפעם הרביעית — רוב הסוחרים <strong>יצפו לקנייה</strong> שם. וכי כולם מצפים — כולם קונים — ולכן זה אכן קורה. <em>זה Self-Fulfilling Prophecy — נבואה שמגשימה את עצמה.</em>
+    </div>
+    <div class="example-result">ככל שיותר אנשים מכירים את הרמה — היא חזקה יותר. S&P 500 ב-MA200 = רמת תמיכה שמיליוני משקיעים עוקבים אחריה.</div>
+  </div>
+
+  <!-- Strength levels -->
+  <div class="callout tip">
+    <div class="callout-icon">💪</div>
+    <div class="callout-body">
+      <div class="callout-title">דירוג עוצמת התמיכה/התנגדות</div>
+      <strong style="color:var(--red)">חלשה</strong> — נגיעה אחת-שתיים. ייתכן שנבחן ויישבר.<br>
+      <strong style="color:var(--gold)">בינונית</strong> — 3 נגיעות. תקפה אבל ניתנת לפריצה.<br>
+      <strong style="color:var(--accent)">חזקה</strong> — 4-5 נגיעות + Volume גבוה בכל נגיעה. קשה מאוד לפרוץ.<br>
+      <strong style="color:var(--blue)">מוסדית</strong> — רמות עגולות ($100, $150, $200, $1,000) + נגיעות מרובות. <strong>מוסדיים (קרנות, בנקים) שמים שם הוראות גדולות.</strong> הכי חזקה שיש.<br><br>
+      <strong>כלל:</strong> אל תיכנס לעסקה נגד תמיכה/התנגדות חזקה. המתן לפריצה עם Volume גבוה — ורק אז.
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">אזורים — לא קווים מדויקים</div>
+      טעות נפוצה של מתחילים: לצייר קו מדויק ב-$150.00 ולצפות שהמחיר יעצור בדיוק שם.<br><br>
+      במציאות — תמיכה והתנגדות הן <strong>אזורים</strong>, לא מחירים מדויקים. אם שלוש נגיעות היו ב-$149, $151, $152 — ה"אזור" הוא <strong>$148–$153</strong>. המחיר יכול לחרוג מעט מהקו ועדיין לחזור.<br><br>
+      <strong>False Breakout:</strong> לפעמים המחיר פורץ מעט מעל התנגדות ואז חוזר — זה מלכודת לקונים. תמיד בדוק שהפריצה הגיעה עם <strong>Volume גבוה ונסגרה מעל הרמה</strong> — לא רק "נגעה".
+    </div>
+  </div>
+
   <!-- Support/Resistance Visual -->
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;margin:16px 0">
-    <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 Support ו-Resistance בגרף — דוגמה</div>
+    <div style="font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center;font-weight:700">📊 3 נגיעות = תמיכה · 2 נגיעות = התנגדות → פריצה</div>
     <svg viewBox="0 0 600 220" style="width:100%;max-width:760px;display:block;margin:0 auto" dir="ltr">
       <rect width="600" height="220" fill="#0a0d1a" rx="6"/>
       <!-- Grid -->
@@ -2431,7 +2540,19 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   </div>
 
   <div class="indicator-box">
-    <div class="indicator-name">Fibonacci Retracement — רמות פיבונאצ'י</div>
+    <div class="indicator-name">VWAP — Volume Weighted Average Price</div>
+    <div class="indicator-desc">
+      VWAP הוא <strong>המחיר הממוצע של המניה ביום — משוקלל לפי Volume</strong>. כלומר: מחיר שבו בוצעו הכי הרבה עסקאות ביום הזה.<br><br>
+      <strong>למה זה קריטי:</strong> מוסדיים גדולים (קרנות, בנקים) משתמשים ב-VWAP כ-benchmark — הם מנסים לקנות מתחתיו ולמכור מעליו. לכן רמת ה-VWAP היא <em>קו קרב</em> אמיתי בין קונים למוכרים.<br><br>
+      <strong>מחיר מעל VWAP</strong> = קונים שולטים — יום שורי.<br>
+      <strong>מחיר מתחת VWAP</strong> = מוכרים שולטים — יום דובי.<br><br>
+      <strong>שימוש מעשי:</strong><br>
+      סוחר יומי: קנה רק כשמחיר מעל VWAP, מכור רק כשמתחת.<br>
+      Swing Trader: VWAP השבועי/חודשי הוא רמת Support/Resistance משמעותית.<br>
+      <strong>הבדל מ-MA:</strong> VWAP מחושב מחדש כל יום (מאפס). MA הוא ממוצע רולינג של ימים קודמים. ל-VWAP יש משמעות intraday; MA — לטווח ארוך.
+    </div>
+    <div class="indicator-use">📍 TradingView: Indicators ← חפש "VWAP"</div>
+  </div>
     <div class="indicator-desc">
       רמות פיבונאצ'י הן <strong>אחד הכלים הכי מסתוריים אבל גם הכי נפוצים</strong> בניתוח טכני. הן מבוססות על סדרת המספרים המתמטית של פיבונאצ'י (1, 1, 2, 3, 5, 8, 13...) שמופיעה בטבע — ומסיבה לא לגמרי ברורה, גם בשוק ההון.<br><br>
       <strong>איך משתמשים:</strong> מציירים את הכלי משפל לשיא (או להפך). הגרף מציג רמות אוטומטיות:<br>
@@ -2891,6 +3012,23 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
 
   <p>השוק מחולק ל-<strong>11 סקטורים</strong>. כל סקטור מתנהג אחרת בתנאים כלכליים שונים. הבנת הסקטורים תעזור לך לבנות תיק מאוזן ולהבין למה מניה מסוימת זזה.</p>
 
+  <div class="callout info">
+    <div class="callout-icon">🔄</div>
+    <div class="callout-body">
+      <div class="callout-title">מחזור כלכלי — מה עובד בכל שלב</div>
+      הכלכלה עוברת מחזורים חוזרים. לכל שלב יש סקטורים שמצליחים יותר:<br><br>
+      <strong>① התאוששות (Recovery)</strong> — GDP שלילי חוזר לחיוב. ריבית נמוכה, אבטלה יורדת.<br>
+      <span style="color:var(--accent)">✅ עובד: Financials (XLF), Consumer Discretionary (XLY), Real Estate (XLRE)</span><br><br>
+      <strong>② התרחבות (Expansion)</strong> — צמיחה חזקה, אופטימיות. הכלכלה בשיאה.<br>
+      <span style="color:var(--accent)">✅ עובד: Technology (XLK), Industrials (XLI), Materials (XLB)</span><br><br>
+      <strong>③ האטה (Slowdown)</strong> — צמיחה מאטה, ריבית גבוהה, אינפלציה.<br>
+      <span style="color:var(--gold)">✅ עובד: Energy (XLE), Healthcare (XLV), Consumer Staples (XLP)</span><br><br>
+      <strong>④ מיתון (Recession)</strong> — GDP שלילי, אבטלה עולה, פחד.<br>
+      <span style="color:var(--gold)">✅ עובד: Utilities (XLU), Consumer Staples (XLP), Healthcare (XLV), זהב (GLD)</span><br><br>
+      <strong>הכלל:</strong> Fidelity ו-BlackRock מפרסמים "Sector Rotation Clock" שמראה איפה אנחנו במחזור. כדאי לעקוב.
+    </div>
+  </div>
+
   <div class="cmp-table-wrap">
     <table class="cmp-table">
       <thead><tr><th>סקטור</th><th>מה כולל</th><th>ETF</th><th>חזק כש</th></tr></thead>
@@ -3043,6 +3181,20 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <strong>כוח ה-DRIP לאורך 20 שנה:</strong> תיק שמשלם 4% דיבידנד עם DRIP גדל ~פי 2.2 יותר מאשר בלי DRIP. רוב הברוקרים מאפשרים DRIP אוטומטי בחינם.
     </div>
   </div>
+
+  <div class="callout info">
+    <div class="callout-icon">👑</div>
+    <div class="callout-body">
+      <div class="callout-title">Dividend Aristocrats ו-Kings — המלכים של השוק</div>
+      <strong>Dividend Aristocrats</strong> = חברות S&P 500 שהעלו דיבידנד <strong>25 שנה רצופות לפחות.</strong><br>
+      <strong>Dividend Kings</strong> = העלו דיבידנד <strong>50 שנה רצופות</strong> — האצולה של האצולה.<br><br>
+      <strong>למה זה מרשים:</strong> להעלות דיבידנד 25 שנה ברצף אומר שהחברה שרדה: פיצוץ בועת הדוט-קום (2000), משבר 2008, קורונה (2020) — ועדיין הרוויחה מספיק להעלות דיבידנד בכל שנה. סינון איכות עצמאי ואמין מאוד.<br><br>
+      <strong>דוגמאות Aristocrats:</strong> Johnson & Johnson (60+ שנה), Procter & Gamble (65+ שנה), Coca-Cola (60+ שנה), Realty Income (חודשי, 25+ שנה)<br><br>
+      <strong>Dividend Growth Rate — למה הוא חשוב:</strong><br>
+      חברה שמשלמת $1 דיבידנד ומעלה 7% בשנה — אחרי 20 שנה משלמת $3.87. אם קנית ב-$20 — ה-<strong>Yield on Cost</strong> שלך הוא 19%!<br><br>
+      <strong>ETF מומלץ:</strong> NOBL (ProShares S&P 500 Dividend Aristocrats ETF) — כולל את כל ה-Aristocrats בחבילה אחת.
+    </div>
+  </div>
     <div class="strategy-card"><div class="strategy-icon">🚀</div><div class="strategy-name">Growth Investing</div><div class="strategy-desc">חברות שגדלות מהר — Revenue +30%+ בשנה. לרוב אין דיבידנד, משקיעים חזרה ברווחים. דוגמאות: NVIDIA, Shopify, CrowdStrike. סיכון גבוה, פוטנציאל גבוה.</div><span class="strategy-tag badge badge-gold">בינוני</span></div>
     <div class="strategy-card"><div class="strategy-icon">🔍</div><div class="strategy-name">Value Investing</div><div class="strategy-desc">חברות טובות שנסחרות בזול מסיבה זמנית. P/E נמוך, FCF גבוה, Moat חזק. צריך סבלנות — לפעמים מחכים שנה-שנתיים עד שהשוק "מגלה" את הערך.</div><span class="strategy-tag badge badge-gold">מנוסים</span></div>
 
@@ -3069,6 +3221,37 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
   </div>
   </div>
 
+  <div class="callout info">
+    <div class="callout-icon">🚀</div>
+    <div class="callout-body">
+      <div class="callout-title">Momentum Trading — רוכבים על הגל</div>
+      Momentum = לקנות מה שכבר עולה, ולמכור מה שכבר יורד. ההיגיון: <strong>"מניות שנמצאות בתנועה נוטות להמשיך בתנועה"</strong> — Newton's First Law בשוק ההון.<br><br>
+      <strong>מה מניע Momentum:</strong><br>
+      FOMO — משקיעים שמפספסים עלייה נכנסים ומחזקים אותה.<br>
+      Institutional Buying — כשקרן גדולה קונה מניה לאורך שבועות, היא לא יכולה לקנות הכל ביום אחד. כל יום קנייה מעלה את המחיר קצת.<br>
+      Earnings Revision — אנליסטים מעלים תחזיות → יותר קנייה → עוד עלייה.<br><br>
+      <strong>מדד Momentum מעשי:</strong> מניה שעלתה 20%+ ב-3 חודשים ועדיין מעל MA50 — יש Momentum חזק.<br>
+      <strong>מתי Momentum נגמר:</strong> כשה-RSI עובר 75-80 עם Volume יורד — הקונים נגמרים. זה הזמן לצאת, לא להיכנס.<br><br>
+      <strong>Risk of Momentum:</strong> מניה עם Momentum חזק יכולה לקרוס 30% ביום אחד אחרי דוח גרוע — "Momentum Crash". כרגיל — Stop Loss חובה.
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">🔗</div>
+    <div class="callout-body">
+      <div class="callout-title">Correlation Risk — הסיכון שאף אחד לא מסביר</div>
+      אחת הטעויות הנפוצות ביותר: "יש לי 10 מניות שונות — אני מפוזר!"<br><br>
+      <strong>הבעיה:</strong> אם 6 מהמניות הן חברות טכנולוגיה (AAPL, MSFT, NVDA, META, GOOGL, AMZN) — כשסקטור הטכנולוגיה יורד, כולן יורדות ביחד. <strong>זה לא פיזור — זה ריכוז מוסווה.</strong><br><br>
+      <strong>Correlation (מתאם):</strong> מדד מ-1 ל-(-1). מתאם 1 = שתי מניות זזות תמיד ביחד. מתאם (-1) = זזות בכיוון הפוך. מתאם 0 = אין קשר.<br><br>
+      <strong>פיזור אמיתי = נכסים עם מתאם נמוך:</strong><br>
+      מניות + אגח (לרוב מתאם שלילי — כשמניות יורדות, אגח עולה)<br>
+      מניות ארה"ב + מניות שווקים מתפתחים<br>
+      מניות צמיחה + מניות דיבידנד<br>
+      מניות + זהב (מקלט בטוח)<br><br>
+      <strong>הכלל:</strong> לפני שמוסיפים מניה לתיק — שאל: "האם היא זזה כמו מה שכבר יש לי?"
+    </div>
+  </div>
+
   <h3>אופציות — מבוא בטוח למתחילים</h3>
   <p>אופציות הן אחד הכלים הכי מפחידים למתחילים — ובצדק, כי הן יכולות לגרום להפסדים גדולים. אבל חשוב <strong>להכיר את הבסיס</strong> כי תשמע עליהן הרבה.</p>
   <div class="callout info">
@@ -3087,6 +3270,68 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <div class="callout-title">למה אופציות מסוכנות למתחילים</div>
       אופציות מתאיינות — אם המניה לא זזה בכיוון שציפית עד התאריך, האופציה פוקעת ואתה מפסיד את כל מה ששילמת עליה (ה-Premium).<br><br>
       בניגוד למניה שיכולה "להתאושש" עם הזמן — אופציה שפוקעת = 100% הפסד של הסכום ששמת. <strong>לא מומלץ לנגוע לפני שיש לפחות שנה של ניסיון בשוק.</strong>
+    </div>
+  </div>
+
+
+  <!-- Options Greeks -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:22px;margin:20px 0">
+    <div style="font-size:.68rem;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-weight:700;text-align:center">🔢 Options Greeks — המספרים שמאחורי כל אופציה</div>
+    <p style="font-size:.83rem;color:var(--text2);line-height:1.7;margin-bottom:14px">כל אופציה מגיעה עם 4 מספרים שנקראים "Greeks" — הם אומרים לך בדיוק <strong>כמה האופציה תזוז</strong> בתגובה לשינויים שונים. חובה להכיר לפני שנוגעים באופציות.</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+
+      <div style="background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:.85rem;font-weight:800;color:var(--accent);margin-bottom:5px">Δ Delta — כמה האופציה זזה עם המניה</div>
+        <div style="font-size:.8rem;color:var(--text2);line-height:1.7">
+          Delta נע בין 0 ל-1 לCalls (ו-0 עד -1 לPuts).<br>
+          <strong>Delta 0.5</strong> = כשהמניה עולה $1, האופציה עולה $0.50.<br>
+          <strong>Delta 0.8</strong> = אופציה "עמוק בתוך הכסף" — זזה כמעט כמו המניה.<br>
+          <strong>Delta 0.1</strong> = אופציה "רחוק מחוץ לכסף" — כמעט לא זזה.<br>
+          <strong>למה זה חשוב:</strong> אם קנית Call עם Delta 0.3 ואתה מצפה שהמניה תעלה $10 — האופציה שלך תעלה ~$3 לכל מניה (× 100 = $300 לחוזה).
+        </div>
+      </div>
+
+      <div style="background:rgba(255,95,87,0.06);border:1px solid rgba(255,95,87,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:.85rem;font-weight:800;color:var(--red);margin-bottom:5px">Θ Theta — בלאי הזמן היומי</div>
+        <div style="font-size:.8rem;color:var(--text2);line-height:1.7">
+          Theta = כמה ערך האופציה מאבדת כל יום שעובר — גם אם המניה לא זזה.<br>
+          <strong>דוגמה:</strong> קנית Call ב-$3.00. Theta = -0.05. כל יום שעובר — האופציה שווה $0.05 פחות, גם אם AAPL בדיוק אותו מחיר.<br>
+          <strong>הבלאי מואץ:</strong> ב-30 הימים האחרונים לפקיעה, Theta מואץ דרמטית. אופציה שמתה-נולדת — מאבדת ערך מהר מאוד.<br>
+          <strong>הכלל:</strong> קוני אופציות נפגעים מ-Theta. מוכרי אופציות (Covered Call) נהנים ממנו.
+        </div>
+      </div>
+
+      <div style="background:rgba(247,201,72,0.06);border:1px solid rgba(247,201,72,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:.85rem;font-weight:800;color:var(--gold);margin-bottom:5px">Vega — רגישות לתנודתיות (IV)</div>
+        <div style="font-size:.8rem;color:var(--text2);line-height:1.7">
+          Vega מודד כמה האופציה זזה כשה-Implied Volatility (IV) משתנה ב-1%.<br>
+          <strong>IV גבוה = פרמיה יקרה.</strong> לפני Earnings, ה-IV מזנק כי אף אחד לא יודע מה יקרה — ולכן האופציה יקרה יותר.<br>
+          <strong>IV Crush:</strong> אחרי הדוח ה-IV קורס — גם אם הדוח טוב, האופציה שלך מאבדת ערך בגלל ירידת IV. סוחרים רבים קנו Call לפני דוח טוב — ועדיין הפסידו!<br>
+          <strong>הכלל:</strong> אל תקנה אופציות כשה-IV גבוה מאוד (לפני דוחות) — אתה משלם יותר מדי.
+        </div>
+      </div>
+
+      <div style="background:rgba(90,171,255,0.06);border:1px solid rgba(90,171,255,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:.85rem;font-weight:800;color:var(--blue);margin-bottom:5px">Γ Gamma — שינוי ב-Delta</div>
+        <div style="font-size:.8rem;color:var(--text2);line-height:1.7">
+          Gamma = כמה Delta משתנה כשהמניה זזה $1.<br>
+          <strong>Gamma גבוה</strong> = אופציות קרובות לתאריך הפקיעה ולמחיר המימוש — Delta שלהן משתנה מהר מאוד.<br>
+          <strong>Gamma Squeeze:</strong> כשמחיר מניה עולה, Dealers שמכרו Calls חייבים לקנות את המניה כדי להגן על עצמם — מה שמעלה את המחיר עוד. זה מה שקרה ב-GameStop 2021 לצד ה-Short Squeeze.
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px">
+      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:6px">📊 טבלת Greeks — סיכום מהיר</div>
+      <div style="display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;font-size:.75rem">
+        <div style="font-weight:700;color:var(--muted)">Greek</div><div style="font-weight:700;color:var(--muted)">מה מודד</div><div style="font-weight:700;color:var(--muted)">מי נהנה</div>
+        <div style="color:var(--accent)">Delta Δ</div><div style="color:var(--text2)">תנועה עם מחיר המניה</div><div style="color:var(--text2)">קוני Calls בעליות</div>
+        <div style="color:var(--red)">Theta Θ</div><div style="color:var(--text2)">בלאי יומי של הזמן</div><div style="color:var(--text2)">מוכרי אופציות</div>
+        <div style="color:var(--gold)">Vega</div><div style="color:var(--text2)">רגישות לתנודתיות</div><div style="color:var(--text2)">קוני אופציות לפני חדשות</div>
+        <div style="color:var(--blue)">Gamma Γ</div><div style="color:var(--text2)">מהירות שינוי Delta</div><div style="color:var(--text2)">קוני אופציות קרוב לפקיעה</div>
+      </div>
     </div>
   </div>
 
@@ -3163,6 +3408,64 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       <strong>אם אתה צודק רק 40% מהזמן:</strong> 40 × $2 = +$80. 60 × $1 = -$60. <strong>סה"כ: +$20</strong><br>
       <strong>אם אתה צודק רק 34% מהזמן:</strong> 34 × $2 = +$68. 66 × $1 = -$66. <strong>סה"כ: +$2 — עדיין לא מפסיד!</strong><br><br>
       R:R טוב מאפשר לך להיות לא צודק יותר מכפי שאתה צודק — ועדיין להרוויח.
+    </div>
+  </div>
+
+
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:18px;margin:16px 0">
+    <div style="font-size:.68rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700;text-align:center">📊 טבלת רווחיות — Win Rate × R:R</div>
+    <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin-bottom:12px">הטבלה מראה האם אתה <strong>רווחי לאורך זמן</strong> לפי שילוב של Win Rate (כמה % מהעסקאות שלך מנצחות) ו-R:R (יחס סיכון/תגמול). ירוק = רווחי. אדום = מפסיד.</p>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;text-align:center">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.05)">
+            <th style="padding:8px 10px;color:var(--muted);text-align:right;border-bottom:1px solid var(--border)">Win Rate ↓ / R:R →</th>
+            <th style="padding:8px;color:var(--text2);border-bottom:1px solid var(--border)">1:1</th>
+            <th style="padding:8px;color:var(--text2);border-bottom:1px solid var(--border)">1:1.5</th>
+            <th style="padding:8px;color:var(--text2);border-bottom:1px solid var(--border)">1:2</th>
+            <th style="padding:8px;color:var(--text2);border-bottom:1px solid var(--border)">1:3</th>
+            <th style="padding:8px;color:var(--text2);border-bottom:1px solid var(--border)">1:4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:8px 10px;text-align:right;font-weight:700;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.04)">30%</td>
+            <td style="padding:8px;background:rgba(255,95,87,0.15);color:var(--red);border-bottom:1px solid rgba(255,255,255,0.04)">−40</td>
+            <td style="padding:8px;background:rgba(255,95,87,0.1);color:var(--red);border-bottom:1px solid rgba(255,255,255,0.04)">−25</td>
+            <td style="padding:8px;background:rgba(255,95,87,0.05);color:var(--red);border-bottom:1px solid rgba(255,255,255,0.04)">−10</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.08);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+20</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.12);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+50</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 10px;text-align:right;font-weight:700;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.04)">40%</td>
+            <td style="padding:8px;background:rgba(255,95,87,0.12);color:var(--red);border-bottom:1px solid rgba(255,255,255,0.04)">−20</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.05);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+10</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.1);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+40</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.15);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+80</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.2);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+120</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 10px;text-align:right;font-weight:700;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.04)">50%</td>
+            <td style="padding:8px;background:rgba(255,255,255,0.04);color:var(--muted);border-bottom:1px solid rgba(255,255,255,0.04)">0</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.1);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+25</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.15);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+50</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.2);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+100</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.25);color:var(--accent);border-bottom:1px solid rgba(255,255,255,0.04)">+150</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 10px;text-align:right;font-weight:700;color:var(--text2)">60%</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.1);color:var(--accent)">+20</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.15);color:var(--accent)">+50</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.2);color:var(--accent)">+80</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.25);color:var(--accent)">+140</td>
+            <td style="padding:8px;background:rgba(0,229,160,0.3);color:var(--accent)">+200</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:.7rem;color:var(--muted);margin-top:10px;line-height:1.6">
+      המספרים = רווח/הפסד ב-$$ על 100 עסקאות (כל עסקה: סיכון $1, רווח = R:R × $1)<br>
+      <strong style="color:var(--accent)">המסקנה הכי חשובה:</strong> עם R:R של 1:3 — גם אם אתה צודק רק 30% מהזמן — אתה <em>רווחי</em>. זו הסיבה שR:R חשוב יותר מ-Win Rate.
     </div>
   </div>
 
@@ -3295,6 +3598,68 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
       RSI בין 40-60 (לא קנוי/מכור יתר)<br><br>
       רשימה של 10-20 מניות שעוברות — עכשיו אפשר לנתח כל אחת לעומק.
     </div>
+  </div>
+
+
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:18px;margin:16px 0">
+    <div style="font-size:.68rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700">🔍 פילטרי Finviz מוכנים — העתק והשתמש</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+
+      <div style="background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:9px;padding:12px">
+        <div style="font-size:.78rem;font-weight:800;color:var(--accent);margin-bottom:6px">📈 סינון Growth + Momentum (מניות צמיחה חזקות)</div>
+        <div style="font-size:.73rem;color:var(--text2);line-height:1.85;font-family:'JetBrains Mono',monospace">
+          Market Cap: Large ($10B+)<br>
+          EPS Growth QoQ: Over 20%<br>
+          Sales Growth QoQ: Over 15%<br>
+          EPS Growth Past 5 Years: Over 15%<br>
+          Price above SMA200<br>
+          RSI: 45-70<br>
+          Average Volume: Over 500K
+        </div>
+      </div>
+
+      <div style="background:rgba(247,201,72,0.06);border:1px solid rgba(247,201,72,0.2);border-radius:9px;padding:12px">
+        <div style="font-size:.78rem;font-weight:800;color:var(--gold);margin-bottom:6px">💰 סינון Value Investing (מניות ערך זולות)</div>
+        <div style="font-size:.73rem;color:var(--text2);line-height:1.85;font-family:'JetBrains Mono',monospace">
+          Market Cap: Mid to Large ($2B+)<br>
+          P/E: Under 15<br>
+          P/B: Under 2<br>
+          Debt/Equity: Under 0.5<br>
+          ROE: Over 15%<br>
+          EPS Growth Next 5 Years: Positive<br>
+          Insider Ownership: Over 5%
+        </div>
+      </div>
+
+      <div style="background:rgba(90,171,255,0.06);border:1px solid rgba(90,171,255,0.2);border-radius:9px;padding:12px">
+        <div style="font-size:.78rem;font-weight:800;color:var(--blue);margin-bottom:6px">💎 סינון Dividend Aristocrats (הכנסה פסיבית)</div>
+        <div style="font-size:.73rem;color:var(--text2);line-height:1.85;font-family:'JetBrains Mono',monospace">
+          Market Cap: Large ($10B+)<br>
+          Dividend Yield: Over 2%<br>
+          Payout Ratio: Under 70%<br>
+          EPS Growth Past 5 Years: Positive<br>
+          Debt/Equity: Under 1<br>
+          Current Ratio: Over 1<br>
+          Price above SMA50
+        </div>
+      </div>
+
+      <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:9px;padding:12px">
+        <div style="font-size:.78rem;font-weight:800;color:var(--purple,#a78bfa);margin-bottom:6px">⚡ סינון Swing Trading (הזדמנויות קצרות)</div>
+        <div style="font-size:.73rem;color:var(--text2);line-height:1.85;font-family:'JetBrains Mono',monospace">
+          Market Cap: Over $2B<br>
+          Price: $10-$500<br>
+          Average Volume: Over 1M<br>
+          RSI: 40-55 (לא קנוי/מכור יתר)<br>
+          Price above SMA50<br>
+          20-Day High/Low Breakout<br>
+          Relative Volume: Over 1.5
+        </div>
+      </div>
+
+    </div>
+    <div style="font-size:.72rem;color:var(--muted);margin-top:10px">⚠️ הסינון מצמצם לרשימה קצרה — כל מניה שעוברת עדיין דורשת ניתוח פונדמנטלי וטכני מלא לפני קנייה.</div>
   </div>
 
   <div class="callout warn">
