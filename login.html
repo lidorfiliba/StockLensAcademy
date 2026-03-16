@@ -109,18 +109,25 @@ body::before {
   <button class="btn" onclick="netlifyIdentity.open()">
     🔑 כניסה / הרשמה
   </button>
-  <p class="note">© StockLens Academy · ידור פיליבה · כל הזכויות שמורות</p>
+  <p class="note">© StockLens Academy · לידור פיליבה · כל הזכויות שמורות</p>
 </div>
 
 <script>
+// אם יש invite_token בURL — פתח אוטומטית את חלון קביעת הסיסמה
+if (window.location.hash && window.location.hash.includes('invite_token')) {
+  netlifyIdentity.open('signup');
+}
+
 netlifyIdentity.on('login', function(user) {
-  // לאחר כניסה — שלח לקורס
+  window.location.href = '/course/course.html';
+});
+
+netlifyIdentity.on('signup', function(user) {
   window.location.href = '/course/course.html';
 });
 
 netlifyIdentity.on('init', function(user) {
   if (user) {
-    // כבר מחובר — שלח ישר לקורס
     window.location.href = '/course/course.html';
   }
 });
