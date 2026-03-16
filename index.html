@@ -671,10 +671,122 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
     <div class="callout-body">
       <div class="callout-title">Short Selling — למרוויח גם כשהשוק יורד</div>
       רוב האנשים מרוויחים כשמניה עולה. אבל יש אסטרטגיה שמאפשרת להרוויח <strong>דווקא כשמניה יורדת</strong> — זה נקרא <strong>Short Selling (שורט)</strong>.<br><br>
-      איך זה עובד: אתה <em>שואל</em> מניות מהברוקר, מוכר אותן עכשיו במחיר גבוה, ממתין לירידה, ואז קונה אותן חזרה בזול — ומחזיר לברוקר. ההפרש = הרווח שלך.<br><br>
-      <strong>דוגמה:</strong> שאלת 10 מניות ב-$100, מכרת ב-$1,000. המניה ירדה ל-$70, קנית חזרה ב-$700. רווח: $300.<br><br>
-      <strong>הסיכון הקריטי:</strong> אם המניה עולה במקום לרדת — ההפסד שלך <em>בלתי מוגבל</em>. מניה יכולה לעלות מ-$100 ל-$500 — ואתה תפסיד $4,000 על כל 10 מניות. <strong>לא מומלץ למתחילים.</strong><br><br>
       <strong>Short Squeeze — כשהשורטיסטים נלכדים:</strong> לפעמים מניה שרבים עשו עליה שורט פתאום מזנקת — וכולם מנסים לסגור את השורט בבת אחת (לקנות חזרה). הקנייה המאסיבית מעלה את המחיר עוד יותר, שגורמת לעוד שורטיסטים לסגור — מעגל שמזניק את המניה בעשרות %. GameStop ב-2021 עלתה מ-$4 ל-$483 תוך ימים ממש בגלל זה.
+    </div>
+  </div>
+
+  <!-- ═══ SHORT SELLING DEEP DIVE ═══ -->
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:22px;margin:20px 0">
+    <div style="font-size:.68rem;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-weight:700;text-align:center">📖 Short Selling — הסבר מלא למתחיל</div>
+
+    <!-- Analogy -->
+    <div style="background:rgba(90,171,255,0.07);border:1px solid rgba(90,171,255,0.2);border-radius:10px;padding:14px;margin-bottom:16px">
+      <div style="font-size:.75rem;color:var(--blue);font-weight:700;margin-bottom:6px">💡 אנלוגיה פשוטה שתסביר הכל</div>
+      <div style="font-size:.82rem;color:var(--text2);line-height:1.75">
+        דמיין שאתה חושב שמחיר הדירות הולך לרדת.<br>
+        <strong>שואל מחבר דירה שוות $200,000</strong> ומוכר אותה מיד.<br>
+        כשהמחיר ירד ל-$150,000 — <strong>קונה דירה חדשה ב-$150,000</strong>, מחזיר לחבר.<br>
+        הרווח שלך: $50,000.<br><br>
+        זה בדיוק מה שקורה בשורט — רק עם מניות, בשברירי שניות.
+      </div>
+    </div>
+
+    <!-- Step by step visual -->
+    <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:10px;letter-spacing:1px">⚡ איך זה עובד — שלב אחר שלב</div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0">1</div>
+        <div style="font-size:.82rem;color:var(--text2);line-height:1.6;padding-top:4px">
+          <strong style="color:var(--text)">שואל מניות מהברוקר</strong> — הברוקר "מלווה" לך 10 מניות של TSLA. אין עלות מיידית, רק התחייבות שתחזיר אותן בעתיד.
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0">2</div>
+        <div style="font-size:.82rem;color:var(--text2);line-height:1.6;padding-top:4px">
+          <strong style="color:var(--text)">מוכר אותן מיד בשוק</strong> — TSLA עומדת על $200. מכרת 10 מניות = קיבלת <strong style="color:var(--accent)">$2,000 מזומן לחשבון</strong>. אבל אתה חייב לברוקר 10 מניות.
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0">3</div>
+        <div style="font-size:.82rem;color:var(--text2);line-height:1.6;padding-top:4px">
+          <strong style="color:var(--text)">ממתין לירידה</strong> — TSLA יורדת ל-$140 בגלל דוח גרוע. הציפייה שלך התממשה.
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--accent);flex-shrink:0">4</div>
+        <div style="font-size:.82rem;color:var(--text2);line-height:1.6;padding-top:4px">
+          <strong style="color:var(--text)">קונה חזרה וסוגר</strong> — קונה 10 מניות TSLA ב-$140 = שילמת <strong style="color:var(--red)">$1,400</strong>. מחזיר לברוקר.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- P&L Table -->
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px">
+      <div style="padding:10px 14px;background:rgba(0,229,160,0.06);border-bottom:1px solid var(--border);font-size:.7rem;color:var(--accent);font-weight:700;letter-spacing:1px">📊 תרחיש 1 — הירידה התממשה ✅</div>
+      <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">מכרת ב</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--accent)">$2,000</div>
+          <div style="font-size:.65rem;color:var(--muted)">10 × $200</div>
+        </div>
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">קנית חזרה ב</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--red)">$1,400</div>
+          <div style="font-size:.65rem;color:var(--muted)">10 × $140</div>
+        </div>
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">רווח נקי</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--accent)">+$600</div>
+          <div style="font-size:.65rem;color:var(--accent)">+30%</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--bg);border:1px solid rgba(255,95,87,0.25);border-radius:10px;overflow:hidden;margin-bottom:16px">
+      <div style="padding:10px 14px;background:rgba(255,95,87,0.06);border-bottom:1px solid rgba(255,95,87,0.15);font-size:.7rem;color:var(--red);font-weight:700;letter-spacing:1px">💀 תרחיש 2 — המניה עלתה במקום ❌</div>
+      <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">מכרת ב</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--accent)">$2,000</div>
+          <div style="font-size:.65rem;color:var(--muted)">10 × $200</div>
+        </div>
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">קנית חזרה ב</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--red)">$3,500</div>
+          <div style="font-size:.65rem;color:var(--muted)">10 × $350</div>
+        </div>
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">הפסד</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--red)">−$1,500</div>
+          <div style="font-size:.65rem;color:var(--red)">−75%</div>
+        </div>
+      </div>
+      <div style="padding:8px 14px;font-size:.75rem;color:rgba(255,95,87,0.8);border-top:1px solid rgba(255,95,87,0.15);line-height:1.5">
+        ⚠️ ואם המניה עלתה ל-$1,000? ההפסד = $8,000. לא יתכן מניה תרד מתחת ל-$0 — אבל היא יכולה לעלות לאינסוף. זו הסיבה שהפסד בשורט הוא <strong>בלתי מוגבל תיאורטית.</strong>
+      </div>
+    </div>
+
+    <!-- Short Squeeze visual -->
+    <div style="background:rgba(247,201,72,0.07);border:1px solid rgba(247,201,72,0.25);border-radius:10px;padding:14px">
+      <div style="font-size:.75rem;color:var(--gold);font-weight:700;margin-bottom:8px">🌀 Short Squeeze — הסבר בשלבים</div>
+      <div style="font-size:.82rem;color:var(--text2);line-height:1.8">
+        <span style="color:var(--gold);font-weight:700">① </span>הרבה שורטיסטים מהמרים שמניה תרד<br>
+        <span style="color:var(--gold);font-weight:700">② </span>המניה פתאום <strong style="color:var(--text)">עולה</strong> (חדשות טובות, קנייה גדולה)<br>
+        <span style="color:var(--gold);font-weight:700">③ </span>שורטיסטים מפסידים — חייבים לסגור (לקנות חזרה)<br>
+        <span style="color:var(--gold);font-weight:700">④ </span>הקנייה המאסיבית <strong style="color:var(--text)">מעלה את המחיר עוד</strong><br>
+        <span style="color:var(--gold);font-weight:700">⑤ </span>עוד שורטיסטים נאלצים לסגור → לולאה שמזנקת את המחיר<br><br>
+        <span style="background:rgba(247,201,72,0.15);padding:4px 8px;border-radius:6px;font-size:.78rem"><strong style="color:var(--gold)">GameStop 2021:</strong> מ-$4 ל-$483 תוך 2 שבועות. מיליארדי דולרים של הפסדים לקרנות גידור.</span>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;padding:12px;background:rgba(255,95,87,0.07);border:1px solid rgba(255,95,87,0.2);border-radius:10px;font-size:.8rem;color:var(--text2);line-height:1.6">
+      <strong style="color:var(--red)">🚫 מסקנה למתחיל:</strong> שורט הוא כלי מקצועי שדורש ניסיון, ניהול סיכונים קפדני, ו-Stop Loss הדוק. <strong style="color:var(--text)">לפחות שנה-שנתיים של ניסיון לפני שנוגעים בזה.</strong> גם אז — בגדלים קטנים מאוד.
     </div>
   </div>
 
