@@ -17,7 +17,7 @@
   netlifyIdentity.on('init', function(user) {
     if (!user) {
       // לא מחובר — חזור לדף הכניסה
-      window.location.replace('/login.html');
+      window.location.replace('/login.html' + window.location.hash);
     } else {
       // מחובר — הצג את הדף
       document.documentElement.style.visibility = '';

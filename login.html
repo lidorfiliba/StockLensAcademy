@@ -113,11 +113,6 @@ body::before {
 </div>
 
 <script>
-// אם יש invite_token בURL — פתח אוטומטית את חלון קביעת הסיסמה
-if (window.location.hash && window.location.hash.includes('invite_token')) {
-  netlifyIdentity.open('signup');
-}
-
 netlifyIdentity.on('login', function(user) {
   window.location.href = '/course/course.html';
 });
@@ -129,6 +124,9 @@ netlifyIdentity.on('signup', function(user) {
 netlifyIdentity.on('init', function(user) {
   if (user) {
     window.location.href = '/course/course.html';
+  } else if (window.location.hash && window.location.hash.includes('invite_token')) {
+    // אם יש invite_token בURL — פתח אוטומטית את חלון ההרשמה (אחרי שהwidget מאותחל)
+    netlifyIdentity.open('signup');
   }
 });
 </script>
