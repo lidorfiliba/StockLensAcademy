@@ -62,13 +62,34 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;line-
 .hero-cta:hover{filter:brightness(1.1);transform:translateY(-2px);}
 
 /* NAV */
-.course-nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(6,8,16,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;color:var(--accent);white-space:nowrap;flex-shrink:0;}
-.nav-chapters{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-right:12px;}
-.nav-chapters::-webkit-scrollbar{display:none;}
-.nav-ch{font-size:.58rem;padding:5px 10px;border-radius:6px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;border:none;background:transparent;font-family:'Heebo',sans-serif;}
-.nav-ch:hover{color:var(--text);background:var(--surface2);}
-.nav-ch.active{color:#000;background:var(--accent);}
+.course-nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(6,8,16,0.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 18px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.92rem;color:var(--accent);white-space:nowrap;flex-shrink:0;letter-spacing:.5px;}
+.nav-groups{display:flex;align-items:center;gap:4px;margin-right:10px;}
+
+/* Dropdown group */
+.nav-group{position:relative;}
+.nav-group-btn{display:flex;align-items:center;gap:5px;font-size:.7rem;padding:6px 12px;border-radius:8px;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .18s;border:none;background:transparent;font-family:'Heebo',sans-serif;font-weight:600;}
+.nav-group-btn:hover{color:var(--text);background:rgba(255,255,255,0.07);}
+.nav-group-btn.open{color:var(--accent);background:rgba(0,229,160,0.08);}
+.nav-group-btn .arrow{font-size:.55rem;opacity:.5;transition:transform .2s;}
+.nav-group-btn.open .arrow{transform:rotate(180deg);opacity:1;}
+
+/* Dropdown panel */
+.nav-dropdown{position:absolute;top:calc(100% + 8px);right:0;min-width:200px;background:rgba(8,10,20,0.98);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;box-shadow:0 16px 48px rgba(0,0,0,0.6);opacity:0;transform:translateY(-6px) scale(0.97);pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:600;}
+.nav-group:hover .nav-dropdown,.nav-group.open .nav-dropdown{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
+
+.nav-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border-radius:8px;border:none;background:transparent;cursor:pointer;font-family:'Heebo',sans-serif;font-size:.78rem;color:var(--text2);text-align:right;transition:all .15s;white-space:nowrap;}
+.nav-item:hover{background:rgba(255,255,255,0.07);color:var(--text);}
+.nav-item .nav-num{min-width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;flex-shrink:0;}
+.nav-item .nav-label{flex:1;text-align:right;}
+.nav-dropdown-sep{height:1px;background:rgba(255,255,255,0.06);margin:4px 6px;}
+
+/* Special end buttons */
+.nav-special{display:flex;align-items:center;gap:5px;font-size:.7rem;padding:6px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:all .18s;border:none;font-family:'Heebo',sans-serif;font-weight:700;}
+.nav-exam{background:rgba(247,201,72,0.12);color:var(--gold);border:1px solid rgba(247,201,72,0.25);}
+.nav-exam:hover{background:rgba(247,201,72,0.22);}
+.nav-glossary{background:rgba(90,171,255,0.1);color:var(--blue);border:1px solid rgba(90,171,255,0.2);}
+.nav-glossary:hover{background:rgba(90,171,255,0.18);}
 
 /* MAIN */
 .course-wrap{max-width:840px;margin:0 auto;padding:58px 22px 120px;}
@@ -276,7 +297,9 @@ mark{background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-rad
 .completion-author b{color:var(--accent);}
 
 @media(max-width:640px){
-  .course-nav{padding:0 12px;}
+  .course-nav{padding:0 10px;}
+  .nav-group-btn{font-size:.65rem;padding:5px 8px;}
+  .nav-special{font-size:.65rem;padding:5px 8px;}
   .course-wrap{padding:0 13px 100px;}
   .chapter{padding:56px 0 36px;}
   .def-grid,.strategy-grid,.psych-grid{grid-template-columns:1fr;}
@@ -555,21 +578,88 @@ body.login-open{overflow:hidden;position:fixed;width:100%;}
 <!-- NAV -->
 <nav class="course-nav">
   <div class="nav-logo">📈 Academy</div>
-  <div class="nav-chapters">
-    <button class="nav-ch" onclick="scrollToId('ch1')">1. יסודות</button>
-    <button class="nav-ch" onclick="scrollToId('ch2')">2. מדדים</button>
-    <button class="nav-ch" onclick="scrollToId('ch3')">3. ניירות ערך</button>
-    <button class="nav-ch" onclick="scrollToId('ch3b')">3+. נכסים נוספים</button>
-    <button class="nav-ch" onclick="scrollToId('ch4')">4. ניתוח</button>
-    <button class="nav-ch" onclick="scrollToId('ch5')">5. גרפים</button>
-    <button class="nav-ch" onclick="scrollToId('ch6')">6. StockLens</button>
-    <button class="nav-ch" onclick="scrollToId('ch8')">7. מאקרו</button>
-    <button class="nav-ch" onclick="scrollToId('ch7')">8. אסטרטגיות</button>
-    <button class="nav-ch" onclick="scrollToId('ch9')">9. פסיכולוגיה</button>
-    <button class="nav-ch" onclick="scrollToId('ch10')">10. ברוקרים</button>
-    <button class="nav-ch" onclick="scrollToId('exam')">🏆 מבחן</button>
-    <button class="nav-ch" onclick="scrollToId('glossary')">📖 גלוסרי</button>
-    <button class="nav-ch" onclick="scrollToId('ch11')">11. דמו</button>
+  <div class="nav-groups">
+
+    <!-- Group 1: יסודות -->
+    <div class="nav-group" id="ng1">
+      <button class="nav-group-btn" onclick="toggleGroup('ng1')">
+        📚 יסודות <span class="arrow">▾</span>
+      </button>
+      <div class="nav-dropdown">
+        <button class="nav-item" onclick="navGo('ch1','ng1')">
+          <span class="nav-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">1</span>
+          <span class="nav-label">מה זה שוק ההון?</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch2','ng1')">
+          <span class="nav-num" style="background:rgba(247,201,72,0.15);color:var(--gold)">2</span>
+          <span class="nav-label">מדדים ו-ETF</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch3','ng1')">
+          <span class="nav-num" style="background:rgba(90,171,255,0.15);color:var(--blue)">3</span>
+          <span class="nav-label">ניירות ערך</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch3b','ng1')">
+          <span class="nav-num" style="background:rgba(90,171,255,0.12);color:var(--blue)">3+</span>
+          <span class="nav-label">נכסים נוספים</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Group 2: ניתוח -->
+    <div class="nav-group" id="ng2">
+      <button class="nav-group-btn" onclick="toggleGroup('ng2')">
+        🔍 ניתוח <span class="arrow">▾</span>
+      </button>
+      <div class="nav-dropdown">
+        <button class="nav-item" onclick="navGo('ch4','ng2')">
+          <span class="nav-num" style="background:rgba(167,139,250,0.15);color:#a78bfa">4</span>
+          <span class="nav-label">פונדמנטלי</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch5','ng2')">
+          <span class="nav-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">5</span>
+          <span class="nav-label">גרפים וטכני</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch6','ng2')">
+          <span class="nav-num" style="background:rgba(0,229,160,0.12);color:var(--accent)">6</span>
+          <span class="nav-label">StockLens</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Group 3: מתקדם -->
+    <div class="nav-group" id="ng3">
+      <button class="nav-group-btn" onclick="toggleGroup('ng3')">
+        🚀 מתקדם <span class="arrow">▾</span>
+      </button>
+      <div class="nav-dropdown">
+        <button class="nav-item" onclick="navGo('ch8','ng3')">
+          <span class="nav-num" style="background:rgba(90,171,255,0.15);color:var(--blue)">7</span>
+          <span class="nav-label">מאקרו כלכלי</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch7','ng3')">
+          <span class="nav-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">8</span>
+          <span class="nav-label">אסטרטגיות</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch9','ng3')">
+          <span class="nav-num" style="background:rgba(255,95,87,0.15);color:var(--red)">9</span>
+          <span class="nav-label">פסיכולוגיה</span>
+        </button>
+        <div class="nav-dropdown-sep"></div>
+        <button class="nav-item" onclick="navGo('ch10','ng3')">
+          <span class="nav-num" style="background:rgba(167,139,250,0.15);color:#a78bfa">10</span>
+          <span class="nav-label">ברוקרים</span>
+        </button>
+        <button class="nav-item" onclick="navGo('ch11','ng3')">
+          <span class="nav-num" style="background:rgba(0,229,160,0.15);color:var(--accent)">11</span>
+          <span class="nav-label">חשבון דמו</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Exam + Glossary -->
+    <button class="nav-special nav-exam" onclick="scrollToId('exam')">🏆 מבחן</button>
+    <button class="nav-special nav-glossary" onclick="scrollToId('glossary')">📖</button>
+
   </div>
 </nav>
 
@@ -4783,6 +4873,28 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.08});
 document.querySelectorAll('.chapter').forEach(ch=>obs.observe(ch));
 
+function toggleGroup(id){
+  const g=document.getElementById(id);
+  const isOpen=g.classList.contains('open');
+  document.querySelectorAll('.nav-group').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.nav-group-btn').forEach(x=>x.classList.remove('open'));
+  if(!isOpen){
+    g.classList.add('open');
+    g.querySelector('.nav-group-btn').classList.add('open');
+  }
+}
+function navGo(id,groupId){
+  scrollToId(id);
+  document.querySelectorAll('.nav-group').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.nav-group-btn').forEach(x=>x.classList.remove('open'));
+}
+// Close dropdown on outside click
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.nav-group')){
+    document.querySelectorAll('.nav-group').forEach(x=>x.classList.remove('open'));
+    document.querySelectorAll('.nav-group-btn').forEach(x=>x.classList.remove('open'));
+  }
+});
 function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
 
 // Quiz
