@@ -2099,22 +2099,23 @@ async function doLogin() {
 
   try {
     const hash = await hashPassword(password);
-    const data = await sbFetch('users?username=eq.' + encodeURIComponent(username) + '&select=*');
-    
-    if (!data || data.length === 0) {
-      errEl.textContent = 'שם משתמש לא נמצא';
-      btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
-      return;
-    }
 
-    const user = data[0];
-    if (!user.is_active) {
-      errEl.textContent = 'החשבון מושהה. פנה ל-Lidor Filiba';
-      btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
-      return;
-    }
-    if (user.password_hash !== hash) {
-      errEl.textContent = 'סיסמה שגויה';
+    // Edge Function — password_hash never exposed to browser
+    const r = await fetch(SB_URL + '/functions/v1/smart-function', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ username, passwordHash: hash })
+    });
+    const data = await r.json();
+
+    if (!r.ok || !data.ok) {
+      const msgs = {
+        user_not_found: 'שם משתמש לא נמצא',
+        wrong_password: 'סיסמה שגויה',
+        account_suspended: 'החשבון מושהה. פנה ל-Lidor Filiba',
+        server_error: 'שגיאת שרת — נסה שוב'
+      };
+      errEl.textContent = msgs[data.error] || 'שגיאת חיבור — נסה שוב';
       btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
       return;
     }
@@ -2122,8 +2123,8 @@ async function doLogin() {
     /* login success — reset rate limit, save session with expiry (7 days) */
     _rl.reset();
     const session = {
-      id: user.id, username: user.username, email: user.email,
-      isAdmin: user.username === ADMIN_USER,
+      id: data.user.id, username: data.user.username, email: data.user.email,
+      isAdmin: data.user.username === ADMIN_USER,
       exp: Date.now() + 7 * 24 * 60 * 60 * 1000
     };
     localStorage.setItem('sl_course_session', JSON.stringify(session));
@@ -2265,17 +2266,27 @@ async function doChangePassword() {
 
   try {
     const oldHash = await hashPassword(oldPass);
-    const data = await sbFetch('users?username=eq.' + encodeURIComponent(username) + '&email=eq.' + encodeURIComponent(email));
-    
-    if (!data || data.length === 0) { errEl.textContent = 'שם משתמש או אימייל שגויים'; return; }
-    const user = data[0];
-    if (user.password_hash !== oldHash) { errEl.textContent = 'סיסמה נוכחית שגויה'; return; }
-    
     const newHash = await hashPassword(newPass);
-    await sbFetch('users?id=eq.' + user.id, {
-      method: 'PATCH',
-      body: JSON.stringify({ password_hash: newHash })
+
+    // Edge Function — no raw user data exposed to browser
+    const r = await fetch(SB_URL + '/functions/v1/smart-function', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'change_password', username, email, oldHash, newHash })
     });
+    const data = await r.json();
+
+    if (!r.ok || !data.ok) {
+      const msgs = {
+        user_not_found: 'שם משתמש או אימייל שגויים',
+        wrong_password: 'סיסמה נוכחית שגויה',
+        account_suspended: 'החשבון מושהה',
+        server_error: 'שגיאת שרת — נסה שוב'
+      };
+      errEl.textContent = msgs[data.error] || 'שגיאה — נסה שוב';
+      return;
+    }
+
     sucEl.textContent = '✅ הסיסמה שונתה בהצלחה! עכשיו תוכל להתחבר.';
     document.getElementById('cp-old-pass').value = '';
     document.getElementById('cp-new-pass').value = '';
@@ -2297,13 +2308,20 @@ function closeAdmin() {
 
 async function loadAdminUsers() {
   const listEl = document.getElementById('admin-users-list');
+  const session = JSON.parse(localStorage.getItem('sl_course_session') || '{}');
   try {
-    const data = await sbFetch('users?select=id,username,email,is_active,created_at&order=created_at.desc');
-    if (!data || data.length === 0) {
+    const r = await fetch(SB_URL + '/functions/v1/smart-function', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'admin_list_users', admin_id: session.id, admin_username: session.username })
+    });
+    const data = await r.json();
+    if (!r.ok || !data.ok) { listEl.innerHTML = '<div style="color:var(--red)">אין הרשאות ניהול</div>'; return; }
+    if (!data.users || data.users.length === 0) {
       listEl.innerHTML = '<div style="color:var(--muted);font-size:.82rem">אין משתמשים עדיין</div>';
       return;
     }
-    listEl.innerHTML = data.map(u => `
+    listEl.innerHTML = data.users.map(u => `
       <div class="admin-user-item">
         <div class="admin-user-info">
           <div class="admin-user-name">@${u.username}</div>
@@ -2325,6 +2343,7 @@ async function adminCreateUser() {
   const email = document.getElementById('new-email').value.trim();
   const password = document.getElementById('new-password').value;
   const msgEl = document.getElementById('admin-create-msg');
+  const session = JSON.parse(localStorage.getItem('sl_course_session') || '{}');
   msgEl.className = 'admin-msg';
 
   if (!username || !email || !password) { msgEl.textContent = 'מלא את כל השדות'; msgEl.classList.add('err'); return; }
@@ -2332,10 +2351,16 @@ async function adminCreateUser() {
 
   try {
     const hash = await hashPassword(password);
-    await sbFetch('users', {
+    const r = await fetch(SB_URL + '/functions/v1/smart-function', {
       method: 'POST',
-      body: JSON.stringify({ username, email, password_hash: hash, is_active: true })
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'admin_create_user', admin_id: session.id, admin_username: session.username, username, email, password_hash: hash })
     });
+    const data = await r.json();
+    if (!r.ok || !data.ok) {
+      const msg = (data.error || '').includes('duplicate') ? 'שם משתמש או אימייל כבר קיים' : (data.error === 'unauthorized' ? 'אין הרשאות ניהול' : 'שגיאה — נסה שוב');
+      msgEl.textContent = msg; msgEl.classList.add('err'); return;
+    }
     msgEl.textContent = '✅ המשתמש ' + username + ' נוצר בהצלחה!';
     msgEl.classList.add('ok');
     document.getElementById('new-username').value = '';
@@ -2343,19 +2368,22 @@ async function adminCreateUser() {
     document.getElementById('new-password').value = '';
     loadAdminUsers();
   } catch(e) {
-    const msg = e.message.includes('duplicate') ? 'שם משתמש או אימייל כבר קיים' : 'שגיאה — נסה שוב';
-    msgEl.textContent = msg;
+    msgEl.textContent = 'שגיאה — נסה שוב';
     msgEl.classList.add('err');
     console.error(e);
   }
 }
 
 async function adminToggleUser(id, currentActive) {
+  const session = JSON.parse(localStorage.getItem('sl_course_session') || '{}');
   try {
-    await sbFetch('users?id=eq.' + id, {
-      method: 'PATCH',
-      body: JSON.stringify({ is_active: !currentActive })
+    const r = await fetch(SB_URL + '/functions/v1/smart-function', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'admin_toggle_user', admin_id: session.id, admin_username: session.username, target_id: id, is_active: !currentActive })
     });
+    const data = await r.json();
+    if (!r.ok || !data.ok) { alert('שגיאה בעדכון'); return; }
     loadAdminUsers();
   } catch(e) {
     alert('שגיאה בעדכון');
@@ -3061,14 +3089,18 @@ async function doForgotPassword() {
   if (!username) { errEl.textContent = 'הכנס שם משתמש'; return; }
   btn.disabled = true; btn.textContent = 'שולח...';
   try {
-    var data = await sbFetch('users?username=eq.' + encodeURIComponent(username) + '&select=id,email,is_active');
-    if (!data || data.length === 0) { errEl.textContent = 'שם משתמש לא נמצא'; btn.disabled=false; btn.textContent='שלח סיסמה זמנית 📧'; return; }
-    var user = data[0];
-    if (!user.is_active) { errEl.textContent = 'החשבון מושהה'; btn.disabled=false; btn.textContent='שלח סיסמה זמנית 📧'; return; }
-    var tempPass = generateTempPassword();
-    var newHash = await hashPassword(tempPass);
-    await sbFetch('users?id=eq.' + user.id, { method: 'PATCH', body: JSON.stringify({ password_hash: newHash }) });
-    await emailjs.send('service_s5wzeck', 'template_forgot_password', { to_email: user.email, username: username, temp_pass: tempPass });
+    // Edge Function generates temp password and sends email server-side
+    var r = await fetch(SB_URL + '/functions/v1/smart-function', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'forgot_password', username })
+    });
+    var data = await r.json();
+    if (!r.ok || !data.ok) {
+      const msgs = { user_not_found: 'שם משתמש לא נמצא', account_suspended: 'החשבון מושהה', server_error: 'שגיאת שרת — נסה שוב' };
+      errEl.textContent = msgs[data.error] || 'שגיאה — נסה שוב';
+      btn.disabled = false; btn.textContent = 'שלח סיסמה זמנית 📧'; return;
+    }
     sucEl.textContent = '✅ נשלח! בדוק אימייל (כולל ספאם).';
     document.getElementById('fp-username').value = '';
   } catch(e) { errEl.textContent = 'שגיאה — נסה שוב'; console.error(e); }
