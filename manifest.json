@@ -1,6 +1,6 @@
 {
   "name": "StockLens Academy",
-  "short_name": "אקדמי",
+  "short_name": "Academy",
   "description": "קורס שוק ההון מ-0 עד 100 | StockLens Academy",
   "start_url": "/AcademyTest/",
   "display": "standalone",
