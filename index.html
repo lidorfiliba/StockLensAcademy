@@ -2418,47 +2418,6 @@ async function sbFetch(path, options = {}) {
   return r.json();
 }
 
-/* ── עדכון אבטחה: ה-session נשען מעכשיו על token שמונפק ומאומת בשרת ──
-   session שמור ללא token, או token שהשרת דוחה, מחייב כניסה מחדש פעם אחת. */
-const SL_RELOGIN_FLAG = 'sl_relogin_notice';
-const SL_RELOGIN_MSG = 'בוצע עדכון אבטחה — יש להתחבר מחדש פעם אחת.';
-
-function slClearSession() {
-  localStorage.removeItem('sl_course_session');
-  sessionStorage.removeItem('sl_course_user');
-}
-
-/* מנקה את ה-session וחוזר למסך הכניסה עם ההודעה */
-function slForceRelogin() {
-  slClearSession();
-  try { sessionStorage.setItem(SL_RELOGIN_FLAG, '1'); } catch(e) {}
-  location.reload();
-}
-
-function slShowReloginNotice() {
-  if (sessionStorage.getItem(SL_RELOGIN_FLAG) !== '1') return;
-  sessionStorage.removeItem(SL_RELOGIN_FLAG);
-  const errEl = document.getElementById('login-error');
-  if (errEl) { errEl.textContent = SL_RELOGIN_MSG; errEl.style.color = 'var(--accent)'; }
-}
-
-/* התנתקות — מבטלת את ה-session בשרת, לא רק בדפדפן */
-async function slLogout() {
-  let session = {};
-  try { session = JSON.parse(localStorage.getItem('sl_course_session') || '{}'); } catch(e) {}
-  if (session.token) {
-    try {
-      await fetch(SB_URL + '/functions/v1/smart-function', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'X-Course-Token': session.token },
-        body: JSON.stringify({ action: 'logout' })
-      });
-    } catch(e) {}
-  }
-  slClearSession();
-  location.reload();
-}
-
 // Check session on load
 (function() {
   const raw = localStorage.getItem('sl_course_session') || sessionStorage.getItem('sl_course_user');
@@ -2467,26 +2426,20 @@ async function slLogout() {
       const user = JSON.parse(raw);
       /* אם session ישן (sessionStorage) — אין שדה exp, מאשרים פעם אחת ומעבירים ל-localStorage */
       if (!user.exp || Date.now() < user.exp) {
-        /* session מלפני עדכון האבטחה — אין token, מחייב כניסה מחדש */
-        if (!user.token) {
-          slClearSession();
-          try { sessionStorage.setItem(SL_RELOGIN_FLAG, '1'); } catch(e) {}
-        } else {
-          if (!user.exp) {
-            user.exp = Date.now() + 7 * 24 * 60 * 60 * 1000;
-            localStorage.setItem('sl_course_session', JSON.stringify(user));
-            sessionStorage.removeItem('sl_course_user');
-          }
-          showCourse(user);
-          return;
+        if (!user.exp) {
+          user.exp = Date.now() + 7 * 24 * 60 * 60 * 1000;
+          localStorage.setItem('sl_course_session', JSON.stringify(user));
+          sessionStorage.removeItem('sl_course_user');
         }
+        showCourse(user);
+        return;
       }
     } catch(e) {}
     /* session פג תוקף */
-    slClearSession();
+    localStorage.removeItem('sl_course_session');
+    sessionStorage.removeItem('sl_course_user');
   }
   document.body.classList.add('login-open');
-  slShowReloginNotice();
 })();
 
 function switchLoginTab(tab) {
@@ -2522,7 +2475,6 @@ async function doLogin() {
   const password = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
   const btn = document.getElementById('login-submit-btn');
-  errEl.style.color = '';
 
   if (!username || !password) { errEl.textContent = 'מלא שם משתמש וסיסמה'; return; }
 
@@ -2563,19 +2515,10 @@ async function doLogin() {
 
     /* login success — reset rate limit, save session with expiry (7 days) */
     _rl.reset();
-
-    /* בלי token מהשרת אין גישה לקורס — קורה רק אם ה-Edge Function עדיין לא עודכן */
-    if (!data.token) {
-      errEl.textContent = 'המערכת מתעדכנת כרגע. נסה שוב בעוד מספר דקות.';
-      btn.disabled = false; btn.textContent = 'כניסה לקורס ←';
-      return;
-    }
-
     const session = {
       id: data.user.id, username: data.user.username, email: data.user.email,
       isAdmin: data.user.username === ADMIN_USER,
       plan: data.user.plan || 'full',
-      token: data.token,
       exp: Date.now() + 7 * 24 * 60 * 60 * 1000
     };
     localStorage.setItem('sl_course_session', JSON.stringify(session));
@@ -2599,7 +2542,7 @@ async function showCourse(user) {
       '<div style="font-size:1rem;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:28px;">הגישה שלך כוללת <strong style="color:#00e5a0;">StockLens Analyzer</strong> בלבד.<br>הקורס אינו כלול בתוכנית שרכשת.</div>',
       '<a href="https://lidorfiliba.github.io/StockLens/" style="display:block;background:linear-gradient(135deg,#00e5a0,#00b37a);color:#000;font-weight:900;font-size:1.1rem;padding:18px 32px;border-radius:14px;text-decoration:none;margin-bottom:14px;font-family:Heebo,sans-serif;">כניסה ל-StockLens Analyzer ←</a>',
       '<a href="https://wa.me/9720546667812" target="_blank" style="display:block;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);color:#25d366;font-weight:700;font-size:.95rem;padding:14px 24px;border-radius:12px;text-decoration:none;margin-bottom:14px;font-family:Heebo,sans-serif;">💬 צור קשר בוואטסאפ</a>',
-      '<button onclick="slLogout()" style="background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.35);font-size:.85rem;padding:10px 24px;cursor:pointer;font-family:Heebo,sans-serif;width:100%;">התנתק</button>',
+      '<button onclick="localStorage.removeItem(\'sl_course_session\');location.reload();" style="background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.35);font-size:.85rem;padding:10px 24px;cursor:pointer;font-family:Heebo,sans-serif;width:100%;">התנתק</button>',
       '</div></div>'
     ].join('');
     gate.classList.remove('hidden');
@@ -2673,22 +2616,20 @@ async function showCourse(user) {
   const _controller = new AbortController();
   const _timeout = setTimeout(() => { _controller.abort(); }, 5000);
 
-  /* הזהות נקבעת אך ורק לפי ה-token בכותרת — אין יותר user_id בגוף הבקשה */
-  fetch(SB_URL + '/functions/v1/get-key', {
+  fetch('https://flcakringwxebpeifhke.supabase.co/functions/v1/get-key', {
     method: 'POST',
     headers: {
-      'apikey': SB_KEY,
-      'Authorization': 'Bearer ' + SB_KEY,
-      'X-Course-Token': user.token || ''
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsY2FrcmluZ3d4ZWJwZWlmaGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTIwMjAsImV4cCI6MjA4OTA4ODAyMH0.-j-id8o3FeYig15Xmq6QHV4eDMXUB98e3Z8p30Eaf2U',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsY2FrcmluZ3d4ZWJwZWlmaGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTIwMjAsImV4cCI6MjA4OTA4ODAyMH0.-j-id8o3FeYig15Xmq6QHV4eDMXUB98e3Z8p30Eaf2U',
+      'Content-Type': 'application/json'
     },
+    body: JSON.stringify({ user_id: user.id }),
     signal: _controller.signal
   })
-  .then(async r => {
+  .then(r => r.json())
+  .then(data => {
     clearTimeout(_timeout);
-    /* השרת דחה את ה-token — ניקוי session וחזרה למסך הכניסה */
-    if (r.status === 401) { slForceRelogin(); return; }
-    const data = await r.json();
-    if (data && data.key) {
+    if (data.key) {
       _decryptAndShow(data.key).catch(() => _fallback());
     } else {
       _fallback();
@@ -2716,7 +2657,9 @@ function showUserMenu() {
     openAdmin();
   } else {
     if (confirm('👤 ' + user.username + '\n\nרוצה להתנתק?')) {
-      slLogout();
+      localStorage.removeItem('sl_course_session');
+      sessionStorage.removeItem('sl_course_user');
+      location.reload();
     }
   }
 }
@@ -2781,8 +2724,8 @@ async function loadAdminUsers() {
   try {
     const r = await fetch(SB_URL + '/functions/v1/smart-function', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'X-Course-Token': session.token || '' },
-      body: JSON.stringify({ action: 'admin_list_users' })
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'admin_list_users', admin_id: session.id, admin_username: session.username })
     });
     const data = await r.json();
     if (!r.ok || !data.ok) { listEl.innerHTML = '<div style="color:var(--red)">אין הרשאות ניהול</div>'; return; }
@@ -2822,8 +2765,8 @@ async function adminCreateUser() {
     const hash = await hashPassword(password);
     const r = await fetch(SB_URL + '/functions/v1/smart-function', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'X-Course-Token': session.token || '' },
-      body: JSON.stringify({ action: 'admin_create_user', username, email, password_hash: hash })
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'admin_create_user', admin_id: session.id, admin_username: session.username, username, email, password_hash: hash })
     });
     const data = await r.json();
     if (!r.ok || !data.ok) {
@@ -2848,8 +2791,8 @@ async function adminToggleUser(id, currentActive) {
   try {
     const r = await fetch(SB_URL + '/functions/v1/smart-function', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'X-Course-Token': session.token || '' },
-      body: JSON.stringify({ action: 'admin_toggle_user', target_id: id, is_active: !currentActive })
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ action: 'admin_toggle_user', admin_id: session.id, admin_username: session.username, target_id: id, is_active: !currentActive })
     });
     const data = await r.json();
     if (!r.ok || !data.ok) { alert('שגיאה בעדכון'); return; }
