@@ -130,11 +130,14 @@ serve(async (req) => {
      and on suspension: those events must not leave a live session behind in the
      course app or in the StockLens tool. */
   async function revokeAllSessions(userId: string) {
+    /* Deliberately not filtered by `revoked = false`. Re-revoking an already
+       revoked row costs nothing, whereas the filter would skip any row whose
+       revoked value is NULL — and silently failing to revoke is the one
+       outcome this function must never have. */
     await supabase
       .from('course_sessions')
       .update({ revoked: true })
-      .eq('user_id', userId)
-      .eq('revoked', false);
+      .eq('user_id', userId);
   }
 
   /* Issue a session and enforce the per-app cap.
@@ -145,12 +148,19 @@ serve(async (req) => {
     const tokenHash = await sha256Hex(token);
     const expiresAt = new Date(Date.now() + SESSION_TTL_DAYS * 86400_000).toISOString();
 
+    /* revoked is written explicitly rather than left to a column default. If
+       the column were nullable with no default, every `revoked = false` filter
+       below would silently match nothing: sessions would never be evicted and,
+       far worse, revokeAllSessions would update zero rows, so suspending a user
+       would not actually kill their sessions. Writing it removes that
+       dependency on how the table happens to be defined. */
     const { error } = await supabase.from('course_sessions').insert({
       user_id: userId,
       token_hash: tokenHash,
       expires_at: expiresAt,
       user_agent: userAgent.slice(0, 400),
       app,
+      revoked: false,
     });
     /* A session that fails to store must not fail the login — the client can
        still fall back to the legacy user_id path. */
