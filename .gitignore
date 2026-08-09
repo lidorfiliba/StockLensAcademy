@@ -1,0 +1,7 @@
+# Timestamped index.html backups written by scripts/reencrypt-course.js
+backups/
+
+# Never commit local env files — the course key and service_role key live in
+# Supabase secrets, not in this repository.
+.env
+.env.*
