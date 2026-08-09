@@ -1,4 +1,4 @@
-const CACHE = 'stocklens-academy-v1';
+const CACHE = 'stocklens-academy-v2';
 const ASSETS = [
   './',
   './index.html'

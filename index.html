@@ -2497,7 +2497,10 @@ async function doLogin() {
     const r = await fetch(SB_URL + '/functions/v1/smart-function', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
-      body: JSON.stringify({ username, passwordHash: hash })
+      /* `app` tells the server which application this session belongs to, so the
+         2-session cap is counted per app and signing into the StockLens tool
+         cannot evict a course session. Older servers ignore the extra field. */
+      body: JSON.stringify({ username, passwordHash: hash, app: 'course' })
     });
     const data = await r.json();
 
@@ -2521,6 +2524,10 @@ async function doLogin() {
       plan: data.user.plan || 'full',
       exp: Date.now() + 7 * 24 * 60 * 60 * 1000
     };
+    /* Session token, if this server issues them. An older server that does not
+       return `token` simply leaves it undefined and the client keeps using the
+       user_id path — that is a supported state, not an error. */
+    if (data.token) session.token = data.token;
     localStorage.setItem('sl_course_session', JSON.stringify(session));
     showCourse(session);
   } catch(e) {
@@ -2542,7 +2549,7 @@ async function showCourse(user) {
       '<div style="font-size:1rem;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:28px;">הגישה שלך כוללת <strong style="color:#00e5a0;">StockLens Analyzer</strong> בלבד.<br>הקורס אינו כלול בתוכנית שרכשת.</div>',
       '<a href="https://lidorfiliba.github.io/StockLens/" style="display:block;background:linear-gradient(135deg,#00e5a0,#00b37a);color:#000;font-weight:900;font-size:1.1rem;padding:18px 32px;border-radius:14px;text-decoration:none;margin-bottom:14px;font-family:Heebo,sans-serif;">כניסה ל-StockLens Analyzer ←</a>',
       '<a href="https://wa.me/9720546667812" target="_blank" style="display:block;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);color:#25d366;font-weight:700;font-size:.95rem;padding:14px 24px;border-radius:12px;text-decoration:none;margin-bottom:14px;font-family:Heebo,sans-serif;">💬 צור קשר בוואטסאפ</a>',
-      '<button onclick="localStorage.removeItem(\'sl_course_session\');location.reload();" style="background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.35);font-size:.85rem;padding:10px 24px;cursor:pointer;font-family:Heebo,sans-serif;width:100%;">התנתק</button>',
+      '<button onclick="doLogout()" style="background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.35);font-size:.85rem;padding:10px 24px;cursor:pointer;font-family:Heebo,sans-serif;width:100%;">התנתק</button>',
       '</div></div>'
     ].join('');
     gate.classList.remove('hidden');
@@ -2616,29 +2623,70 @@ async function showCourse(user) {
   const _controller = new AbortController();
   const _timeout = setTimeout(() => { _controller.abort(); }, 5000);
 
-  fetch('https://flcakringwxebpeifhke.supabase.co/functions/v1/get-key', {
-    method: 'POST',
-    headers: {
-      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsY2FrcmluZ3d4ZWJwZWlmaGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTIwMjAsImV4cCI6MjA4OTA4ODAyMH0.-j-id8o3FeYig15Xmq6QHV4eDMXUB98e3Z8p30Eaf2U',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsY2FrcmluZ3d4ZWJwZWlmaGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTIwMjAsImV4cCI6MjA4OTA4ODAyMH0.-j-id8o3FeYig15Xmq6QHV4eDMXUB98e3Z8p30Eaf2U',
+  /* ── COURSE KEY ────────────────────────────────────────────────────────────
+     Two ways to authenticate, on purpose:
+       · session token in X-Course-Token — the real one
+       · user_id in the body             — the legacy one, still accepted
+     The legacy path stays until every customer has logged in again on a client
+     that stores a token. Until then a missing token is a normal state, NOT a
+     reason to sign anyone out.
+
+     Only a genuine 401 from BOTH paths clears the session. A network failure or
+     a timeout must never sign a paying customer out; that just shows the retry
+     screen, exactly as before.                                                */
+  var _KEY_URL = 'https://flcakringwxebpeifhke.supabase.co/functions/v1/get-key';
+  var _ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsY2FrcmluZ3d4ZWJwZWlmaGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTIwMjAsImV4cCI6MjA4OTA4ODAyMH0.-j-id8o3FeYig15Xmq6QHV4eDMXUB98e3Z8p30Eaf2U';
+
+  function _sessionExpired() {
+    localStorage.removeItem('sl_course_session');
+    sessionStorage.removeItem('sl_course_user');
+    location.reload();
+  }
+
+  function _requestKey(useToken) {
+    var headers = {
+      'apikey': _ANON,
+      'Authorization': 'Bearer ' + _ANON,
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ user_id: user.id }),
-    signal: _controller.signal
-  })
-  .then(r => r.json())
-  .then(data => {
-    clearTimeout(_timeout);
-    if (data.key) {
-      _decryptAndShow(data.key).catch(() => _fallback());
-    } else {
+    };
+    if (useToken && user.token) headers['X-Course-Token'] = user.token;
+    return fetch(_KEY_URL, {
+      method: 'POST',
+      headers: headers,
+      /* user_id is still sent so the legacy path works for anyone whose token
+         is missing. REMOVE AFTER ROLLOVER, together with the server path. */
+      body: JSON.stringify({ user_id: user.id }),
+      signal: _controller.signal
+    });
+  }
+
+  _requestKey(true)
+    .then(function(r) {
+      /* A token that the server rejects must not lock anyone out while the
+         legacy path is still live — retry once without it. When the legacy
+         path is finally deleted this retry will 401 too and the session will
+         be cleared, which is the intended end state. */
+      if (r.status === 401 && user.token) return _requestKey(false);
+      return r;
+    })
+    .then(function(r) {
+      clearTimeout(_timeout);
+      if (r.status === 401) { _sessionExpired(); return null; }
+      return r.json();
+    })
+    .then(function(data) {
+      if (!data) return;
+      if (data.key) {
+        _decryptAndShow(data.key).catch(function() { _fallback(); });
+      } else {
+        _fallback();
+      }
+    })
+    .catch(function() {
+      /* Network error, timeout or abort — keep the session, show the retry UI. */
+      clearTimeout(_timeout);
       _fallback();
-    }
-  })
-  .catch(() => {
-    clearTimeout(_timeout);
-    _fallback();
-  });
+    });
   
   // Show user menu
   const menuBtn = document.getElementById('user-menu-btn');
@@ -2651,15 +2699,38 @@ async function showCourse(user) {
   }
 }
 
+/* Logging out revokes the session on the server as well as clearing it here.
+   Clearing localStorage alone leaves the token live for its full 7 days, so a
+   shared or stolen copy would keep working after the user thought they had
+   signed out. The local clear happens no matter what the network does. */
+async function doLogout() {
+  const s = JSON.parse(localStorage.getItem('sl_course_session') || '{}');
+  if (s.token) {
+    try {
+      await fetch(SB_URL + '/functions/v1/smart-function', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SB_KEY,
+          'Authorization': 'Bearer ' + SB_KEY,
+          'X-Course-Token': s.token
+        },
+        body: JSON.stringify({ action: 'logout' })
+      });
+    } catch (e) { /* offline — clear locally anyway */ }
+  }
+  localStorage.removeItem('sl_course_session');
+  sessionStorage.removeItem('sl_course_user');
+  location.reload();
+}
+
 function showUserMenu() {
   const user = JSON.parse(localStorage.getItem('sl_course_session') || sessionStorage.getItem('sl_course_user') || '{}');
   if (user.isAdmin) {
     openAdmin();
   } else {
     if (confirm('👤 ' + user.username + '\n\nרוצה להתנתק?')) {
-      localStorage.removeItem('sl_course_session');
-      sessionStorage.removeItem('sl_course_user');
-      location.reload();
+      doLogout();
     }
   }
 }
