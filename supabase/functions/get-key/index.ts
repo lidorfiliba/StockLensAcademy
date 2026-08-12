@@ -1,28 +1,27 @@
 // supabase/functions/get-key/index.ts
 // Deploy: supabase functions deploy get-key
 //
-// Returns the course decryption key. Two ways to prove you may have it:
-//
-//   1. NEW  — an opaque session token in the X-Course-Token header, issued by
-//             smart-function at login and verified against course_sessions.
-//   2. OLD  — a user_id in the JSON body, exactly as before.
+// Returns a course decryption key. There is exactly ONE way to prove you may
+// have it: an opaque session token in the X-Course-Token header, issued by
+// smart-function at login and verified against the course_sessions table on
+// every single request. There is no other path.
 //
 // ─────────────────────────────────────────────────────────────────────────────
-// REMOVE AFTER ROLLOVER
-// Path 2 is the pre-existing behaviour and is the weak one: user_id sits in
-// plaintext in every customer's localStorage, so anyone who shares that one
-// string hands over the whole course. It is kept ON PURPOSE and TEMPORARILY so
-// that customers still running a cached copy of the old client are not locked
-// out the moment this function is deployed.
+// KEY VERSIONING — why two keys exist at once
 //
-// Retire it only once all of the following are true:
-//   · the updated course client has been live long enough for caches to turn
-//     over (the service worker serves index.html network-first, so this is
-//     days, not weeks)
-//   · the StockLens tool has been checked — if it calls get-key at all, it must
-//     send X-Course-Token first
-//   · course_sessions shows token traffic and the legacy path has gone quiet
-// Then delete the block marked "LEGACY PATH" below and this comment with it.
+// The course HTML is served by GitHub Pages behind a CDN that keeps serving a
+// stale index.html for minutes after a push. If this function returned only the
+// new key, every client still holding the old cached index.html would receive a
+// key that cannot decrypt the payload it has, and the course would fail to open
+// for those users until the CDN caught up.
+//
+// So the client tells us which payload it is holding:
+//
+//   version 1, or absent  ->  KEY_V1  (the old key, for stale cached clients)
+//   version 2             ->  KEY_V2  (the new key, for the pushed client)
+//
+// Both require a valid session. KEY_V1 is retired — and the leaked key with it
+// — by deleting the v1 branch below once the CDN has fully flipped.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
@@ -41,11 +40,19 @@ const corsHeaders = {
 const PLANS_WITHOUT_COURSE = new Set(["tools"]);
 
 function unauthorized() {
-  /* One identical response for every failure: bad token, revoked token, expired
-     token, unknown user, suspended user, wrong plan. Never say which. */
+  /* One identical response for every failure: absent token, bad token, revoked
+     token, expired token, unknown user, suspended user, wrong plan. Never say
+     which, and never include key material of any kind. */
   return new Response(
     JSON.stringify({ error: "Unauthorized" }),
     { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+  );
+}
+
+function serverError() {
+  return new Response(
+    JSON.stringify({ error: "Server error" }),
+    { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
   );
 }
 
@@ -61,111 +68,97 @@ serve(async (req) => {
   }
 
   try {
-    /* The key is only ever read from the environment. Never hardcode it here,
-       and never log it. COURSE_KEY is the current secret name; the fallback
-       keeps the previously deployed name working if COURSE_KEY is unset. */
-    const COURSE_KEY = Deno.env.get("COURSE_KEY") ?? Deno.env.get("COURSE_DECRYPTION_KEY");
-    if (!COURSE_KEY) {
-      return new Response(
-        JSON.stringify({ error: "Server error" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    /* ── AUTH FIRST ───────────────────────────────────────────────────────────
+       The token is checked before any key is read from the environment, so an
+       unauthenticated request never touches key material at all. */
+    const token = req.headers.get("x-course-token");
+    if (!token) return unauthorized();
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    const token = req.headers.get("x-course-token");
-
-    // Body is optional when a token is supplied.
-    let user_id: string | undefined;
+    /* The body is read only for the key version. Any `user_id` an older client
+       still sends is ignored: it is not an identity here and never will be
+       again. The legacy path that trusted it has been deleted, not disabled. */
+    let version = 1;
     try {
       const parsed = await req.json();
-      user_id = parsed?.user_id;
+      const raw = parsed?.version;
+      if (raw !== undefined && raw !== null) version = Number(raw);
     } catch {
-      user_id = undefined;
+      version = 1;
     }
-
-    // ── PATH 1: session token ────────────────────────────────────────────────
-    if (token) {
-      const tokenHash = await sha256Hex(token);
-
-      const { data: sessions } = await supabase
-        .from("course_sessions")
-        .select("id, user_id, revoked, expires_at, app")
-        .eq("token_hash", tokenHash)
-        .limit(1);
-
-      if (!sessions || sessions.length === 0) return unauthorized();
-      const session = sessions[0];
-
-      if (session.revoked) return unauthorized();
-      if (!session.expires_at || new Date(session.expires_at).getTime() <= Date.now()) {
-        return unauthorized();
-      }
-
-      /* APP SCOPING — intentionally NOT enforced yet. Uncomment once it is
-         confirmed whether the StockLens tool calls get-key; enabling it before
-         that would lock the tool out.
-             if (session.app !== 'course') return unauthorized(); */
-
-      const { data: users } = await supabase
-        .from("users")
-        .select("id, is_active, plan")
-        .eq("id", session.user_id)
-        .limit(1);
-
-      if (!users || users.length === 0) return unauthorized();
-      const user = users[0];
-
-      if (!user.is_active) return unauthorized();
-      if (PLANS_WITHOUT_COURSE.has(user.plan ?? "")) return unauthorized();
-
-      // Best effort — a failed touch must not deny a valid request.
-      await supabase
-        .from("course_sessions")
-        .update({ last_seen_at: new Date().toISOString() })
-        .eq("id", session.id);
-
+    if (version !== 1 && version !== 2) {
       return new Response(
-        JSON.stringify({ key: COURSE_KEY }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // ── PATH 2: LEGACY user_id — REMOVE AFTER ROLLOVER ───────────────────────
-    /* Byte-for-byte the same checks the deployed version performs today:
-       the user must exist and be active. No plan check is added here on
-       purpose — adding one would change the behaviour of the path that every
-       existing customer is currently using, which is exactly the kind of
-       change that locked people out before. The plan check lives on the token
-       path, and becomes universal when this block is deleted. */
-    if (!user_id) {
-      return new Response(
-        JSON.stringify({ error: "Missing user_id" }),
+        JSON.stringify({ error: "Unsupported version" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const { data: user, error } = await supabase
-      .from("users")
-      .select("id, is_active")
-      .eq("id", user_id)
-      .single();
+    // ── SESSION: verified against the server-side store, every request ────────
+    const tokenHash = await sha256Hex(token);
 
-    if (error || !user || !user.is_active) return unauthorized();
+    const { data: sessions } = await supabase
+      .from("course_sessions")
+      .select("id, user_id, revoked, expires_at, app")
+      .eq("token_hash", tokenHash)
+      .limit(1);
+
+    if (!sessions || sessions.length === 0) return unauthorized();
+    const session = sessions[0];
+
+    if (session.revoked) return unauthorized();
+    if (!session.expires_at || new Date(session.expires_at).getTime() <= Date.now()) {
+      return unauthorized();
+    }
+
+    /* APP SCOPING — still not enforced, and enforcing it here would be a false
+       assurance. The Analyzer does not send an `app` field at login, so
+       smart-function tags its sessions 'course' by default; an `app === 'course'`
+       test would therefore pass for Analyzer tokens and change nothing. Make the
+       Analyzer send app:'analyzer' first, then enable this:
+           if (session.app !== 'course') return unauthorized(); */
+
+    const { data: users } = await supabase
+      .from("users")
+      .select("id, is_active, plan")
+      .eq("id", session.user_id)
+      .limit(1);
+
+    if (!users || users.length === 0) return unauthorized();
+    const user = users[0];
+
+    if (!user.is_active) return unauthorized();
+    if (PLANS_WITHOUT_COURSE.has(user.plan ?? "")) return unauthorized();
+
+    // ── KEY SELECTION ────────────────────────────────────────────────────────
+    /* Keys are only ever read from the environment. Never hardcode one here,
+       never log one, never return one on any path above this line.
+
+       KEY_V1 falls back to the pre-rotation secret names so that a deploy which
+       lands before the new secrets are set still serves the old key correctly
+       rather than 500ing every request. KEY_V2 has no fallback on purpose: if
+       it is unset, the honest answer is a server error, not the wrong key. */
+    const key = version === 2
+      ? Deno.env.get("KEY_V2")
+      : (Deno.env.get("KEY_V1") ?? Deno.env.get("COURSE_KEY") ?? Deno.env.get("COURSE_DECRYPTION_KEY"));
+
+    if (!key) return serverError();
+
+    // Best effort — a failed touch must not deny a valid request.
+    await supabase
+      .from("course_sessions")
+      .update({ last_seen_at: new Date().toISOString() })
+      .eq("id", session.id);
 
     return new Response(
-      JSON.stringify({ key: COURSE_KEY }),
+      JSON.stringify({ key }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
 
   } catch (_err) {
-    return new Response(
-      JSON.stringify({ error: "Server error" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return serverError();
   }
 });
