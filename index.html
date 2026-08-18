@@ -3164,7 +3164,10 @@ function isIsraeliMobile(raw){ return /^05\d{8}$/.test(normalisePhone(raw)); }
    their email or their thank-you page. SB_KEY is the anon key already present
    in this page; the service_role key that writes the row exists only inside the
    Edge Function. */
-async function logOrder(payload){
+var ORDER_RETRY_KEY = 'sl_order_backup_queue';
+
+/* One attempt. Resolves to a result object — never throws, never rejects. */
+async function postOrderOnce(payload){
   try {
     var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
     var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 8000) : null;
@@ -3176,12 +3179,59 @@ async function logOrder(payload){
     });
     if (timer) clearTimeout(timer);
     var d = await r.json().catch(function(){ return {}; });
-    if (!r.ok || !d.ok) { console.error('[log-order] order backup failed', r.status, d); return false; }
-    return true;
+    if (r.ok && d.ok && d.stored) return { ok: true, detail: 'stored' };
+    return { ok: false, detail: 'HTTP ' + r.status + ' ' + (d.error || '') + (d.code ? ' (' + d.code + ')' : '') };
   } catch(e) {
-    console.error('[log-order] order backup failed', e);
-    return false;
+    return { ok: false, detail: String(e && e.message ? e.message : e) };
   }
+}
+
+/* Queue an order that could not be written so it is not lost when the browser
+   closes, and drain the queue on the next load from any surface. */
+function queueFailedOrder(payload){
+  try {
+    var q = JSON.parse(localStorage.getItem(ORDER_RETRY_KEY) || '[]');
+    for (var i = 0; i < q.length; i++) if (q[i].order_id === payload.order_id) return;
+    q.push(payload);
+    localStorage.setItem(ORDER_RETRY_KEY, JSON.stringify(q.slice(-20)));
+  } catch(e) {}
+}
+
+async function flushFailedOrders(){
+  var q;
+  try { q = JSON.parse(localStorage.getItem(ORDER_RETRY_KEY) || '[]'); } catch(e) { return; }
+  if (!q || !q.length) return;
+  var left = [];
+  for (var i = 0; i < q.length; i++) {
+    var res = await postOrderOnce(q[i]);
+    if (res.ok) console.warn('[log-order] recovered a queued order backup:', q[i].order_id);
+    else left.push(q[i]);
+  }
+  try { localStorage.setItem(ORDER_RETRY_KEY, JSON.stringify(left)); } catch(e) {}
+}
+setTimeout(flushFailedOrders, 4000);
+
+/* ── Durable order backup ────────────────────────────────────────────────────
+   Never throws and never rejects: the caller awaits it on the way to the
+   redirect, and a backup that cannot be written must not cost the customer
+   their email or their thank-you page.
+
+   The failure is NOT swallowed. It is retried, queued for the next page load,
+   written to the console, and returned to the caller so it can be stated in the
+   order email — the one channel that reaches the admin whether or not the
+   database write worked. */
+async function logOrder(payload){
+  var last = '';
+  for (var attempt = 1; attempt <= 3; attempt++) {
+    var res = await postOrderOnce(payload);
+    if (res.ok) return { ok: true, status: 'ok' };
+    last = res.detail;
+    console.error('[log-order] backup attempt ' + attempt + '/3 failed for ' + payload.order_id + ': ' + last);
+    if (attempt < 3) await new Promise(function(r){ setTimeout(r, attempt * 500); });
+  }
+  queueFailedOrder(payload);
+  console.error('[log-order] ORDER NOT BACKED UP — queued for retry: ' + payload.order_id + ' (' + last + ')');
+  return { ok: false, status: 'FAILED: ' + last };
 }
 
 async function submitPurchase(){
@@ -3240,11 +3290,20 @@ async function submitPurchase(){
      catch below and the order would be lost from both places at once — the
      exact scenario this table exists to survive. logOrder never throws, so a
      backup failure falls through to the email and the redirect untouched. */
-  await logOrder({
+  const backup = await logOrder({
     order_id: orderId, name: name, email: email,
     phone: normalisePhone(phone), amount: value, currency: currency,
     source_surface: 'course'
   });
+
+  /* When the database write fails, this email is the ONLY place the order
+     exists — so it says so at the top of the body rather than reading like a
+     normal order. */
+  const backupNote = backup.ok
+    ? '✅ נשמר בגיבוי במסד הנתונים.\n\n'
+    : '🚨 הגיבוי במסד הנתונים נכשל — ההזמנה הזו קיימת רק במייל הזה!\n'
+      + 'סיבה: ' + backup.status + '\n'
+      + 'יש לרשום את ההזמנה ידנית.\n\n';
 
   try {
     await emailjs.send('service_s5wzeck', 'template_3pfjg4g', {
@@ -3257,8 +3316,9 @@ async function submitPurchase(){
       /* Additive only — every field above keeps its existing name and meaning
          so the shared EmailJS template renders exactly as it did before. */
       order_id:   orderId,
-      subject:    '🎓 רכישה חדשה — Academy | ' + username,
-      message:    'בקשת רכישה חדשה!\n\nמספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime
+      backup_status: backup.ok ? 'DB backup: OK' : 'DB BACKUP FAILED — ' + backup.status,
+      subject:    (backup.ok ? '🎓 רכישה חדשה — Academy | ' : '🚨 רכישה — גיבוי נכשל — Academy | ') + username,
+      message:    'בקשת רכישה חדשה!\n\n' + backupNote + 'מספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nסכום: ' + value + ' ' + currency + '\nזמן: ' + orderTime
     });
     /* Transition notice only — NOT a confirmation. The order is confirmed on
        the thank-you page and nowhere else. The old "✅ נשלח!" message here was
@@ -3269,8 +3329,8 @@ async function submitPurchase(){
     goToThankYou();
   } catch(err) {
     // Fallback mailto
-    const subject = encodeURIComponent('🎓 רכישה — Academy | ' + username);
-    const body    = encodeURIComponent('מספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime);
+    const subject = encodeURIComponent((backup.ok ? '🎓 רכישה — Academy | ' : '🚨 רכישה — גיבוי נכשל — Academy | ') + username);
+    const body    = encodeURIComponent(backupNote + 'מספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nסכום: ' + value + ' ' + currency + '\nזמן: ' + orderTime);
     window.open('mailto:lidorfiliba@gmail.com?subject=' + subject + '&body=' + body);
     sucEl.textContent = '✅ נשלח! מעביר אותך לאישור ההזמנה...';
     btn.textContent = 'מעביר...';
