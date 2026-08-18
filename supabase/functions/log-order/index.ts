@@ -140,15 +140,48 @@ serve(async (req) => {
       }, { onConflict: 'order_id', ignoreDuplicates: true });
 
     if (error) {
-      /* Logged for the function's own logs; the caller gets a generic failure
-         and carries on to the email and the redirect regardless. */
-      console.error('orders insert failed', order_id, error.message);
-      return json({ ok: false, error: 'insert_failed' }, 500);
+      /* Full detail goes to the function's own log, which is readable in
+         Dashboard -> Edge Functions -> log-order -> Logs. This is the record
+         that survives the customer closing their tab. */
+      console.error(JSON.stringify({
+        event: 'orders_insert_failed',
+        order_id, source_surface,
+        pg_code: error.code ?? null,
+        pg_message: error.message ?? null,
+        pg_details: error.details ?? null,
+        hint: error.hint ?? null,
+        at: new Date().toISOString(),
+      }));
+      /* The caller gets the Postgres SQLSTATE but not the full message: enough
+         to tell a missing table (42P01) from a bad column (42703) or an RLS
+         denial (42501) in a browser console, without echoing schema internals
+         to anyone who can reach this endpoint. */
+      return json({ ok: false, error: 'insert_failed', code: error.code ?? null }, 500);
     }
 
-    /* Deliberately returns nothing but the id it was given. The public path
-       must not become a way to read orders back out. */
-    return json({ ok: true, order_id });
+    /* Read the row back so the caller gets proof it is actually stored, rather
+       than proof the request was merely accepted. `stored` is what the client
+       reports to the admin, so a silent no-op cannot masquerade as a success:
+       upsert+ignoreDuplicates returns no rows on conflict, which is a genuine
+       "already stored" rather than a failure, so that case is reported too. */
+    const { data: saved } = await supabase
+      .from('orders')
+      .select('order_id, status, created_at')
+      .eq('order_id', order_id)
+      .limit(1);
+
+    const row = saved && saved.length ? saved[0] : null;
+    if (!row) {
+      console.error(JSON.stringify({
+        event: 'orders_insert_vanished',
+        order_id, source_surface, at: new Date().toISOString(),
+      }));
+      return json({ ok: false, error: 'insert_not_visible' }, 500);
+    }
+
+    /* Still returns only this caller's own order. The public path must not
+       become a way to read anyone else's row back out. */
+    return json({ ok: true, order_id, stored: true, created_at: row.created_at });
   }
 
   // ── ADMIN: LIST ORDERS ─────────────────────────────────────────────────────
