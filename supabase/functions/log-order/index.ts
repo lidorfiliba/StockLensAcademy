@@ -208,6 +208,55 @@ serve(async (req) => {
     return json({ ok: true, orders: orders ?? [] });
   }
 
+  // ── ADMIN: SUGGEST USERNAME ────────────────────────────────────────────────
+  /* Proposes a free username derived from the customer's email, for the admin
+     to use when creating the account by hand. This function does NOT create the
+     account and never touches the users table except to read existing names.
+
+     Lives server-side purely because it has to know which usernames are already
+     taken; the browser cannot be allowed to read the users table to find out.
+     Admin-only, so the enumeration it performs is not a disclosure. */
+  if (action === 'admin_suggest_username') {
+    const { admin_id, admin_username, email } = body as {
+      admin_id: string; admin_username: string; email: string;
+    };
+    if (!await verifyAdmin(admin_id, admin_username)) return json({ ok: false, error: 'unauthorized' }, 403);
+
+    const raw = str(email, 200).toLowerCase();
+    const at = raw.indexOf('@');
+    if (at < 1) return json({ ok: false, error: 'invalid_email' }, 400);
+
+    const strip = (s: string) => s.replace(/[^a-z0-9]/g, '');
+    let base = strip(raw.slice(0, at));
+
+    /* Both client apps require at least 3 characters and reject anything
+       outside [a-z0-9_]. A very short local part ("ab@…") would otherwise
+       produce a username the admin cannot actually create, so it borrows from
+       the domain rather than being padded with filler. */
+    if (base.length < 3) base += strip(raw.slice(at + 1).split('.')[0] ?? '');
+    if (base.length < 3) base = 'user';
+    base = base.slice(0, 20);
+
+    /* One query, then decide in memory: fetching every name that starts with
+       the base costs a single round trip regardless of how many collisions
+       there are. */
+    const { data: taken, error } = await supabase
+      .from('users')
+      .select('username')
+      .like('username', base + '%')
+      .limit(500);
+
+    if (error) return json({ ok: false, error: 'server_error' }, 500);
+
+    const used = new Set((taken ?? []).map(u => (u.username ?? '').toLowerCase()));
+    let suggestion = base;
+    /* Bounded so a pathological set of collisions cannot spin. 200 variants of
+       one base is far past anything real. */
+    for (let n = 2; used.has(suggestion) && n < 200; n++) suggestion = base + n;
+
+    return json({ ok: true, username: suggestion, base, collided: suggestion !== base });
+  }
+
   // ── ADMIN: MARK PAID ───────────────────────────────────────────────────────
   if (action === 'admin_mark_paid') {
     const { admin_id, admin_username, order_id } = body as {
