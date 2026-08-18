@@ -80,11 +80,98 @@ function str(v: unknown, max: number): string {
 
    All four limits apply together; whichever trips first wins. */
 const LIMITS = {
-  IP_PER_HOUR: 5,
-  IP_PER_DAY: 20,
+  /* Raised from 5/20. Israeli mobile carriers put many subscribers behind one
+     public IP, so a low per-IP ceiling blocks real buyers as soon as traffic
+     picks up. The CAPTCHA below is what actually stops a determined attacker;
+     these limits are now a backstop against volume, not the primary defence. */
+  IP_PER_HOUR: 15,
+  IP_PER_DAY: 60,
   EMAIL_PER_DAY: 3,
   PHONE_PER_DAY: 3,
 };
+
+/* ── CLOUDFLARE TURNSTILE ────────────────────────────────────────────────────
+   Rate limits alone cannot stop an attacker who rotates email, phone and IP.
+   Turnstile does: every new order must carry a token that Cloudflare issued to
+   a real browser, and that token is verified here, server-side, before
+   anything is written.
+
+   Set the secret with:
+     supabase secrets set TURNSTILE_SECRET=<secret key> --project-ref flcakringwxebpeifhke
+
+   Read at request time rather than module load, so setting it takes effect on
+   the next invocation without a redeploy. */
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const TURNSTILE_TIMEOUT_MS = 8000;
+
+async function sha256Hex(input: string): Promise<string> {
+  const data = new TextEncoder().encode(input);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/* Setting TURNSTILE_SECRET to this exact value turns the gate OFF deliberately:
+   orders are accepted on the rate limits alone. It exists because "unset" must
+   keep meaning "misconfigured, refuse everything" — an operator who has not
+   finished setting this up should not silently get a CAPTCHA that checks
+   nothing. Turning it off has to be a decision someone typed on purpose.
+
+   To enable real verification, replace it with the secret key from Cloudflare. */
+const TURNSTILE_DISABLED = 'disabled';
+
+type CaptchaResult =
+  | { state: 'ok' }
+  | { state: 'skipped'; why: string }          // Cloudflare unreachable — fail open
+  | { state: 'disabled' }                      // deliberately switched off
+  | { state: 'unconfigured' }                  // secret missing — fail closed
+  | { state: 'rejected'; codes: string[] };
+
+/* Three distinct outcomes, deliberately not collapsed into a boolean:
+
+   · unconfigured — TURNSTILE_SECRET is not set. Fails CLOSED. A CAPTCHA that
+     is not actually checking anything is worse than no CAPTCHA, because it
+     looks like protection. The caller is told exactly what is wrong.
+
+   · skipped — the request to Cloudflare timed out or threw. Fails OPEN. This
+     is an outage on their side or ours, and refusing every order because a
+     third party is down would turn their bad day into lost sales. Logged
+     loudly so it cannot pass unnoticed.
+
+   · rejected — Cloudflare answered and said no. Fails CLOSED. This is the
+     case the feature exists for. */
+async function verifyTurnstile(token: string, ip: string): Promise<CaptchaResult> {
+  const secret = Deno.env.get('TURNSTILE_SECRET') || '';
+  if (!secret) return { state: 'unconfigured' };
+  if (secret === TURNSTILE_DISABLED) return { state: 'disabled' };
+  if (!token) return { state: 'rejected', codes: ['missing-input-response'] };
+
+  const form = new URLSearchParams();
+  form.set('secret', secret);
+  form.set('response', token);
+  /* Cloudflare cross-checks the IP the token was issued to. Omitted when we
+     could not determine one, since sending a wrong value is worse than none. */
+  if (ip && ip !== 'unknown') form.set('remoteip', ip);
+
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), TURNSTILE_TIMEOUT_MS);
+    const r = await fetch(TURNSTILE_VERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: form.toString(),
+      signal: ctrl.signal,
+    });
+    clearTimeout(timer);
+
+    if (!r.ok) return { state: 'skipped', why: 'siteverify HTTP ' + r.status };
+
+    const d = await r.json();
+    if (d.success === true) return { state: 'ok' };
+    return { state: 'rejected', codes: d['error-codes'] ?? [] };
+  } catch (e) {
+    return { state: 'skipped', why: String(e && (e as Error).message ? (e as Error).message : e) };
+  }
+}
 const HOUR_MS = 3600_000;
 const DAY_MS = 86_400_000;
 
@@ -178,9 +265,108 @@ serve(async (req) => {
       });
     }
 
-    // ── RATE LIMIT ──────────────────────────────────────────────────────────
     const ip = clientIp(req);
     const phoneNorm = phoneKey(phone);
+
+    /* ── CAPTCHA ────────────────────────────────────────────────────────────
+       Checked AFTER the idempotency check above and BEFORE anything is
+       written. Order matters in both directions:
+
+       · after idempotency, so a resubmission of an order that is already
+         stored — the retry queue, a double-tapped button — never needs a token
+         and can never be refused for carrying a stale one.
+       · before the insert, so a request that fails verification costs nothing
+         and leaves no trace. */
+    const captchaToken = str(body.turnstile_token, 2048);
+    const captcha = await verifyTurnstile(captchaToken, ip);
+
+    if (captcha.state === 'unconfigured') {
+      console.error(JSON.stringify({
+        event: 'captcha_unconfigured',
+        message: 'TURNSTILE_SECRET is not set — refusing to accept orders. ' +
+                 'Set it with: supabase secrets set TURNSTILE_SECRET=<secret key> ' +
+                 '--project-ref flcakringwxebpeifhke',
+        order_id, at: new Date().toISOString(),
+      }));
+      /* 503, not 403: the caller did nothing wrong, the server is misconfigured.
+         The front ends treat this code as "our fault" and let the customer
+         through to the email and the thank-you page rather than blaming them
+         for an unset secret. */
+      return json({
+        ok: false,
+        error: 'captcha_unconfigured',
+        message: 'CAPTCHA verification is not configured on the server. ' +
+                 'Set the TURNSTILE_SECRET secret. No order was stored.',
+      }, 503);
+    }
+
+    if (captcha.state === 'disabled') {
+      /* Recorded on every order so an "off" gate cannot be forgotten about.
+         Orders are protected by the rate limits alone while this is the case. */
+      console.warn(JSON.stringify({
+        event: 'captcha_disabled',
+        message: 'TURNSTILE_SECRET is set to "disabled" — accepting orders without ' +
+                 'CAPTCHA verification, on rate limits alone. Set a real Cloudflare ' +
+                 'secret key to enable it.',
+        order_id, at: new Date().toISOString(),
+      }));
+    }
+
+    if (captcha.state === 'skipped') {
+      /* Loud on purpose. This is the one path where an order is written
+         without a verified token, and it must be obvious in the logs that it
+         happened and why. */
+      console.error(JSON.stringify({
+        event: 'captcha_verification_unavailable',
+        message: 'Cloudflare siteverify could not be reached — ALLOWING the order ' +
+                 'rather than losing a sale. Investigate if this repeats.',
+        why: captcha.why, order_id, ip, at: new Date().toISOString(),
+      }));
+    }
+
+    if (captcha.state === 'rejected') {
+      const codes = captcha.codes;
+      /* Cloudflare returns timeout-or-duplicate both for an expired token and
+         for one already redeemed. Separated here because the front ends handle
+         them differently: a stale token from the retry queue is re-minted,
+         while a genuine replay is simply refused. */
+      const stale = codes.includes('timeout-or-duplicate');
+      console.warn(JSON.stringify({
+        event: 'captcha_rejected', codes, stale, order_id, ip,
+        at: new Date().toISOString(),
+      }));
+      return json({
+        ok: false,
+        error: stale ? 'captcha_stale' : 'captcha_failed',
+        reason: codes.join(',') || 'verification_failed',
+      }, 403);
+    }
+
+    /* ── REPLAY BINDING ─────────────────────────────────────────────────────
+       Cloudflare already refuses a token twice, which is the primary defence.
+       This is the second layer, in our own data: one token authorises exactly
+       one order. It also means a token redeemed successfully but whose insert
+       then failed cannot be reused to write a different order. */
+    let tokenHash: string | null = null;
+    if (captchaToken && captcha.state === 'ok') {
+      tokenHash = await sha256Hex(captchaToken);
+      const { data: reused } = await supabase
+        .from('orders')
+        .select('order_id')
+        .eq('turnstile_token_hash', tokenHash)
+        .limit(1);
+      if (reused && reused.length) {
+        console.warn(JSON.stringify({
+          event: 'captcha_token_replayed',
+          order_id, already_used_by: reused[0].order_id, ip,
+          at: new Date().toISOString(),
+        }));
+        return json({ ok: false, error: 'captcha_replay',
+          reason: 'token already used by another order' }, 403);
+      }
+    }
+
+    // ── RATE LIMIT ──────────────────────────────────────────────────────────
     const now = Date.now();
     const dayAgo = new Date(now - DAY_MS).toISOString();
     const hourAgo = now - HOUR_MS;
@@ -253,6 +439,9 @@ serve(async (req) => {
         amount,
         currency,
         source_surface,
+        /* Null when Cloudflare was unreachable and verification was skipped.
+           The unique index on this column is partial for exactly that reason. */
+        turnstile_token_hash: tokenHash,
         /* status is left to the column default ('pending') so the default lives
            in one place — the schema — rather than being restated here. */
       }, { onConflict: 'order_id', ignoreDuplicates: true });
