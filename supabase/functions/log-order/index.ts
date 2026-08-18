@@ -73,6 +73,43 @@ function str(v: unknown, max: number): string {
   return typeof v === 'string' ? v.trim().slice(0, max) : '';
 }
 
+/* ── RATE LIMITS ─────────────────────────────────────────────────────────────
+   Enforced server-side because the endpoint is reachable with the anon key,
+   which is published in both front ends — a client-side check would only
+   inconvenience honest customers while an attacker calls the function directly.
+
+   All four limits apply together; whichever trips first wins. */
+const LIMITS = {
+  IP_PER_HOUR: 5,
+  IP_PER_DAY: 20,
+  EMAIL_PER_DAY: 3,
+  PHONE_PER_DAY: 3,
+};
+const HOUR_MS = 3600_000;
+const DAY_MS = 86_400_000;
+
+/* Rows older than the widest window can never affect a decision. Swept
+   opportunistically rather than on a schedule so no cron job is needed. */
+const SWEEP_OLDER_THAN_MS = DAY_MS + HOUR_MS;
+const SWEEP_PROBABILITY = 0.1;
+
+/* First entry of x-forwarded-for, matching smart-function's clientIp. Everything
+   after the first hop is attacker-controllable, so only the first is used. */
+function clientIp(req: Request): string {
+  const fwd = req.headers.get('x-forwarded-for') || '';
+  const first = fwd.split(',')[0].trim();
+  return first || req.headers.get('cf-connecting-ip') || 'unknown';
+}
+
+/* Digits only, so 054-666-7812 / +972546667812 / 0546667812 all count as the
+   same person rather than as three fresh allowances. */
+function phoneKey(raw: string): string {
+  let d = (raw || '').replace(/[^\d+]/g, '');
+  if (d.startsWith('+972')) d = '0' + d.slice(4);
+  else if (d.startsWith('972')) d = '0' + d.slice(3);
+  return d.replace(/\D/g, '');
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405);
@@ -121,10 +158,91 @@ serve(async (req) => {
       return json({ ok: false, error: 'invalid_amount' }, 400);
     }
 
+    /* ── IDEMPOTENCY, CHECKED BEFORE THE RATE LIMIT ────────────────────────
+       A resubmission of an order_id that already exists is the retry queue or a
+       double-tapped button, not a new order. It returns the stored row and
+       stops here — so it costs nothing against the limits and can never be the
+       request that locks a customer out of their own order. This ordering is
+       load-bearing; moving the rate check above it would make the retry path
+       able to rate-limit itself. */
+    const { data: existing } = await supabase
+      .from('orders')
+      .select('order_id, created_at')
+      .eq('order_id', order_id)
+      .limit(1);
+
+    if (existing && existing.length) {
+      return json({
+        ok: true, order_id, stored: true,
+        created_at: existing[0].created_at, duplicate: true,
+      });
+    }
+
+    // ── RATE LIMIT ──────────────────────────────────────────────────────────
+    const ip = clientIp(req);
+    const phoneNorm = phoneKey(phone);
+    const now = Date.now();
+    const dayAgo = new Date(now - DAY_MS).toISOString();
+    const hourAgo = now - HOUR_MS;
+
+    /* One query for the IP covers both of its windows: fetch the day's
+       timestamps once and count the last hour in memory, rather than paying a
+       second round trip for a subset of rows already in hand. */
+    const { data: ipRows } = await supabase
+      .from('order_rate_events')
+      .select('created_at')
+      .eq('kind', 'ip').eq('value', ip)
+      .gte('created_at', dayAgo)
+      .order('created_at', { ascending: false })
+      .limit(200);
+
+    const ipDay = ipRows?.length ?? 0;
+    const ipHour = (ipRows ?? []).filter(r => new Date(r.created_at).getTime() >= hourAgo).length;
+
+    const countSince = async (kind: string, value: string) => {
+      const { count } = await supabase
+        .from('order_rate_events')
+        .select('id', { count: 'exact', head: true })
+        .eq('kind', kind).eq('value', value)
+        .gte('created_at', dayAgo);
+      return count ?? 0;
+    };
+
+    const emailDay = await countSince('email', email);
+    const phoneDay = phoneNorm ? await countSince('phone', phoneNorm) : 0;
+
+    let blocked: string | null = null;
+    if (ipHour >= LIMITS.IP_PER_HOUR) blocked = 'ip_hourly';
+    else if (ipDay >= LIMITS.IP_PER_DAY) blocked = 'ip_daily';
+    else if (emailDay >= LIMITS.EMAIL_PER_DAY) blocked = 'email_daily';
+    else if (phoneDay >= LIMITS.PHONE_PER_DAY) blocked = 'phone_daily';
+
+    if (blocked) {
+      /* Logged so a legitimate customer who complains can be found and let
+         through by hand. The IP is already in this table; nothing new is
+         exposed by naming it here. */
+      console.warn(JSON.stringify({
+        event: 'order_rate_limited',
+        reason: blocked, order_id, ip, email, phone: phoneNorm,
+        counts: { ipHour, ipDay, emailDay, phoneDay },
+        at: new Date().toISOString(),
+      }));
+      /* 429 with a machine-readable reason. The customer-facing wording lives
+         in the front ends — this response is never shown raw to anyone. */
+      return json({
+        ok: false,
+        error: 'rate_limited',
+        reason: blocked,
+        retry_after_seconds: blocked === 'ip_hourly' ? 3600 : 86400,
+      }, 429);
+    }
+
     /* Idempotent on order_id. The caller may retry after a network blip, and a
        customer who double-taps submit must not produce two rows for one order.
        ignoreDuplicates means a repeat is a no-op rather than an error, so the
-       client never sees a failure for something that already succeeded. */
+       client never sees a failure for something that already succeeded. The
+       explicit check above handles the common case; this keeps the guarantee
+       under a race between two concurrent requests for the same id. */
     const { error } = await supabase
       .from('orders')
       .upsert({
@@ -177,6 +295,40 @@ serve(async (req) => {
         order_id, source_surface, at: new Date().toISOString(),
       }));
       return json({ ok: false, error: 'insert_not_visible' }, 500);
+    }
+
+    /* ── RECORD THE COUNTERS ────────────────────────────────────────────────
+       Written only after the row is confirmed stored. A failed insert must not
+       consume anyone's allowance: "resubmitting after a failed write must
+       always get through" depends on this, because a genuine failure leaves no
+       counter behind and the retry starts from the same position.
+
+       Best effort. If the counters cannot be written the order is already safe,
+       and refusing it at that point would trade a real order for a bookkeeping
+       problem. The gap is logged instead. */
+    const events: Array<{ kind: string; value: string; order_id: string }> = [
+      { kind: 'ip', value: ip, order_id },
+      { kind: 'email', value: email, order_id },
+    ];
+    if (phoneNorm) events.push({ kind: 'phone', value: phoneNorm, order_id });
+
+    const { error: rlErr } = await supabase.from('order_rate_events').insert(events);
+    if (rlErr) {
+      console.error(JSON.stringify({
+        event: 'rate_events_insert_failed',
+        order_id, pg_code: rlErr.code ?? null, pg_message: rlErr.message ?? null,
+        at: new Date().toISOString(),
+      }));
+    }
+
+    /* Sweep rows that can no longer affect any decision. Probabilistic so the
+       cost is amortised across requests and no scheduled job is needed; at this
+       volume one sweep in ten is far more than enough to keep the table small. */
+    if (Math.random() < SWEEP_PROBABILITY) {
+      const cutoff = new Date(now - SWEEP_OLDER_THAN_MS).toISOString();
+      const { error: sweepErr } = await supabase
+        .from('order_rate_events').delete().lt('created_at', cutoff);
+      if (sweepErr) console.warn('rate_events sweep failed: ' + sweepErr.message);
     }
 
     /* Still returns only this caller's own order. The public path must not

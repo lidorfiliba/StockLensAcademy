@@ -3180,6 +3180,10 @@ async function postOrderOnce(payload){
     if (timer) clearTimeout(timer);
     var d = await r.json().catch(function(){ return {}; });
     if (r.ok && d.ok && d.stored) return { ok: true, detail: 'stored' };
+    /* 429 is a decision, not a fault — surfaced separately so the caller stops
+       retrying, stops queueing, and shows a calm notice instead of an error. */
+    if (r.status === 429) return { ok: false, rateLimited: true,
+      reason: d.reason || 'rate_limited', detail: 'rate limited (' + (d.reason || '') + ')' };
     return { ok: false, detail: 'HTTP ' + r.status + ' ' + (d.error || '') + (d.code ? ' (' + d.code + ')' : '') };
   } catch(e) {
     return { ok: false, detail: String(e && e.message ? e.message : e) };
@@ -3205,6 +3209,9 @@ async function flushFailedOrders(){
   for (var i = 0; i < q.length; i++) {
     var res = await postOrderOnce(q[i]);
     if (res.ok) console.warn('[log-order] recovered a queued order backup:', q[i].order_id);
+    /* Dropped, not retained — a rate-limited entry would otherwise be re-sent
+       on every page load forever. The order is already in the admin's inbox. */
+    else if (res.rateLimited) console.warn('[log-order] dropping rate-limited queued order:', q[i].order_id);
     else left.push(q[i]);
   }
   try { localStorage.setItem(ORDER_RETRY_KEY, JSON.stringify(left)); } catch(e) {}
@@ -3225,6 +3232,11 @@ async function logOrder(payload){
   for (var attempt = 1; attempt <= 3; attempt++) {
     var res = await postOrderOnce(payload);
     if (res.ok) return { ok: true, status: 'ok' };
+    /* A rate limit will not clear inside a retry loop, and queueing it would
+       make every future page load re-send it. Stop and let the caller show the
+       customer the calm notice. */
+    if (res.rateLimited) return { ok: false, rateLimited: true, reason: res.reason,
+      status: 'rate_limited: ' + res.reason };
     last = res.detail;
     console.error('[log-order] backup attempt ' + attempt + '/3 failed for ' + payload.order_id + ': ' + last);
     if (attempt < 3) await new Promise(function(r){ setTimeout(r, attempt * 500); });
@@ -3324,6 +3336,32 @@ async function submitPurchase(){
        the thank-you page and nowhere else. The old "✅ נשלח!" message here was
        a second success path: it made a failed redirect look like a completed
        order, which is how the broken navigation went unnoticed. */
+    /* Rate limited: the details still went out by email above, so nothing is
+       lost — but sending this customer to a fresh thank-you page with a fresh
+       order id would contradict the notice. Show it and stop. A first-time
+       customer never reaches this branch. */
+    if (backup.rateLimited) {
+      errEl.textContent = '';
+      sucEl.innerHTML = '';
+      var box = document.createElement('div');
+      box.style.cssText = 'text-align:center;line-height:1.8;';
+      var h = document.createElement('div');
+      h.style.cssText = 'font-weight:800;font-size:1rem;margin-bottom:6px;';
+      h.textContent = '✓ ההזמנה שלך כבר התקבלה';
+      var p = document.createElement('div');
+      p.style.cssText = 'font-size:.82rem;color:var(--text2);margin-bottom:10px;';
+      p.textContent = 'קיבלנו את הפרטים שלך ואנחנו מטפלים בהם. אם משהו השתבש או שלא קיבלת עדכון, כתוב לנו ונסדר את זה מיד.';
+      var a = document.createElement('a');
+      a.href = 'https://wa.me/9720546667812';
+      a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.style.cssText = 'display:inline-block;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.32);color:#25d366;font-weight:700;font-size:.9rem;padding:11px 22px;border-radius:10px;text-decoration:none;';
+      a.textContent = '💬 דברו איתנו בוואטסאפ';
+      box.appendChild(h); box.appendChild(p); box.appendChild(a);
+      sucEl.appendChild(box);
+      btn.textContent = 'ההזמנה התקבלה';
+      return;
+    }
+
     sucEl.textContent = '✅ נשלח! מעביר אותך לאישור ההזמנה...';
     btn.textContent = 'מעביר...';
     goToThankYou();
