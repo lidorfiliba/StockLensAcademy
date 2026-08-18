@@ -5,3 +5,6 @@ backups/
 # Supabase secrets, not in this repository.
 .env
 .env.*
+
+# Supabase CLI local state — machine-specific, not project config
+supabase/.temp/
