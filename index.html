@@ -16,6 +16,18 @@
 <title>שוק ההון מ-0 עד 100 | StockLens Academy</title>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<!-- Cloudflare Turnstile - injected only when a site key is configured, so a
+     disabled gate costs visitors no third-party request. See TURNSTILE_SITE_KEY. -->
+<script>
+window.__loadTurnstileScript = function(){
+  if (!window.TURNSTILE_SITE_KEY_SET) return;
+  var s = document.createElement('script');
+  s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit';
+  s.async = true; s.defer = true;
+  document.head.appendChild(s);
+};
+</script>
+
 <!-- ── Meta Pixel ────────────────────────────────────────────────────────────
      Same pixel id as the landing page, so the purchase tab in this app and the
      purchase modal on the landing page report into one funnel.
@@ -2127,6 +2139,11 @@ body {
         <input class="login-input" id="buy-username" type="text" placeholder="user123" dir="ltr" style="text-transform:lowercase"/>
       </div>
 
+      <!-- Height reserved so the form does not jump when Cloudflare's iframe
+           appears; a shift right above the submit button is how a phone user
+           taps the wrong thing. dir=ltr because the widget lays itself out. -->
+      <div id="buy-captcha" dir="ltr" style="min-height:70px;display:flex;justify-content:center;align-items:center;margin:6px 0 12px;"></div>
+
       <button class="login-btn" id="buy-submit-btn" onclick="submitPurchase()" style="background:var(--gold);color:#000;">שלחתי תשלום — שלח פרטים ←</button>
       <div class="login-error" id="buy-error"></div>
       <div class="login-success" id="buy-success"></div>
@@ -3166,6 +3183,82 @@ function isIsraeliMobile(raw){ return /^05\d{8}$/.test(normalisePhone(raw)); }
    Edge Function. */
 var ORDER_RETRY_KEY = 'sl_order_backup_queue';
 
+/* ── Cloudflare Turnstile ────────────────────────────────────────────────────
+   REPLACE with the site key from your own widget (Cloudflare -> Turnstile ->
+   Add widget). The value below is Cloudflare's published always-passes TEST
+   key: it keeps the form working before the real key is in place and proves
+   nothing about the visitor. The real protection is the secret key checked
+   server-side; with TURNSTILE_SECRET unset the function refuses orders, so a
+   test key here cannot quietly become the live configuration.
+   Must match the key used by the landing page. */
+/* EMPTY = the CAPTCHA gate is OFF; orders run on the rate limits alone, which
+   is the state this shipped in. To turn it on, paste the SITE key from your
+   Cloudflare Turnstile widget here (must match the landing page), push, and
+   only THEN set the matching secret on the server — the server rejects orders
+   with no token, so enabling the secret first would refuse every order until
+   the new HTML reached browsers.
+
+   A Cloudflare TEST key is deliberately not used as the placeholder: a key that
+   always passes looks like protection while providing none. */
+var TURNSTILE_SITE_KEY = '';
+var turnstileToken = '';
+var turnstileBlocked = false;
+var turnstileWidgetId = null;
+
+/* Called by the Turnstile script once it has loaded (onload= in the script
+   URL). Renders the visible widget into the purchase form. */
+function onTurnstileLoad(){
+  var host = document.getElementById('buy-captcha');
+  if (!TURNSTILE_SITE_KEY) { turnstileBlocked = true; return; }
+  if (!host || !window.turnstile) { turnstileBlocked = true; return; }
+  try {
+    turnstileWidgetId = window.turnstile.render(host, {
+      sitekey: TURNSTILE_SITE_KEY,
+      theme: 'dark',
+      language: 'he',
+      callback: function(t){ turnstileToken = t; },
+      /* Tokens last minutes. Clear on expiry so submitPurchase() is never
+         holding one Cloudflare will refuse. */
+      'expired-callback': function(){ turnstileToken = ''; },
+      'error-callback': function(){ turnstileToken = ''; turnstileBlocked = true; }
+    });
+  } catch(e) { turnstileBlocked = true; }
+}
+/* If the script never arrives — ad blocker, DNS filter, blocked network — stop
+   waiting and let the customer through rather than stranding them. */
+setTimeout(function(){ if (!window.turnstile) turnstileBlocked = true; }, 9000);
+
+/* Fetch Cloudflare's script only when a key is actually configured. */
+if (TURNSTILE_SITE_KEY) {
+  window.TURNSTILE_SITE_KEY_SET = true;
+  if (window.__loadTurnstileScript) window.__loadTurnstileScript();
+} else {
+  turnstileBlocked = true;
+  var capHost = document.getElementById('buy-captcha');
+  if (capHost) capHost.style.display = 'none';   // no reserved gap when off
+}
+
+/* Mint a fresh token with no visible widget, for the retry queue: a queued
+   order's original token expired long ago. Resolves null instead of throwing. */
+function mintTurnstileToken(){
+  return new Promise(function(resolve){
+    if (!TURNSTILE_SITE_KEY || !window.turnstile) return resolve(null);
+    var settled = false, holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden';
+    document.body.appendChild(holder);
+    function finish(v){ if (settled) return; settled = true; try { holder.remove(); } catch(e){} resolve(v); }
+    try {
+      window.turnstile.render(holder, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: function(t){ finish(t); },
+        'error-callback': function(){ finish(null); },
+        'expired-callback': function(){ finish(null); }
+      });
+    } catch(e) { finish(null); }
+    setTimeout(function(){ finish(null); }, 15000);
+  });
+}
+
 /* One attempt. Resolves to a result object — never throws, never rejects. */
 async function postOrderOnce(payload){
   try {
@@ -3184,6 +3277,20 @@ async function postOrderOnce(payload){
        retrying, stops queueing, and shows a calm notice instead of an error. */
     if (r.status === 429) return { ok: false, rateLimited: true,
       reason: d.reason || 'rate_limited', detail: 'rate limited (' + (d.reason || '') + ')' };
+    /* A stale token is not a failed CAPTCHA — it is one that aged out, which is
+       the normal state of anything in the retry queue. Reported separately so
+       the flush re-mints instead of giving up. */
+    if (d.error === 'captcha_stale')
+      return { ok: false, captchaStale: true, detail: 'captcha token stale/duplicate' };
+    if (d.error === 'captcha_failed' || d.error === 'captcha_replay')
+      return { ok: false, captchaRejected: true, reason: d.error,
+        detail: 'captcha rejected (' + (d.reason || d.error) + ')' };
+    /* Server misconfiguration, not a visitor problem — treated as an ordinary
+       backup failure so the customer still gets their email and redirect. */
+    if (d.error === 'captcha_unconfigured') {
+      console.error('[log-order] TURNSTILE_SECRET is not set on the server — orders are NOT being stored. ' + (d.message || ''));
+      return { ok: false, detail: 'captcha unconfigured on server' };
+    }
     return { ok: false, detail: 'HTTP ' + r.status + ' ' + (d.error || '') + (d.code ? ' (' + d.code + ')' : '') };
   } catch(e) {
     return { ok: false, detail: String(e && e.message ? e.message : e) };
@@ -3207,12 +3314,31 @@ async function flushFailedOrders(){
   if (!q || !q.length) return;
   var left = [];
   for (var i = 0; i < q.length; i++) {
+    /* A queued order's token was minted when the customer submitted, possibly
+       hours ago; Turnstile tokens last minutes. Re-mint before sending rather
+       than letting the server refuse one that was never going to work. */
+    var fresh = await mintTurnstileToken();
+    if (fresh) q[i].turnstile_token = fresh;
+
     var res = await postOrderOnce(q[i]);
+    /* If it still aged out between minting and sending, try once more. */
+    if (res.captchaStale) {
+      var again = await mintTurnstileToken();
+      if (again) { q[i].turnstile_token = again; res = await postOrderOnce(q[i]); }
+    }
     if (res.ok) console.warn('[log-order] recovered a queued order backup:', q[i].order_id);
     /* Dropped, not retained — a rate-limited entry would otherwise be re-sent
        on every page load forever. The order is already in the admin's inbox. */
     else if (res.rateLimited) console.warn('[log-order] dropping rate-limited queued order:', q[i].order_id);
-    else left.push(q[i]);
+    /* Kept with a bounded attempt count: a queued order that cannot pass the
+       CAPTCHA (usually Turnstile blocked in this browser) gets a few more
+       chances rather than being thrown away, but cannot retry forever. */
+    else {
+      q[i]._attempts = (q[i]._attempts || 0) + 1;
+      if (q[i]._attempts >= 5) {
+        console.error('[log-order] giving up on queued order after 5 attempts: ' + q[i].order_id + ' (' + res.detail + ') — it is still in the order email.');
+      } else left.push(q[i]);
+    }
   }
   try { localStorage.setItem(ORDER_RETRY_KEY, JSON.stringify(left)); } catch(e) {}
 }
@@ -3263,6 +3389,15 @@ async function submitPurchase(){
   if(!username || username.length < 3) { errEl.textContent = 'שם משתמש — לפחות 3 תווים'; return; }
   if(!/^[a-z0-9_]+$/.test(username))  { errEl.textContent = 'שם משתמש: אנגלית/מספרים בלבד'; return; }
 
+  /* A token is required unless Turnstile itself could not load. Blocking a
+     customer whose browser cannot reach Cloudflare would cost a sale for
+     something outside their control, so that case proceeds and the server
+     decides. */
+  if (TURNSTILE_SITE_KEY && !turnstileToken && !turnstileBlocked) {
+    errEl.textContent = 'רגע — יש להשלים את אימות האבטחה שמעל הכפתור';
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = 'שולח...';
 
@@ -3305,8 +3440,22 @@ async function submitPurchase(){
   const backup = await logOrder({
     order_id: orderId, name: name, email: email,
     phone: normalisePhone(phone), amount: value, currency: currency,
-    source_surface: 'course'
+    source_surface: 'course', turnstile_token: turnstileToken
   });
+
+  /* A rejected CAPTCHA is the one failure the customer can fix, so it stops
+     here and asks them to retry — before EmailJS, so a retry does not send a
+     second copy of the order. Every other outcome falls through untouched,
+     including captcha_unconfigured: an unset server secret is our fault, not
+     theirs, and must not cost them their purchase. */
+  if (backup.captchaRejected) {
+    turnstileToken = '';
+    try { if (window.turnstile) window.turnstile.reset(turnstileWidgetId); } catch(e) {}
+    errEl.textContent = 'אימות האבטחה נכשל. נסה שוב — סמן את תיבת האימות ולחץ שליחה.';
+    btn.disabled = false;
+    btn.textContent = 'שלחתי תשלום — שלח פרטים ←';
+    return;
+  }
 
   /* When the database write fails, this email is the ONLY place the order
      exists — so it says so at the top of the body rather than reading like a
