@@ -3138,6 +3138,52 @@ function trackPixel(ev, params, opts){
   try { window.fbq('track', ev, params, opts); } catch(e) {}
 }
 
+/* ── Israeli mobile format ───────────────────────────────────────────────────
+   Ten digits beginning 05, covering every Israeli mobile prefix. Separators
+   people actually type are stripped first, and a +972 / 972 country prefix is
+   normalised to the local 0 form, so a valid number is never rejected over
+   punctuation. FORMAT only — it says the number is shaped like an Israeli
+   mobile, not that it exists. Must stay identical to normalisePhone() in the
+   landing page's app.jsx: both write to the same `orders` table and a phone
+   number should not be stored two different ways depending on which surface
+   the customer used. */
+function normalisePhone(raw){
+  var d = (raw || '').replace(/[^\d+]/g, '');
+  if (d.indexOf('+972') === 0) d = '0' + d.slice(4);
+  else if (d.indexOf('972') === 0) d = '0' + d.slice(3);
+  return d.replace(/\D/g, '');
+}
+function isIsraeliMobile(raw){ return /^05\d{8}$/.test(normalisePhone(raw)); }
+
+/* ── Durable order backup ────────────────────────────────────────────────────
+   Writes the order to the `orders` table via the log-order Edge Function, so an
+   order survives EmailJS being down or the mail landing in spam.
+
+   Never throws and never rejects: the caller awaits it on the way to the
+   redirect, and a backup that cannot be written must not cost the customer
+   their email or their thank-you page. SB_KEY is the anon key already present
+   in this page; the service_role key that writes the row exists only inside the
+   Edge Function. */
+async function logOrder(payload){
+  try {
+    var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 8000) : null;
+    var r = await fetch(SB_URL + '/functions/v1/log-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY },
+      body: JSON.stringify(Object.assign({ action: 'create' }, payload)),
+      signal: ctrl ? ctrl.signal : undefined
+    });
+    if (timer) clearTimeout(timer);
+    var d = await r.json().catch(function(){ return {}; });
+    if (!r.ok || !d.ok) { console.error('[log-order] order backup failed', r.status, d); return false; }
+    return true;
+  } catch(e) {
+    console.error('[log-order] order backup failed', e);
+    return false;
+  }
+}
+
 async function submitPurchase(){
   const name     = document.getElementById('buy-name').value.trim();
   const email    = document.getElementById('buy-email').value.trim();
@@ -3150,7 +3196,8 @@ async function submitPurchase(){
   errEl.textContent = ''; sucEl.textContent = '';
   if(!name)    { errEl.textContent = 'נא להזין שם מלא'; return; }
   if(!email || !email.includes('@')) { errEl.textContent = 'נא להזין אימייל תקין'; return; }
-  if(!phone || phone.length < 9)    { errEl.textContent = 'נא להזין מספר טלפון'; return; }
+  if(!phone)                        { errEl.textContent = 'נא להזין מספר טלפון'; return; }
+  if(!isIsraeliMobile(phone))       { errEl.textContent = 'מספר טלפון לא תקין — נדרש מספר נייד ישראלי (10 ספרות, מתחיל ב-05)'; return; }
   if(!username || username.length < 3) { errEl.textContent = 'שם משתמש — לפחות 3 תווים'; return; }
   if(!/^[a-z0-9_]+$/.test(username))  { errEl.textContent = 'שם משתמש: אנגלית/מספרים בלבד'; return; }
 
@@ -3187,6 +3234,17 @@ async function submitPurchase(){
       + '&value='    + encodeURIComponent(value)
       + '&currency=' + encodeURIComponent(currency);
   }
+
+  /* Durable backup FIRST, before EmailJS and before the redirect. Ordered this
+     way on purpose: after the email, an EmailJS failure would throw into the
+     catch below and the order would be lost from both places at once — the
+     exact scenario this table exists to survive. logOrder never throws, so a
+     backup failure falls through to the email and the redirect untouched. */
+  await logOrder({
+    order_id: orderId, name: name, email: email,
+    phone: normalisePhone(phone), amount: value, currency: currency,
+    source_surface: 'course'
+  });
 
   try {
     await emailjs.send('service_s5wzeck', 'template_3pfjg4g', {
