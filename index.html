@@ -15,6 +15,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>שוק ההון מ-0 עד 100 | StockLens Academy</title>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- ── Meta Pixel ────────────────────────────────────────────────────────────
+     Same pixel id as the landing page, so the purchase tab in this app and the
+     purchase modal on the landing page report into one funnel.
+
+     Deliberately init WITHOUT a PageView. This is a logged-in product surface:
+     almost everyone loading it has already bought. Firing PageView here would
+     pour existing customers into the landing page's audiences and retargeting
+     pools, which is exactly who the ads should not be paying to reach. The init
+     alone is enough for the InitiateCheckout below to be delivered.
+
+     autoConfig is off for the same reason it is off on the landing page — it
+     must never attach itself to the login or purchase form fields.
+     Purchase is never fired here; see submitPurchase().
+──────────────────────────────────────────────────────────────────────────── -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('set','autoConfig',false,'27572902432409101');
+fbq('init','27572902432409101');
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -3085,6 +3112,32 @@ function toggleAcc(id){
   try { emailjs.init('ZWYqaiqD2U5oWexSq'); } catch(e) {}
 })();
 
+/* ── Order id ──────────────────────────────────────────────────────────────
+   Must stay byte-for-byte identical to makeOrderId() in the landing page's
+   app.jsx: both surfaces feed the same thank-you page, the same manual
+   matching process and the same CAPI event_id namespace.
+   Format SLA-<epoch ms>-<6 chars>; the thank-you page validates the id
+   against [A-Za-z0-9._-] so keep it inside that alphabet. */
+function makeOrderId(){
+  var chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; // no I/O/0/1 — misread aloud
+  var suffix = '';
+  /* Math.random is fine: this id only has to be unique, never unguessable.
+     It authorises nothing on its own. */
+  for (var i = 0; i < 6; i++) suffix += chars[Math.floor(Math.random() * chars.length)];
+  return 'SLA-' + Date.now() + '-' + suffix;
+}
+
+/* Canonical thank-you page. It lives in the landing page repo at the site
+   root, while this app is served from /StockLensAcademy/, so the redirect
+   has to be absolute. */
+var THANK_YOU_URL = 'https://lidorfiliba.github.io/thank-you.html';
+
+/* Fire-and-forget pixel helper — a tracking failure must never break a sale. */
+function trackPixel(ev, params, opts){
+  if (!window.fbq) return;
+  try { window.fbq('track', ev, params, opts); } catch(e) {}
+}
+
 async function submitPurchase(){
   const name     = document.getElementById('buy-name').value.trim();
   const email    = document.getElementById('buy-email').value.trim();
@@ -3106,6 +3159,35 @@ async function submitPurchase(){
 
   const orderTime = new Date().toLocaleString('he-IL', {timeZone:'Asia/Jerusalem'});
 
+  /* One id for this order, minted before anything is sent so the same value
+     reaches EmailJS, the mailto fallback and the thank-you page. */
+  const orderId = makeOrderId();
+
+  /* This tab quotes both ₪980 (Bit/Paybox) and $320 (PayPal) and does not ask
+     which one the customer used, so the event is reported in the local
+     currency. The authoritative amount is the one entered by hand on the admin
+     confirmation page, which is what the CAPI Purchase actually reports. */
+  const value = 980, currency = 'ILS';
+
+  /* InitiateCheckout on the submit click itself — the moment the customer
+     commits. eventID is the order id, so this event, the Lead on the thank-you
+     page and the server-side Purchase all share one id for deduplication. */
+  trackPixel('InitiateCheckout', {
+    content_name: 'StockLens Academy',
+    content_category: 'course',
+    value: value, currency: currency, order_id: orderId
+  }, { eventID: orderId });
+
+  /* Hand off to the canonical thank-you page, which renders the order id and
+     fires Lead. Called from both the success and the fallback path — the
+     customer's details have left the browser either way. */
+  function goToThankYou(){
+    window.location.href = THANK_YOU_URL
+      + '?order_id=' + encodeURIComponent(orderId)
+      + '&value='    + encodeURIComponent(value)
+      + '&currency=' + encodeURIComponent(currency);
+  }
+
   try {
     await emailjs.send('service_s5wzeck', 'template_3pfjg4g', {
       to_email:   'lidorfiliba@gmail.com',
@@ -3114,18 +3196,25 @@ async function submitPurchase(){
       phone:      phone,
       username:   username,
       order_time: orderTime,
+      /* Additive only — every field above keeps its existing name and meaning
+         so the shared EmailJS template renders exactly as it did before. */
+      order_id:   orderId,
       subject:    '🎓 רכישה חדשה — Academy | ' + username,
-      message:    'בקשת רכישה חדשה!\n\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime
+      message:    'בקשת רכישה חדשה!\n\nמספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime
     });
     sucEl.textContent = '✅ נשלח! ניצור איתך קשר תוך 24 שעות.';
     btn.textContent = 'נשלח ✓';
+    goToThankYou();
   } catch(err) {
     // Fallback mailto
     const subject = encodeURIComponent('🎓 רכישה — Academy | ' + username);
-    const body    = encodeURIComponent('שם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime);
+    const body    = encodeURIComponent('מספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime);
     window.open('mailto:lidorfiliba@gmail.com?subject=' + subject + '&body=' + body);
     sucEl.textContent = '✅ נשלח! ניצור איתך קשר תוך 24 שעות.';
     btn.textContent = 'נשלח ✓';
+    /* Give the mail client a moment to take over before navigating away —
+       redirecting in the same tick can cancel the mailto handoff. */
+    setTimeout(goToThankYou, 1200);
   }
 }
 
