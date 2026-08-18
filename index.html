@@ -3202,16 +3202,20 @@ async function submitPurchase(){
       subject:    '🎓 רכישה חדשה — Academy | ' + username,
       message:    'בקשת רכישה חדשה!\n\nמספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime
     });
-    sucEl.textContent = '✅ נשלח! ניצור איתך קשר תוך 24 שעות.';
-    btn.textContent = 'נשלח ✓';
+    /* Transition notice only — NOT a confirmation. The order is confirmed on
+       the thank-you page and nowhere else. The old "✅ נשלח!" message here was
+       a second success path: it made a failed redirect look like a completed
+       order, which is how the broken navigation went unnoticed. */
+    sucEl.textContent = '✅ נשלח! מעביר אותך לאישור ההזמנה...';
+    btn.textContent = 'מעביר...';
     goToThankYou();
   } catch(err) {
     // Fallback mailto
     const subject = encodeURIComponent('🎓 רכישה — Academy | ' + username);
     const body    = encodeURIComponent('מספר הזמנה: ' + orderId + '\nשם: ' + name + '\nאימייל: ' + email + '\nטלפון: ' + phone + '\nשם משתמש: ' + username + '\nזמן: ' + orderTime);
     window.open('mailto:lidorfiliba@gmail.com?subject=' + subject + '&body=' + body);
-    sucEl.textContent = '✅ נשלח! ניצור איתך קשר תוך 24 שעות.';
-    btn.textContent = 'נשלח ✓';
+    sucEl.textContent = '✅ נשלח! מעביר אותך לאישור ההזמנה...';
+    btn.textContent = 'מעביר...';
     /* Give the mail client a moment to take over before navigating away —
        redirecting in the same tick can cancel the mailto handoff. */
     setTimeout(goToThankYou, 1200);
